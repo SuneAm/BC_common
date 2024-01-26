@@ -1,5 +1,19 @@
+import 'package:ordrestyring_common/src/domain/case/case_estimated_hour.dart';
 import 'package:ordrestyring_common/src/domain/case/economy.dart';
 import 'package:ordrestyring_common/src/domain/case/hour_aggregate.dart';
+
+extension CaseEstimatedHourEx on CaseEstimatedHour? {
+  double get projectEstimatedHour => this?.estimatedProjectHour ?? 0;
+
+  double get productionEstimatedHour => this?.estimatedProductionHour ?? 0;
+
+  double get montageEstimatedHour => this?.estimatedMontageHour ?? 0;
+
+  double get estimatedMaterialPrice => this?.estimatedMaterialPrice ?? 0.0;
+
+  double get totalEstimatedHour =>
+      (projectEstimatedHour + productionEstimatedHour + montageEstimatedHour);
+}
 
 extension HourAggregateEx on HourAggregate {
   // double get projectEstimatedHour {
