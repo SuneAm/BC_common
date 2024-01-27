@@ -25,3 +25,4 @@ export 'src/utils/domain_extensions.dart';
 // widgets
 export 'src/firebase_options.dart';
 export 'src/common_widgets/common_async_widget.dart';
+export 'src/common_widgets/progress_bar.dart';
