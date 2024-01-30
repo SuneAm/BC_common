@@ -6,6 +6,7 @@ class ProgressBar extends StatelessWidget {
   final double used;
   final double height;
   final double showUsed;
+  final double? usedFontSize;
 
   const ProgressBar({
     super.key,
@@ -14,6 +15,7 @@ class ProgressBar extends StatelessWidget {
     required this.used,
     required this.showUsed,
     this.height = 20,
+    this.usedFontSize,
   });
 
   @override
@@ -47,9 +49,9 @@ class ProgressBar extends StatelessWidget {
             padding: const EdgeInsets.only(left: 12),
             child: Text(
               showUsed.toStringAsFixed(0),
-              style: const TextStyle(
+              style: TextStyle(
                 color: Colors.black,
-                fontSize: 36,
+                fontSize: usedFontSize ?? 36,
                 fontWeight: FontWeight.bold,
               ),
             ),
