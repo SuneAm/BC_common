@@ -18,10 +18,18 @@ _$CaseEstimatedHourImpl _$$CaseEstimatedHourImplFromJson(
     );
 
 Map<String, dynamic> _$$CaseEstimatedHourImplToJson(
-        _$CaseEstimatedHourImpl instance) =>
-    <String, dynamic>{
-      'estimatedProjectHour': instance.estimatedProjectHour,
-      'estimatedProductionHour': instance.estimatedProductionHour,
-      'estimatedMontageHour': instance.estimatedMontageHour,
-      'estimatedMaterialPrice': instance.estimatedMaterialPrice,
-    };
+    _$CaseEstimatedHourImpl instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('estimatedProjectHour', instance.estimatedProjectHour);
+  writeNotNull('estimatedProductionHour', instance.estimatedProductionHour);
+  writeNotNull('estimatedMontageHour', instance.estimatedMontageHour);
+  writeNotNull('estimatedMaterialPrice', instance.estimatedMaterialPrice);
+  return val;
+}

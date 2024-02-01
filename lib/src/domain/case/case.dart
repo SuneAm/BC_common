@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:ordrestyring_common/src/domain/case/delivery_address.dart';
 
 import 'case_estimated_hour.dart';
 import 'case_type.dart';
@@ -20,6 +21,7 @@ class Case {
     this.hourAggregate,
     this.estimatedExpanse,
     this.estimatedHours,
+    this.deliveryAddress,
   });
 
   final int id;
@@ -33,6 +35,7 @@ class Case {
   final HourAggregate? hourAggregate;
 
   final CaseEstimatedHour? estimatedHours;
+  final DeliveryAddress? deliveryAddress;
 
   Map<String, dynamic> toFirestore() {
     return {
@@ -47,10 +50,12 @@ class Case {
       if (hourAggregate != null) 'hourAggregate': hourAggregate!.toFirestore(),
       if (estimatedExpanse != null) 'estimatedExpanse': estimatedExpanse,
       if (estimatedHours != null) 'estimatedHours': estimatedHours!.toJson(),
+      if (deliveryAddress != null) 'deliveryAddress': deliveryAddress!.toJson(),
     };
   }
 
   factory Case.fromJson(Map<String, dynamic> json) {
+    final deliveryAddress = json['deliveryAddress'];
     return Case(
       id: json['id'],
       caseNumber: json['caseNumber'] ?? '',
@@ -59,11 +64,15 @@ class Case {
       responsibleUser: ResponsibleUser.fromJson(json['responsibleUser'] ?? {}),
       caseType: CaseType.fromJson(json['caseType'] ?? {}),
       status: Status.fromJson(json['status'] ?? {}),
+      deliveryAddress: deliveryAddress == null
+          ? null
+          : DeliveryAddress.fromJson(json['deliveryAddress'] ?? {}),
     );
   }
 
   factory Case.fromFirestore(Map<String, dynamic> json) {
     final estimatedHour = json['estimatedHours'];
+    final deliveryAddress = json['deliveryAddress'];
 
     return Case(
       id: json['id'],
@@ -80,6 +89,9 @@ class Case {
       estimatedHours: estimatedHour == null
           ? null
           : CaseEstimatedHour.fromJson(estimatedHour),
+      deliveryAddress: deliveryAddress == null
+          ? null
+          : DeliveryAddress.fromJson(deliveryAddress),
     );
   }
 
@@ -95,6 +107,7 @@ class Case {
     HourAggregate? hourAggregate,
     double? estimatedExpanse,
     CaseEstimatedHour? caseEstimatedHours,
+    DeliveryAddress? deliveryAddress,
   }) {
     return Case(
       id: id ?? this.id,
@@ -107,6 +120,7 @@ class Case {
       hourAggregate: hourAggregate ?? this.hourAggregate,
       estimatedExpanse: estimatedExpanse ?? this.estimatedExpanse,
       estimatedHours: caseEstimatedHours ?? estimatedHours,
+      deliveryAddress: deliveryAddress ?? this.deliveryAddress,
     );
   }
 }
