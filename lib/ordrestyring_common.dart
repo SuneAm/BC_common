@@ -5,6 +5,7 @@ export 'package:intl/intl.dart';
 export 'package:firebase_core/firebase_core.dart';
 export 'package:hooks_riverpod/hooks_riverpod.dart';
 export 'package:flutter_hooks/flutter_hooks.dart';
+export 'package:url_launcher/url_launcher.dart';
 
 // other
 export 'src/http_overrides.dart';
