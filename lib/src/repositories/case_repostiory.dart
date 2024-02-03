@@ -11,9 +11,6 @@ final caseRepoProvider = Provider<CaseRepository>((ref) {
   return CaseRepository(ref);
 });
 
-final watchCasesProvider = StreamProvider<List<Case>>(
-    (ref) => ref.watch(caseRepoProvider).watchCases());
-
 class CaseRepository {
   CaseRepository(this._ref);
 
@@ -145,12 +142,28 @@ class CaseRepository {
         .toList());
   }
 
-  Future<List<Case>> getCases() async {
-    final snapshot = await _firestore.collection('cases').get();
+  Stream<List<Case>> watchProduktionCases() {
+    final snapshots = _firestore
+        .collection('cases')
+        .where('isProduktion', isEqualTo: true)
+        .orderBy('caseNumber', descending: true)
+        .snapshots();
 
-    if (snapshot.docs.isEmpty) return const [];
+    return snapshots.map((snapshot) => snapshot.docs
+        .map((document) => Case.fromFirestore(document.data()))
+        .toList());
+  }
 
-    return snapshot.docs.map((e) => Case.fromJson(e.data())).toList();
+  Stream<List<Case>> watchMontageCases() {
+    final snapshots = _firestore
+        .collection('cases')
+        .where('isMontage', isEqualTo: true)
+        .orderBy('caseNumber', descending: true)
+        .snapshots();
+
+    return snapshots.map((snapshot) => snapshot.docs
+        .map((document) => Case.fromFirestore(document.data()))
+        .toList());
   }
 
   Future<void> updateCaseCollection(List<Case> updatedCases) async {

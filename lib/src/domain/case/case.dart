@@ -22,6 +22,8 @@ class Case {
     this.estimatedExpanse,
     this.estimatedHours,
     this.deliveryAddress,
+    this.isProduktion,
+    this.isMontage,
   });
 
   final int id;
@@ -37,6 +39,9 @@ class Case {
   final CaseEstimatedHour? estimatedHours;
   final DeliveryAddress? deliveryAddress;
 
+  final bool? isProduktion;
+  final bool? isMontage;
+
   Map<String, dynamic> toFirestore() {
     return {
       // if (estimatedTimer != null) 'estimatedTimer': estimatedTimer,
@@ -51,6 +56,8 @@ class Case {
       if (estimatedExpanse != null) 'estimatedExpanse': estimatedExpanse,
       if (estimatedHours != null) 'estimatedHours': estimatedHours!.toJson(),
       if (deliveryAddress != null) 'deliveryAddress': deliveryAddress!.toJson(),
+      if (isMontage != null) 'isMontage': isMontage,
+      if (isProduktion != null) 'isProduktion': isProduktion,
     };
   }
 
@@ -92,6 +99,8 @@ class Case {
       deliveryAddress: deliveryAddress == null
           ? null
           : DeliveryAddress.fromJson(deliveryAddress),
+      isProduktion: json['isProduktion'] ?? false,
+      isMontage: json['isMontage'] ?? false,
     );
   }
 
@@ -108,6 +117,8 @@ class Case {
     double? estimatedExpanse,
     CaseEstimatedHour? caseEstimatedHours,
     DeliveryAddress? deliveryAddress,
+    bool? isMontage,
+    bool? isProduktion,
   }) {
     return Case(
       id: id ?? this.id,
@@ -121,6 +132,8 @@ class Case {
       estimatedExpanse: estimatedExpanse ?? this.estimatedExpanse,
       estimatedHours: caseEstimatedHours ?? estimatedHours,
       deliveryAddress: deliveryAddress ?? this.deliveryAddress,
+      isMontage: isMontage ?? this.isMontage,
+      isProduktion: isProduktion ?? this.isProduktion,
     );
   }
 }
