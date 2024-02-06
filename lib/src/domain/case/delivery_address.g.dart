@@ -10,10 +10,8 @@ _$DeliveryAddressImpl _$$DeliveryAddressImplFromJson(
         Map<String, dynamic> json) =>
     _$DeliveryAddressImpl(
       address: json['address'] as String?,
-      att: json['att'] as String?,
       postalCode: json['postalCode'] as String?,
       city: json['city'] as String?,
-      mobilePhoneNumber: json['mobilePhoneNumber'] as String?,
       name: json['name'] as String?,
     );
 
@@ -28,10 +26,8 @@ Map<String, dynamic> _$$DeliveryAddressImplToJson(
   }
 
   writeNotNull('address', instance.address);
-  writeNotNull('att', instance.att);
   writeNotNull('postalCode', instance.postalCode);
   writeNotNull('city', instance.city);
-  writeNotNull('mobilePhoneNumber', instance.mobilePhoneNumber);
   writeNotNull('name', instance.name);
   return val;
 }

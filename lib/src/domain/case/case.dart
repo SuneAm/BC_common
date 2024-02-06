@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:ordrestyring_common/src/domain/case/contact_person.dart';
 import 'package:ordrestyring_common/src/domain/case/delivery_address.dart';
 
 import 'case_estimated_hour.dart';
@@ -22,6 +23,7 @@ class Case {
     this.estimatedExpanse,
     this.estimatedHours,
     this.deliveryAddress,
+    this.contactPerson,
     this.isProduktion,
     this.isMontage,
   });
@@ -38,6 +40,7 @@ class Case {
 
   final CaseEstimatedHour? estimatedHours;
   final DeliveryAddress? deliveryAddress;
+  final ContactPerson? contactPerson;
 
   final bool? isProduktion;
   final bool? isMontage;
@@ -56,6 +59,7 @@ class Case {
       if (estimatedExpanse != null) 'estimatedExpanse': estimatedExpanse,
       if (estimatedHours != null) 'estimatedHours': estimatedHours!.toJson(),
       if (deliveryAddress != null) 'deliveryAddress': deliveryAddress!.toJson(),
+      if (contactPerson != null) 'contactPerson': contactPerson!.toJson(),
       if (isMontage != null) 'isMontage': isMontage,
       if (isProduktion != null) 'isProduktion': isProduktion,
     };
@@ -63,6 +67,7 @@ class Case {
 
   factory Case.fromJson(Map<String, dynamic> json) {
     final deliveryAddress = json['deliveryAddress'];
+    final contactPerson = json['contactPerson'];
     return Case(
       id: json['id'],
       caseNumber: json['caseNumber'] ?? '',
@@ -74,12 +79,16 @@ class Case {
       deliveryAddress: deliveryAddress == null
           ? null
           : DeliveryAddress.fromJson(json['deliveryAddress'] ?? {}),
+      contactPerson: contactPerson == null
+          ? null
+          : ContactPerson.fromJson(contactPerson ?? {}),
     );
   }
 
   factory Case.fromFirestore(Map<String, dynamic> json) {
     final estimatedHour = json['estimatedHours'];
     final deliveryAddress = json['deliveryAddress'];
+    final contactPerson = json['contactPerson'];
 
     return Case(
       id: json['id'],
@@ -99,6 +108,9 @@ class Case {
       deliveryAddress: deliveryAddress == null
           ? null
           : DeliveryAddress.fromJson(deliveryAddress),
+      contactPerson: contactPerson == null
+          ? null
+          : ContactPerson.fromJson(contactPerson ?? {}),
       isProduktion: json['isProduktion'] ?? false,
       isMontage: json['isMontage'] ?? false,
     );
@@ -119,6 +131,7 @@ class Case {
     DeliveryAddress? deliveryAddress,
     bool? isMontage,
     bool? isProduktion,
+    ContactPerson? contactPerson,
   }) {
     return Case(
       id: id ?? this.id,
@@ -132,6 +145,7 @@ class Case {
       estimatedExpanse: estimatedExpanse ?? this.estimatedExpanse,
       estimatedHours: caseEstimatedHours ?? estimatedHours,
       deliveryAddress: deliveryAddress ?? this.deliveryAddress,
+      contactPerson: contactPerson ?? this.contactPerson,
       isMontage: isMontage ?? this.isMontage,
       isProduktion: isProduktion ?? this.isProduktion,
     );

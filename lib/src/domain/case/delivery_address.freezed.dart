@@ -21,10 +21,8 @@ DeliveryAddress _$DeliveryAddressFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$DeliveryAddress {
   String? get address => throw _privateConstructorUsedError;
-  String? get att => throw _privateConstructorUsedError;
   String? get postalCode => throw _privateConstructorUsedError;
   String? get city => throw _privateConstructorUsedError;
-  String? get mobilePhoneNumber => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -39,13 +37,7 @@ abstract class $DeliveryAddressCopyWith<$Res> {
           DeliveryAddress value, $Res Function(DeliveryAddress) then) =
       _$DeliveryAddressCopyWithImpl<$Res, DeliveryAddress>;
   @useResult
-  $Res call(
-      {String? address,
-      String? att,
-      String? postalCode,
-      String? city,
-      String? mobilePhoneNumber,
-      String? name});
+  $Res call({String? address, String? postalCode, String? city, String? name});
 }
 
 /// @nodoc
@@ -62,20 +54,14 @@ class _$DeliveryAddressCopyWithImpl<$Res, $Val extends DeliveryAddress>
   @override
   $Res call({
     Object? address = freezed,
-    Object? att = freezed,
     Object? postalCode = freezed,
     Object? city = freezed,
-    Object? mobilePhoneNumber = freezed,
     Object? name = freezed,
   }) {
     return _then(_value.copyWith(
       address: freezed == address
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
-              as String?,
-      att: freezed == att
-          ? _value.att
-          : att // ignore: cast_nullable_to_non_nullable
               as String?,
       postalCode: freezed == postalCode
           ? _value.postalCode
@@ -84,10 +70,6 @@ class _$DeliveryAddressCopyWithImpl<$Res, $Val extends DeliveryAddress>
       city: freezed == city
           ? _value.city
           : city // ignore: cast_nullable_to_non_nullable
-              as String?,
-      mobilePhoneNumber: freezed == mobilePhoneNumber
-          ? _value.mobilePhoneNumber
-          : mobilePhoneNumber // ignore: cast_nullable_to_non_nullable
               as String?,
       name: freezed == name
           ? _value.name
@@ -105,13 +87,7 @@ abstract class _$$DeliveryAddressImplCopyWith<$Res>
       __$$DeliveryAddressImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String? address,
-      String? att,
-      String? postalCode,
-      String? city,
-      String? mobilePhoneNumber,
-      String? name});
+  $Res call({String? address, String? postalCode, String? city, String? name});
 }
 
 /// @nodoc
@@ -126,20 +102,14 @@ class __$$DeliveryAddressImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? address = freezed,
-    Object? att = freezed,
     Object? postalCode = freezed,
     Object? city = freezed,
-    Object? mobilePhoneNumber = freezed,
     Object? name = freezed,
   }) {
     return _then(_$DeliveryAddressImpl(
       address: freezed == address
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
-              as String?,
-      att: freezed == att
-          ? _value.att
-          : att // ignore: cast_nullable_to_non_nullable
               as String?,
       postalCode: freezed == postalCode
           ? _value.postalCode
@@ -148,10 +118,6 @@ class __$$DeliveryAddressImplCopyWithImpl<$Res>
       city: freezed == city
           ? _value.city
           : city // ignore: cast_nullable_to_non_nullable
-              as String?,
-      mobilePhoneNumber: freezed == mobilePhoneNumber
-          ? _value.mobilePhoneNumber
-          : mobilePhoneNumber // ignore: cast_nullable_to_non_nullable
               as String?,
       name: freezed == name
           ? _value.name
@@ -165,12 +131,7 @@ class __$$DeliveryAddressImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$DeliveryAddressImpl implements _DeliveryAddress {
   const _$DeliveryAddressImpl(
-      {this.address,
-      this.att,
-      this.postalCode,
-      this.city,
-      this.mobilePhoneNumber,
-      this.name});
+      {this.address, this.postalCode, this.city, this.name});
 
   factory _$DeliveryAddressImpl.fromJson(Map<String, dynamic> json) =>
       _$$DeliveryAddressImplFromJson(json);
@@ -178,19 +139,15 @@ class _$DeliveryAddressImpl implements _DeliveryAddress {
   @override
   final String? address;
   @override
-  final String? att;
-  @override
   final String? postalCode;
   @override
   final String? city;
-  @override
-  final String? mobilePhoneNumber;
   @override
   final String? name;
 
   @override
   String toString() {
-    return 'DeliveryAddress(address: $address, att: $att, postalCode: $postalCode, city: $city, mobilePhoneNumber: $mobilePhoneNumber, name: $name)';
+    return 'DeliveryAddress(address: $address, postalCode: $postalCode, city: $city, name: $name)';
   }
 
   @override
@@ -199,19 +156,15 @@ class _$DeliveryAddressImpl implements _DeliveryAddress {
         (other.runtimeType == runtimeType &&
             other is _$DeliveryAddressImpl &&
             (identical(other.address, address) || other.address == address) &&
-            (identical(other.att, att) || other.att == att) &&
             (identical(other.postalCode, postalCode) ||
                 other.postalCode == postalCode) &&
             (identical(other.city, city) || other.city == city) &&
-            (identical(other.mobilePhoneNumber, mobilePhoneNumber) ||
-                other.mobilePhoneNumber == mobilePhoneNumber) &&
             (identical(other.name, name) || other.name == name));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, address, att, postalCode, city, mobilePhoneNumber, name);
+  int get hashCode => Object.hash(runtimeType, address, postalCode, city, name);
 
   @JsonKey(ignore: true)
   @override
@@ -231,10 +184,8 @@ class _$DeliveryAddressImpl implements _DeliveryAddress {
 abstract class _DeliveryAddress implements DeliveryAddress {
   const factory _DeliveryAddress(
       {final String? address,
-      final String? att,
       final String? postalCode,
       final String? city,
-      final String? mobilePhoneNumber,
       final String? name}) = _$DeliveryAddressImpl;
 
   factory _DeliveryAddress.fromJson(Map<String, dynamic> json) =
@@ -243,13 +194,9 @@ abstract class _DeliveryAddress implements DeliveryAddress {
   @override
   String? get address;
   @override
-  String? get att;
-  @override
   String? get postalCode;
   @override
   String? get city;
-  @override
-  String? get mobilePhoneNumber;
   @override
   String? get name;
   @override

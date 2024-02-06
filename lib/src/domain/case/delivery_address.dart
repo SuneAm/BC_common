@@ -8,10 +8,8 @@ part 'delivery_address.g.dart';
 class DeliveryAddress with _$DeliveryAddress {
   const factory DeliveryAddress({
     String? address,
-    String? att,
     String? postalCode,
     String? city,
-    String? mobilePhoneNumber,
     String? name,
   }) = _DeliveryAddress;
 
