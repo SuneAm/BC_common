@@ -26,6 +26,7 @@ class Case {
     this.contactPerson,
     this.isProduktion,
     this.isMontage,
+    this.comments,
   });
 
   final int id;
@@ -44,6 +45,7 @@ class Case {
 
   final bool? isProduktion;
   final bool? isMontage;
+  final String? comments;
 
   Map<String, dynamic> toFirestore() {
     return {
@@ -62,6 +64,7 @@ class Case {
       if (contactPerson != null) 'contactPerson': contactPerson!.toJson(),
       if (isMontage != null) 'isMontage': isMontage,
       if (isProduktion != null) 'isProduktion': isProduktion,
+      if (comments != null) 'comments': comments,
     };
   }
 
@@ -113,6 +116,7 @@ class Case {
           : ContactPerson.fromJson(contactPerson ?? {}),
       isProduktion: json['isProduktion'] ?? false,
       isMontage: json['isMontage'] ?? false,
+      comments: json['comments'],
     );
   }
 
@@ -132,6 +136,7 @@ class Case {
     bool? isMontage,
     bool? isProduktion,
     ContactPerson? contactPerson,
+    String? comments,
   }) {
     return Case(
       id: id ?? this.id,
@@ -148,6 +153,7 @@ class Case {
       contactPerson: contactPerson ?? this.contactPerson,
       isMontage: isMontage ?? this.isMontage,
       isProduktion: isProduktion ?? this.isProduktion,
+      comments: comments ?? this.comments,
     );
   }
 }
