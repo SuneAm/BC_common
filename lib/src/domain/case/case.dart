@@ -19,11 +19,11 @@ class Case {
     required this.responsibleUser,
     required this.caseType,
     required this.status,
+    this.contactPersons,
     this.hourAggregate,
     this.estimatedExpanse,
     this.estimatedHours,
     this.deliveryAddress,
-    this.contactPerson,
     this.isProduktion,
     this.isMontage,
     this.comments,
@@ -41,7 +41,7 @@ class Case {
 
   final CaseEstimatedHour? estimatedHours;
   final DeliveryAddress? deliveryAddress;
-  final ContactPerson? contactPerson;
+  final List<ContactPerson>? contactPersons;
 
   final bool? isProduktion;
   final bool? isMontage;
@@ -61,7 +61,8 @@ class Case {
       if (estimatedExpanse != null) 'estimatedExpanse': estimatedExpanse,
       if (estimatedHours != null) 'estimatedHours': estimatedHours!.toJson(),
       if (deliveryAddress != null) 'deliveryAddress': deliveryAddress!.toJson(),
-      if (contactPerson != null) 'contactPerson': contactPerson!.toJson(),
+      if (contactPersons != null)
+        'contactPersons': contactPersons!.map((e) => e.toJson()).toList(),
       if (isMontage != null) 'isMontage': isMontage,
       if (isProduktion != null) 'isProduktion': isProduktion,
       if (comments != null) 'comments': comments,
@@ -70,7 +71,6 @@ class Case {
 
   factory Case.fromJson(Map<String, dynamic> json) {
     final deliveryAddress = json['deliveryAddress'];
-    final contactPerson = json['contactPerson'];
     return Case(
       id: json['id'],
       caseNumber: json['caseNumber'] ?? '',
@@ -82,16 +82,13 @@ class Case {
       deliveryAddress: deliveryAddress == null
           ? null
           : DeliveryAddress.fromJson(json['deliveryAddress'] ?? {}),
-      contactPerson: contactPerson == null
-          ? null
-          : ContactPerson.fromJson(contactPerson ?? {}),
     );
   }
 
   factory Case.fromFirestore(Map<String, dynamic> json) {
     final estimatedHour = json['estimatedHours'];
     final deliveryAddress = json['deliveryAddress'];
-    final contactPerson = json['contactPerson'];
+    final contactPersons = json['contactPersons'] as List? ?? [];
 
     return Case(
       id: json['id'],
@@ -111,9 +108,8 @@ class Case {
       deliveryAddress: deliveryAddress == null
           ? null
           : DeliveryAddress.fromJson(deliveryAddress),
-      contactPerson: contactPerson == null
-          ? null
-          : ContactPerson.fromJson(contactPerson ?? {}),
+      contactPersons:
+          contactPersons.map((e) => ContactPerson.fromJson(e)).toList(),
       isProduktion: json['isProduktion'] ?? false,
       isMontage: json['isMontage'] ?? false,
       comments: json['comments'],
@@ -135,7 +131,7 @@ class Case {
     DeliveryAddress? deliveryAddress,
     bool? isMontage,
     bool? isProduktion,
-    ContactPerson? contactPerson,
+    List<ContactPerson>? contactPersons,
     String? comments,
   }) {
     return Case(
@@ -150,7 +146,7 @@ class Case {
       estimatedExpanse: estimatedExpanse ?? this.estimatedExpanse,
       estimatedHours: caseEstimatedHours ?? estimatedHours,
       deliveryAddress: deliveryAddress ?? this.deliveryAddress,
-      contactPerson: contactPerson ?? this.contactPerson,
+      contactPersons: contactPersons ?? this.contactPersons,
       isMontage: isMontage ?? this.isMontage,
       isProduktion: isProduktion ?? this.isProduktion,
       comments: comments ?? this.comments,
