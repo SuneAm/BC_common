@@ -6,8 +6,8 @@ part 'contact_person.g.dart';
 @freezed
 class ContactPerson with _$ContactPerson {
   const factory ContactPerson({
-    String? name,
-    String? phoneNumber,
+    required String name,
+    required String phoneNumber,
   }) = _ContactPerson;
 
   factory ContactPerson.fromJson(Map<String, dynamic> json) =>

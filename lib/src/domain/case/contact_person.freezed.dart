@@ -20,8 +20,8 @@ ContactPerson _$ContactPersonFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$ContactPerson {
-  String? get name => throw _privateConstructorUsedError;
-  String? get phoneNumber => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
+  String get phoneNumber => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -35,7 +35,7 @@ abstract class $ContactPersonCopyWith<$Res> {
           ContactPerson value, $Res Function(ContactPerson) then) =
       _$ContactPersonCopyWithImpl<$Res, ContactPerson>;
   @useResult
-  $Res call({String? name, String? phoneNumber});
+  $Res call({String name, String phoneNumber});
 }
 
 /// @nodoc
@@ -51,18 +51,18 @@ class _$ContactPersonCopyWithImpl<$Res, $Val extends ContactPerson>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
-    Object? phoneNumber = freezed,
+    Object? name = null,
+    Object? phoneNumber = null,
   }) {
     return _then(_value.copyWith(
-      name: freezed == name
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String?,
-      phoneNumber: freezed == phoneNumber
+              as String,
+      phoneNumber: null == phoneNumber
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
     ) as $Val);
   }
 }
@@ -75,7 +75,7 @@ abstract class _$$ContactPersonImplCopyWith<$Res>
       __$$ContactPersonImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? name, String? phoneNumber});
+  $Res call({String name, String phoneNumber});
 }
 
 /// @nodoc
@@ -89,18 +89,18 @@ class __$$ContactPersonImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
-    Object? phoneNumber = freezed,
+    Object? name = null,
+    Object? phoneNumber = null,
   }) {
     return _then(_$ContactPersonImpl(
-      name: freezed == name
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String?,
-      phoneNumber: freezed == phoneNumber
+              as String,
+      phoneNumber: null == phoneNumber
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
     ));
   }
 }
@@ -108,15 +108,15 @@ class __$$ContactPersonImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$ContactPersonImpl implements _ContactPerson {
-  const _$ContactPersonImpl({this.name, this.phoneNumber});
+  const _$ContactPersonImpl({required this.name, required this.phoneNumber});
 
   factory _$ContactPersonImpl.fromJson(Map<String, dynamic> json) =>
       _$$ContactPersonImplFromJson(json);
 
   @override
-  final String? name;
+  final String name;
   @override
-  final String? phoneNumber;
+  final String phoneNumber;
 
   @override
   String toString() {
@@ -153,15 +153,16 @@ class _$ContactPersonImpl implements _ContactPerson {
 
 abstract class _ContactPerson implements ContactPerson {
   const factory _ContactPerson(
-      {final String? name, final String? phoneNumber}) = _$ContactPersonImpl;
+      {required final String name,
+      required final String phoneNumber}) = _$ContactPersonImpl;
 
   factory _ContactPerson.fromJson(Map<String, dynamic> json) =
       _$ContactPersonImpl.fromJson;
 
   @override
-  String? get name;
+  String get name;
   @override
-  String? get phoneNumber;
+  String get phoneNumber;
   @override
   @JsonKey(ignore: true)
   _$$ContactPersonImplCopyWith<_$ContactPersonImpl> get copyWith =>
