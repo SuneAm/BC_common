@@ -27,7 +27,6 @@ class Case {
     this.isProduktion,
     this.isMontage,
     this.comments,
-    this.producktionLink,
   });
 
   final int id;
@@ -47,7 +46,6 @@ class Case {
   final bool? isProduktion;
   final bool? isMontage;
   final String? comments;
-  final String? producktionLink;
 
   Map<String, dynamic> toFirestore() {
     return {
@@ -68,7 +66,6 @@ class Case {
       if (isMontage != null) 'isMontage': isMontage,
       if (isProduktion != null) 'isProduktion': isProduktion,
       if (comments != null) 'comments': comments,
-      if (producktionLink != null) 'producktionLink': producktionLink,
     };
   }
 
@@ -116,7 +113,6 @@ class Case {
       isProduktion: json['isProduktion'] ?? false,
       isMontage: json['isMontage'] ?? false,
       comments: json['comments'],
-      producktionLink: json['producktionLink'],
     );
   }
 
@@ -155,7 +151,6 @@ class Case {
       isMontage: isMontage ?? this.isMontage,
       isProduktion: isProduktion ?? this.isProduktion,
       comments: comments ?? this.comments,
-      producktionLink: producktionLink ?? this.producktionLink,
     );
   }
 }
