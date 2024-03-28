@@ -26,6 +26,7 @@ class Case {
     this.deliveryAddress,
     this.isProduktion,
     this.isMontage,
+    this.useInCalendar,
     this.comments,
   });
 
@@ -45,6 +46,8 @@ class Case {
 
   final bool? isProduktion;
   final bool? isMontage;
+  final bool? useInCalendar;
+
   final String? comments;
 
   Map<String, dynamic> toFirestore() {
@@ -65,6 +68,7 @@ class Case {
         'contactPersons': contactPersons!.map((e) => e.toJson()).toList(),
       if (isMontage != null) 'isMontage': isMontage,
       if (isProduktion != null) 'isProduktion': isProduktion,
+      if (useInCalendar != null) 'useInCalendar': useInCalendar,
       if (comments != null) 'comments': comments,
     };
   }
@@ -112,6 +116,7 @@ class Case {
           contactPersons.map((e) => ContactPerson.fromJson(e)).toList(),
       isProduktion: json['isProduktion'] ?? false,
       isMontage: json['isMontage'] ?? false,
+      useInCalendar: json['useInCalendar'] ?? false,
       comments: json['comments'],
     );
   }
@@ -131,9 +136,9 @@ class Case {
     DeliveryAddress? deliveryAddress,
     bool? isMontage,
     bool? isProduktion,
+    bool? useInCalendar,
     List<ContactPerson>? contactPersons,
     String? comments,
-    String? producktionLink,
   }) {
     return Case(
       id: id ?? this.id,
@@ -150,6 +155,7 @@ class Case {
       contactPersons: contactPersons ?? this.contactPersons,
       isMontage: isMontage ?? this.isMontage,
       isProduktion: isProduktion ?? this.isProduktion,
+      useInCalendar: useInCalendar ?? this.useInCalendar,
       comments: comments ?? this.comments,
     );
   }
