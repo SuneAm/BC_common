@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 extension NumberEx on num {
@@ -20,4 +21,11 @@ extension NumberEx on num {
     final formattedAmount = format.format(number);
     return formattedAmount;
   }
+}
+
+extension BuildContextEx on BuildContext {
+  Future openDialog(Widget child) => showDialog(
+        context: this,
+        builder: (_) => child,
+      );
 }

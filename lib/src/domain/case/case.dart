@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:ordrestyring_common/src/domain/case/case_calendar.dart';
 import 'package:ordrestyring_common/src/domain/case/contact_person.dart';
 import 'package:ordrestyring_common/src/domain/case/delivery_address.dart';
 
@@ -24,10 +25,13 @@ class Case {
     this.estimatedExpanse,
     this.estimatedHours,
     this.deliveryAddress,
+    this.comments,
     this.isProduktion,
     this.isMontage,
     this.useInCalendar,
-    this.comments,
+    this.editorCalendar,
+    this.productionCalendar,
+    this.montageCalendar,
   });
 
   final int id;
@@ -44,11 +48,15 @@ class Case {
   final DeliveryAddress? deliveryAddress;
   final List<ContactPerson>? contactPersons;
 
+  final String? comments;
+
   final bool? isProduktion;
   final bool? isMontage;
   final bool? useInCalendar;
 
-  final String? comments;
+  final CaseCalendar? editorCalendar;
+  final CaseCalendar? productionCalendar;
+  final CaseCalendar? montageCalendar;
 
   Map<String, dynamic> toFirestore() {
     return {
@@ -70,6 +78,10 @@ class Case {
       if (isProduktion != null) 'isProduktion': isProduktion,
       if (useInCalendar != null) 'useInCalendar': useInCalendar,
       if (comments != null) 'comments': comments,
+      if (editorCalendar != null) 'editorCalendar': editorCalendar?.toJson(),
+      if (productionCalendar != null)
+        'productionCalendar': productionCalendar?.toJson(),
+      if (montageCalendar != null) 'montageCalendar': montageCalendar?.toJson(),
     };
   }
 
@@ -93,6 +105,10 @@ class Case {
     final estimatedHour = json['estimatedHours'];
     final deliveryAddress = json['deliveryAddress'];
     final contactPersons = json['contactPersons'] as List? ?? [];
+
+    final editorCalendar = json['editorCalendar'];
+    final productionCalendar = json['productionCalendar'];
+    final montageCalendar = json['montageCalendar'];
 
     return Case(
       id: json['id'],
@@ -118,6 +134,14 @@ class Case {
       isMontage: json['isMontage'] ?? false,
       useInCalendar: json['useInCalendar'] ?? false,
       comments: json['comments'],
+      editorCalendar:
+          editorCalendar == null ? null : CaseCalendar.fromJson(editorCalendar),
+      productionCalendar: productionCalendar == null
+          ? null
+          : CaseCalendar.fromJson(productionCalendar),
+      montageCalendar: montageCalendar == null
+          ? null
+          : CaseCalendar.fromJson(montageCalendar),
     );
   }
 
@@ -139,6 +163,9 @@ class Case {
     bool? useInCalendar,
     List<ContactPerson>? contactPersons,
     String? comments,
+    CaseCalendar? editorCalendar,
+    CaseCalendar? productionCalendar,
+    CaseCalendar? montageCalendar,
   }) {
     return Case(
       id: id ?? this.id,
@@ -157,6 +184,9 @@ class Case {
       isProduktion: isProduktion ?? this.isProduktion,
       useInCalendar: useInCalendar ?? this.useInCalendar,
       comments: comments ?? this.comments,
+      editorCalendar: editorCalendar,
+      productionCalendar: productionCalendar,
+      montageCalendar: montageCalendar,
     );
   }
 }
