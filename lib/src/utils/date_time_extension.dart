@@ -28,7 +28,9 @@ extension DateTimeExtension on DateTime {
 
   String get formatDateSameWeek {
     DateFormat dateFormat;
-    if (day == DateTime.now().day) {
+    if (day == DateTime
+        .now()
+        .day) {
       dateFormat = DateFormat('h:mm a'); // 3:31pm
     } else {
       dateFormat = DateFormat('EEEE, hh:mm a'); // Wednesday, 3:31pm
@@ -38,11 +40,15 @@ extension DateTimeExtension on DateTime {
 
   String get formatDateWithTime {
     final dateFormat =
-        DateFormat('hh:mm a | d MMM yyyy'); // 12 May, 2020 | 3:31pm
+    DateFormat('hh:mm a | d MMM yyyy'); // 12 May, 2020 | 3:31pm
     return dateFormat.format(this);
   }
 
-  bool get isSameWeek => DateTime.now().difference(this).inDays < 7;
+  bool get isSameWeek =>
+      DateTime
+          .now()
+          .difference(this)
+          .inDays < 7;
 
   DateTime combineDateTime(TimeOfDay time) =>
       DateTime(year, month, day, time.hour, time.minute);
@@ -51,8 +57,7 @@ extension DateTimeExtension on DateTime {
 }
 
 extension DateTimeContextEx on BuildContext {
-  Future<DateTime?> selectDate(
-    String helperText, {
+  Future<DateTime?> selectDate(String helperText, {
     DateTime? initialDate,
     DateTime? firstDate,
     DateTime? lastDate,
@@ -68,7 +73,8 @@ extension DateTimeContextEx on BuildContext {
     );
   }
 
-  Future<TimeOfDay?> selectTime(String helpText) => showTimePicker(
+  Future<TimeOfDay?> selectTime(String helpText) =>
+      showTimePicker(
         context: this,
         helpText: helpText,
         initialTime: TimeOfDay.now(),

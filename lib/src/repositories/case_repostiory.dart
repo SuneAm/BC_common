@@ -101,8 +101,8 @@ class CaseRepository {
     final result = jsonDecode(response.body) as Map<String, dynamic>?;
 
     final cases = result?['data']['cases']['items']
-            .map<Case>((item) => Case.fromJson(item))
-            .toList() as List<Case>? ??
+        .map<Case>((item) => Case.fromJson(item))
+        .toList() as List<Case>? ??
         [];
 
     if (cases.isNotEmpty) {
@@ -137,9 +137,10 @@ class CaseRepository {
         .orderBy('caseNumber', descending: true)
         .snapshots();
 
-    return snapshots.map((snapshot) => snapshot.docs
-        .map((document) => Case.fromFirestore(document.data()))
-        .toList());
+    return snapshots.map((snapshot) =>
+        snapshot.docs
+            .map((document) => Case.fromFirestore(document.data()))
+            .toList());
   }
 
   Stream<List<Case>> watchProduktionCases() {
@@ -149,9 +150,10 @@ class CaseRepository {
         .orderBy('caseNumber', descending: true)
         .snapshots();
 
-    return snapshots.map((snapshot) => snapshot.docs
-        .map((document) => Case.fromFirestore(document.data()))
-        .toList());
+    return snapshots.map((snapshot) =>
+        snapshot.docs
+            .map((document) => Case.fromFirestore(document.data()))
+            .toList());
   }
 
   Stream<List<Case>> watchMontageCases() {
@@ -161,9 +163,10 @@ class CaseRepository {
         .orderBy('caseNumber', descending: true)
         .snapshots();
 
-    return snapshots.map((snapshot) => snapshot.docs
-        .map((document) => Case.fromFirestore(document.data()))
-        .toList());
+    return snapshots.map((snapshot) =>
+        snapshot.docs
+            .map((document) => Case.fromFirestore(document.data()))
+            .toList());
   }
 
   Future<void> updateCaseCollection(List<Case> updatedCases) async {
@@ -204,11 +207,11 @@ class CaseRepository {
   }
 
   // updating case
-  void updateCase(Case caseItem) async {
+  void updateCase(Case caseItem, {bool merge = true}) async {
     final casesRef = _firestore.collection('cases').doc(caseItem.caseNumber);
     await casesRef.set(
       caseItem.toFirestore(),
-      SetOptions(merge: true),
+      SetOptions(merge: merge),
     );
   }
 }
