@@ -28,4 +28,9 @@ extension BuildContextEx on BuildContext {
         context: this,
         builder: (_) => child,
       );
+
+  void showSnackBar(String message, {SnackBar? snackBar}) =>
+      ScaffoldMessenger.of(this)
+        ..removeCurrentSnackBar()
+        ..showSnackBar(snackBar ?? SnackBar(content: Text(message)));
 }

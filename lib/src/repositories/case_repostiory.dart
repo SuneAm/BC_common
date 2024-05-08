@@ -94,15 +94,15 @@ class CaseRepository {
 
   Future<void> fetchAndUpdateCases() async {
     final response = await http.get(Uri.parse(
-        'https://europe-west3-pomo-v2.cloudfunctions.net/fetchCases'));
-
+        'https://europe-west3-bc-ordrestyrring.cloudfunctions.net/fetchCases'));
+    // https://europe-west3-bc-ordrestyrring.cloudfunctions.net/fetchCases
     if (response.statusCode != 200) return;
 
     final result = jsonDecode(response.body) as Map<String, dynamic>?;
 
     final cases = result?['data']['cases']['items']
-        .map<Case>((item) => Case.fromJson(item))
-        .toList() as List<Case>? ??
+            .map<Case>((item) => Case.fromJson(item))
+            .toList() as List<Case>? ??
         [];
 
     if (cases.isNotEmpty) {
@@ -121,7 +121,7 @@ class CaseRepository {
   Future<HourAggregate> fetchCaseHours(int caseId) async {
     final response = await http.post(
       Uri.parse(
-          'https://europe-west3-pomo-v2.cloudfunctions.net/fetchCaseHours'),
+          'https://europe-west3-bc-ordrestyrring.cloudfunctions.net/fetchCaseHours'),
       body: {'caseId': '$caseId'},
     );
     if (response.statusCode != 200) throw 'Some error occurred';
@@ -137,10 +137,9 @@ class CaseRepository {
         .orderBy('caseNumber', descending: true)
         .snapshots();
 
-    return snapshots.map((snapshot) =>
-        snapshot.docs
-            .map((document) => Case.fromFirestore(document.data()))
-            .toList());
+    return snapshots.map((snapshot) => snapshot.docs
+        .map((document) => Case.fromFirestore(document.data()))
+        .toList());
   }
 
   Stream<List<Case>> watchProduktionCases() {
@@ -150,10 +149,9 @@ class CaseRepository {
         .orderBy('caseNumber', descending: true)
         .snapshots();
 
-    return snapshots.map((snapshot) =>
-        snapshot.docs
-            .map((document) => Case.fromFirestore(document.data()))
-            .toList());
+    return snapshots.map((snapshot) => snapshot.docs
+        .map((document) => Case.fromFirestore(document.data()))
+        .toList());
   }
 
   Stream<List<Case>> watchMontageCases() {
@@ -163,10 +161,9 @@ class CaseRepository {
         .orderBy('caseNumber', descending: true)
         .snapshots();
 
-    return snapshots.map((snapshot) =>
-        snapshot.docs
-            .map((document) => Case.fromFirestore(document.data()))
-            .toList());
+    return snapshots.map((snapshot) => snapshot.docs
+        .map((document) => Case.fromFirestore(document.data()))
+        .toList());
   }
 
   Future<void> updateCaseCollection(List<Case> updatedCases) async {
