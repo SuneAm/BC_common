@@ -13,9 +13,12 @@ export 'src/http_overrides.dart';
 // repos
 export 'src/repositories/case_repostiory.dart';
 export 'src/repositories/user_repository.dart';
+export 'src/repositories/vacation_repository.dart';
 
 // domain
 export 'src/domain/users/user.dart';
+export 'src/domain/vacation.dart';
+
 export 'src/domain/case/case.dart';
 export 'src/domain/case/hour_aggregate.dart';
 export 'src/domain/case/case_estimated_hour.dart';
