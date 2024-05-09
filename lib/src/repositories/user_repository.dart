@@ -1,18 +1,19 @@
-import 'package:cloud_functions/cloud_functions.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:ordrestyring_common/src/providers.dart';
 import 'package:http/http.dart' as http;
+import 'package:ordrestyring_common/src/domain/users/user.dart';
+import 'package:ordrestyring_common/src/providers.dart';
 
 final userRepoProvider = Provider<UserRepository>((ref) {
   return UserRepository(ref);
 });
 
 class UserRepository {
-  UserRepository(this.ref);
+  UserRepository(this._ref);
 
-  final Ref ref;
+  final Ref _ref;
 
-  FirebaseFunctions get _functions => ref.read(functionsProvider);
+  FirebaseFirestore get _firestore => _ref.read(firestoreProvider);
 
   // Future<void> fetchUsers() async {
   //   try {
@@ -31,5 +32,16 @@ class UserRepository {
     } catch (_) {
       rethrow;
     }
+  }
+
+  Stream<List<User>> watchUsers() {
+    final snapshots = _firestore
+        .collection('users')
+        .orderBy('id', descending: true)
+        .snapshots();
+
+    return snapshots.map((snapshot) => snapshot.docs
+        .map((document) => User.fromJson(document.data()))
+        .toList());
   }
 }
