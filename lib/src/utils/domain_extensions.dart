@@ -103,6 +103,15 @@ extension EconomyEx on Economy {
   int get _materialCostPrice => materialsCostprice;
 
   double get calculatedHoursSalesPrice => _materialCostPrice + hoursSalesprice;
+
+  double get costPrice => materialsCostprice + hoursCostprice;
+
+  double get economyOffer => revisedOffer > 0 ? revisedOffer : offer;
+
+  double get dekningsgrad =>
+      (((economyOffer.toDouble() - costPrice) * 100) / economyOffer)
+          .clamp(0.0, 100.0)
+          .roundToDouble();
 }
 
 enum CalculationTypes { Projekt, Produktion, Montage }

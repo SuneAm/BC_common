@@ -42,3 +42,4 @@ export 'src/common_widgets/containers/icon_container.dart';
 export 'src/common_widgets/text/title_text.dart';
 export 'src/common_widgets/text/title_large.dart';
 export 'src/common_widgets/list/scroll_with_bar.dart';
+export 'src/common_widgets/list/case_list_view.dart';
