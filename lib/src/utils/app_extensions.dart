@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:ordrestyring_common/src/utils/constants.dart';
 
 extension NumberEx on num {
   String get toCurrency {
@@ -24,6 +25,16 @@ extension NumberEx on num {
 }
 
 extension BuildContextEx on BuildContext {
+  Size get _size => MediaQuery.of(this).size;
+
+  double get width => _size.width;
+
+  bool get isMobile => width < Breakpoint.tablet;
+
+  bool get isTablet => width < Breakpoint.desktop && width >= Breakpoint.tablet;
+
+  bool get isDesktop => width >= Breakpoint.desktop;
+
   Future openDialog(Widget child) => showDialog(
         context: this,
         builder: (_) => child,

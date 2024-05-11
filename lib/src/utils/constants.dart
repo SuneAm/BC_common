@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
 
+/// Layout breakpoints used in the app.
+class Breakpoint {
+  static const double desktop = 900;
+  static const double tablet = 600;
+}
+
 class Constant {
   static const double minBorderRadius = 6.0;
   static const double maxBorderRadius = 8.0;
