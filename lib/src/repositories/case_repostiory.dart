@@ -212,3 +212,9 @@ class CaseRepository {
     );
   }
 }
+
+final watchProduktionCases = StreamProvider<List<Case>>(
+        (ref) => ref.watch(caseRepoProvider).watchProduktionCases());
+
+final watchMontageCases = StreamProvider<List<Case>>(
+        (ref) => ref.watch(caseRepoProvider).watchMontageCases());
