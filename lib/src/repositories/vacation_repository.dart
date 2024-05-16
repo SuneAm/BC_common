@@ -34,6 +34,32 @@ class VacationRepository {
 
     return docRef.set({'status': status}, SetOptions(merge: true));
   }
+
+  Future<List<Vacation>> getUserVacations(String userId) async {
+    final snapshot = await _firestore
+        .collection(_vacations)
+        .where('user.id', isEqualTo: userId)
+        .get();
+
+    return snapshot.docs.map((snap) => Vacation.fromFirestore(snap)).toList();
+  }
+
+  Stream<List<Vacation>> getApprovedRequest() {
+    final snapshot = _firestore
+        .collection(_vacations)
+        .where('status', isEqualTo: 'approved')
+        .orderBy('createdAt')
+        .snapshots();
+
+    return snapshot.map((snaps) =>
+        snaps.docs.map((snap) => Vacation.fromFirestore(snap)).toList());
+  }
+
+  Future<void> deleteRequest(String vacationId) async {
+    final docRef = _firestore.collection(_vacations).doc(vacationId);
+
+    return await docRef.delete();
+  }
 }
 
 final vacationRepoProvider = Provider<VacationRepository>((ref) {
