@@ -1,6 +1,7 @@
 import 'package:ordrestyring_common/src/domain/case/case_estimated_hour.dart';
 import 'package:ordrestyring_common/src/domain/case/economy.dart';
 import 'package:ordrestyring_common/src/domain/case/hour_aggregate.dart';
+import 'package:ordrestyring_common/src/domain/vacation.dart';
 
 extension CaseEstimatedHourEx on CaseEstimatedHour? {
   double get projectEstimatedHour => this?.estimatedProjectHour ?? 0;
@@ -141,4 +142,12 @@ enum CalculationHourTypes {
 
   final String name;
   final CalculationTypes calculationTypes;
+}
+
+extension VacationStatusEx on VacationStatus {
+  bool get isPending => this == VacationStatus.pending;
+
+  bool get isApproved => this == VacationStatus.approved;
+
+  bool get isRejected => this == VacationStatus.rejected;
 }
