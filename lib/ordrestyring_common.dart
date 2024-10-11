@@ -32,6 +32,7 @@ export 'src/utils/domain_extensions.dart';
 export 'src/utils/date_time_extension.dart';
 export 'src/utils/debounce.dart';
 export 'src/utils/constants.dart';
+export 'src/utils/help_methods.dart';
 
 // widgets
 export 'src/firebase_options.dart';

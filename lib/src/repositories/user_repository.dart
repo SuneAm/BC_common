@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:ordrestyring_common/src/domain/users/user.dart';
@@ -27,7 +28,8 @@ class UserRepository {
     try {
       await http.get(Uri.parse(
           'https://europe-west3-bc-ordrestyrring.cloudfunctions.net/fetchUsers'));
-    } catch (_) {
+    } catch (e) {
+      debugPrint('error : $e');
       rethrow;
     }
   }
