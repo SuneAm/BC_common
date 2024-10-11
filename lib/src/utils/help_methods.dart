@@ -1,4 +1,5 @@
 import 'package:intl/intl.dart';
+import 'package:ordrestyring_common/src/utils/date_time_extension.dart';
 
 class HelperMethod {
   // get a week number of the year
@@ -115,7 +116,8 @@ class HelperMethod {
     final currentYear = DateTime.now().year;
     DateTime startOfWeek = _getDateFromWeekNumber(currentYear, weekNumber);
     // e.g., "January", "February"
-    return DateFormat('MMMM').format(startOfWeek);
+    // return DateFormat('MMMM').format(startOfWeek);
+    return startOfWeek.convertedToDanishMonthName;
   }
 
   // Function to get the start date of a week number

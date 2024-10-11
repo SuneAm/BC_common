@@ -6,6 +6,8 @@ extension DateTimeExtension on DateTime {
 
   String get formatTime => DateFormat('h:mm a').format(this); // 3:31pm
 
+  String get showDate => DateFormat('d').format(this); // 3:31pm
+
   String get formatDateSimple =>
       '$year-${_twoDigits(month)}-${_twoDigits(day)}'; // 2021-01-01
 
@@ -28,9 +30,7 @@ extension DateTimeExtension on DateTime {
 
   String get formatDateSameWeek {
     DateFormat dateFormat;
-    if (day == DateTime
-        .now()
-        .day) {
+    if (day == DateTime.now().day) {
       dateFormat = DateFormat('h:mm a'); // 3:31pm
     } else {
       dateFormat = DateFormat('EEEE, hh:mm a'); // Wednesday, 3:31pm
@@ -40,24 +40,52 @@ extension DateTimeExtension on DateTime {
 
   String get formatDateWithTime {
     final dateFormat =
-    DateFormat('hh:mm a | d MMM yyyy'); // 12 May, 2020 | 3:31pm
+        DateFormat('hh:mm a | d MMM yyyy'); // 12 May, 2020 | 3:31pm
     return dateFormat.format(this);
   }
 
-  bool get isSameWeek =>
-      DateTime
-          .now()
-          .difference(this)
-          .inDays < 7;
+  bool get isSameWeek => DateTime.now().difference(this).inDays < 7;
 
   DateTime combineDateTime(TimeOfDay time) =>
       DateTime(year, month, day, time.hour, time.minute);
 
   String customFormat(String format) => DateFormat(format).format(this);
+
+  String get convertedToDanishMonthName {
+    switch (month) {
+      case 1:
+        return 'Januar'; // January
+      case 2:
+        return 'Februar'; // February
+      case 3:
+        return 'Marts'; // March
+      case 4:
+        return 'April'; // April
+      case 5:
+        return 'Maj'; // May
+      case 6:
+        return 'Juni'; // June
+      case 7:
+        return 'Juli'; // July
+      case 8:
+        return 'August'; // August
+      case 9:
+        return 'September'; // September
+      case 10:
+        return 'Oktober'; // October
+      case 11:
+        return 'November'; // November
+      case 12:
+        return 'December'; // December
+      default:
+        return '';
+    }
+  }
 }
 
 extension DateTimeContextEx on BuildContext {
-  Future<DateTime?> selectDate(String helperText, {
+  Future<DateTime?> selectDate(
+    String helperText, {
     DateTime? initialDate,
     DateTime? firstDate,
     DateTime? lastDate,
@@ -73,8 +101,7 @@ extension DateTimeContextEx on BuildContext {
     );
   }
 
-  Future<TimeOfDay?> selectTime(String helpText) =>
-      showTimePicker(
+  Future<TimeOfDay?> selectTime(String helpText) => showTimePicker(
         context: this,
         helpText: helpText,
         initialTime: TimeOfDay.now(),
