@@ -52,34 +52,23 @@ extension DateTimeExtension on DateTime {
   String customFormat(String format) => DateFormat(format).format(this);
 
   String get convertedToDanishMonthName {
-    switch (month) {
-      case 1:
-        return 'Januar'; // January
-      case 2:
-        return 'Februar'; // February
-      case 3:
-        return 'Marts'; // March
-      case 4:
-        return 'April'; // April
-      case 5:
-        return 'Maj'; // May
-      case 6:
-        return 'Juni'; // June
-      case 7:
-        return 'Juli'; // July
-      case 8:
-        return 'August'; // August
-      case 9:
-        return 'September'; // September
-      case 10:
-        return 'Oktober'; // October
-      case 11:
-        return 'November'; // November
-      case 12:
-        return 'December'; // December
-      default:
-        return '';
-    }
+    final currentMonth = switch (month) {
+      1 => 'Januar',
+      2 => 'Februar',
+      3 => 'Marts',
+      4 => 'April',
+      5 => 'Maj',
+      6 => 'Juni',
+      7 => 'Juli',
+      8 => 'August',
+      9 => 'September',
+      10 => 'Oktober',
+      11 => 'November',
+      12 => 'December',
+      _ => '',
+    };
+
+    return '$currentMonth $year';
   }
 }
 
