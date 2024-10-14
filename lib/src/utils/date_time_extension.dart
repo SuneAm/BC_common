@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:week_of_year/week_of_year.dart';
 
 extension DateTimeExtension on DateTime {
   String _twoDigits(int i) => i <= 9 ? '0$i' : i.toString();
@@ -50,6 +51,14 @@ extension DateTimeExtension on DateTime {
       DateTime(year, month, day, time.hour, time.minute);
 
   String customFormat(String format) => DateFormat(format).format(this);
+
+  // Check if the day is a weekend (Saturday or Sunday)
+  bool get isWeekend =>
+      weekday == DateTime.saturday || weekday == DateTime.sunday;
+
+  int get currentWeek => weekOfYear;
+
+  int get weekYear => year;
 
   String get convertedToDanishMonthName {
     final currentMonth = switch (month) {
