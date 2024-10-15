@@ -52,6 +52,11 @@ extension DateTimeExtension on DateTime {
 
   String customFormat(String format) => DateFormat(format).format(this);
 
+  bool get isToday {
+    DateTime today = DateTime.now();
+    return year == today.year && month == today.month && day == today.day;
+  }
+
   // Check if the day is a weekend (Saturday or Sunday)
   bool get isWeekend =>
       weekday == DateTime.saturday || weekday == DateTime.sunday;
