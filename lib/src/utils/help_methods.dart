@@ -150,4 +150,13 @@ class HelperMethod {
         date1.month == date2.month &&
         date1.day == date2.day;
   }
+
+  // Check if the current day is on or between the start and end dates
+  static bool isWithinRange(
+    DateTime date,
+    DateTime startDate,
+    DateTime endDate,
+  ) =>
+      (date.isAfter(startDate) || date.isAtSameMomentAs(startDate)) &&
+      (date.isBefore(endDate) || date.isAtSameMomentAs(endDate));
 }
