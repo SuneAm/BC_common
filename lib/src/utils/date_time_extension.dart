@@ -104,6 +104,41 @@ extension DateTimeContextEx on BuildContext {
     );
   }
 
+  Future<DateTimeRange?> selectDateRange(
+    String helperText, {
+    DateTime? firstDate,
+    DateTime? lastDate,
+    DateTimeRange? initialDateRange,
+  }) {
+    final now = DateTime.now();
+
+    return showDateRangePicker(
+      context: this,
+      firstDate: firstDate ?? now,
+      lastDate: lastDate ?? now.add(const Duration(days: 90)),
+      initialDateRange: initialDateRange,
+      helpText: helperText,
+      // builder: (context, child) {
+      //   return Center(
+      //     child: Column(
+      //       mainAxisAlignment: MainAxisAlignment.center,
+      //       children: [
+      //         Expanded(
+      //           child: ConstrainedBox(
+      //             constraints: const BoxConstraints(
+      //               maxWidth: 600.0,
+      //               maxHeight: 800.0,
+      //             ),
+      //             child: child,
+      //           ),
+      //         )
+      //       ],
+      //     ),
+      //   );
+      // },
+    );
+  }
+
   Future<TimeOfDay?> selectTime(String helpText) => showTimePicker(
         context: this,
         helpText: helpText,
