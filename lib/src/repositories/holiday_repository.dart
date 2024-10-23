@@ -3,10 +3,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ordrestyring_common/src/domain/holiday.dart';
 import 'package:ordrestyring_common/src/providers.dart';
 
-final holidayRepoProvider = Provider<HolidayRepository>((ref) {
-  return HolidayRepository(ref);
-});
-
 class HolidayRepository {
   HolidayRepository(this._ref);
 
@@ -33,3 +29,17 @@ class HolidayRepository {
     return snapshot.docs.map((snap) => Holiday.fromFirestore(snap)).toList();
   }
 }
+
+final holidayRepoProvider = Provider<HolidayRepository>((ref) {
+  return HolidayRepository(ref);
+});
+
+final getHolidaysProvider =
+    FutureProvider.autoDispose<List<Holiday>>((ref) async {
+  return ref.watch(holidayRepoProvider).getHolidays();
+});
+
+final holidaysProvider = Provider.autoDispose<List<Holiday>>((ref) {
+  final future = ref.watch(getHolidaysProvider);
+  return future.value ?? [];
+});
