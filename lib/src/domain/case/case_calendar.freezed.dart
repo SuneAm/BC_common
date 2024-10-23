@@ -25,8 +25,12 @@ mixin _$CaseCalendar {
   @TimestampSerializer()
   DateTime? get endDate => throw _privateConstructorUsedError;
 
+  /// Serializes this CaseCalendar to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of CaseCalendar
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $CaseCalendarCopyWith<CaseCalendar> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -52,6 +56,8 @@ class _$CaseCalendarCopyWithImpl<$Res, $Val extends CaseCalendar>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of CaseCalendar
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -92,6 +98,8 @@ class __$$CaseCalendarImplCopyWithImpl<$Res>
       _$CaseCalendarImpl _value, $Res Function(_$CaseCalendarImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of CaseCalendar
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -152,11 +160,13 @@ class _$CaseCalendarImpl with DiagnosticableTreeMixin implements _CaseCalendar {
             (identical(other.endDate, endDate) || other.endDate == endDate));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, startDate, endDate);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CaseCalendar
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CaseCalendarImplCopyWith<_$CaseCalendarImpl> get copyWith =>
@@ -184,8 +194,11 @@ abstract class _CaseCalendar implements CaseCalendar {
   @override
   @TimestampSerializer()
   DateTime? get endDate;
+
+  /// Create a copy of CaseCalendar
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CaseCalendarImplCopyWith<_$CaseCalendarImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

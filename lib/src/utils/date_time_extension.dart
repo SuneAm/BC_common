@@ -24,10 +24,10 @@ extension DateTimeExtension on DateTime {
     return dateFormat.format(this);
   }
 
-  // String get formatEventDateShort {
-  //   final dateFormat = DateFormat('MMMM d'); // Nov 30
-  //   return dateFormat.format(this);
-  // }
+  String get formatEventDateShort {
+    final dateFormat = DateFormat('MMMM d'); // Nov 30
+    return dateFormat.format(this);
+  }
 
   String get formatDateSameWeek {
     DateFormat dateFormat;
@@ -84,6 +84,11 @@ extension DateTimeExtension on DateTime {
 
     return '$currentMonth $year';
   }
+}
+
+extension DateTimeRangeEx on DateTimeRange {
+  String get formattedDates =>
+      '${start.formatEventDateShort}, ${end.formatDate}';
 }
 
 extension DateTimeContextEx on BuildContext {

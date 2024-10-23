@@ -25,8 +25,12 @@ mixin _$DeliveryAddress {
   String? get city => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
 
+  /// Serializes this DeliveryAddress to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of DeliveryAddress
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $DeliveryAddressCopyWith<DeliveryAddress> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -50,6 +54,8 @@ class _$DeliveryAddressCopyWithImpl<$Res, $Val extends DeliveryAddress>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of DeliveryAddress
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -98,6 +104,8 @@ class __$$DeliveryAddressImplCopyWithImpl<$Res>
       _$DeliveryAddressImpl _value, $Res Function(_$DeliveryAddressImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of DeliveryAddress
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -162,11 +170,13 @@ class _$DeliveryAddressImpl implements _DeliveryAddress {
             (identical(other.name, name) || other.name == name));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, address, postalCode, city, name);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DeliveryAddress
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$DeliveryAddressImplCopyWith<_$DeliveryAddressImpl> get copyWith =>
@@ -199,8 +209,11 @@ abstract class _DeliveryAddress implements DeliveryAddress {
   String? get city;
   @override
   String? get name;
+
+  /// Create a copy of DeliveryAddress
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$DeliveryAddressImplCopyWith<_$DeliveryAddressImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -1,7 +1,4 @@
-import 'package:ordrestyring_common/src/domain/case/case_estimated_hour.dart';
-import 'package:ordrestyring_common/src/domain/case/economy.dart';
-import 'package:ordrestyring_common/src/domain/case/hour_aggregate.dart';
-import 'package:ordrestyring_common/src/domain/vacation.dart';
+import 'package:ordrestyring_common/ordrestyring_common.dart';
 
 extension CaseEstimatedHourEx on CaseEstimatedHour? {
   double get projectEstimatedHour => this?.estimatedProjectHour ?? 0;
@@ -150,4 +147,14 @@ extension VacationStatusEx on VacationStatus {
   bool get isApproved => this == VacationStatus.approved;
 
   bool get isRejected => this == VacationStatus.rejected;
+}
+
+extension VacationEx on Vacation {
+  String get formattedDates =>
+      '${startDate.formatEventDateShort}, ${endDate.formatDate}';
+}
+
+extension HolidayEx on Holiday {
+  String get formattedDates =>
+      '${startDate.formatEventDateShort}, ${endDate.formatDate}';
 }

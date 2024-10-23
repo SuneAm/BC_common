@@ -25,8 +25,12 @@ mixin _$CaseEstimatedHour {
   double? get estimatedMontageHour => throw _privateConstructorUsedError;
   double? get estimatedMaterialPrice => throw _privateConstructorUsedError;
 
+  /// Serializes this CaseEstimatedHour to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of CaseEstimatedHour
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $CaseEstimatedHourCopyWith<CaseEstimatedHour> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -54,6 +58,8 @@ class _$CaseEstimatedHourCopyWithImpl<$Res, $Val extends CaseEstimatedHour>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of CaseEstimatedHour
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -106,6 +112,8 @@ class __$$CaseEstimatedHourImplCopyWithImpl<$Res>
       $Res Function(_$CaseEstimatedHourImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of CaseEstimatedHour
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -192,12 +200,14 @@ class _$CaseEstimatedHourImpl
                 other.estimatedMaterialPrice == estimatedMaterialPrice));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, estimatedProjectHour,
       estimatedProductionHour, estimatedMontageHour, estimatedMaterialPrice);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CaseEstimatedHour
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CaseEstimatedHourImplCopyWith<_$CaseEstimatedHourImpl> get copyWith =>
@@ -230,8 +240,11 @@ abstract class _CaseEstimatedHour implements CaseEstimatedHour {
   double? get estimatedMontageHour;
   @override
   double? get estimatedMaterialPrice;
+
+  /// Create a copy of CaseEstimatedHour
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CaseEstimatedHourImplCopyWith<_$CaseEstimatedHourImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
