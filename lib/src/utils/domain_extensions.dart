@@ -154,7 +154,71 @@ extension VacationEx on Vacation {
       '${startDate.formatEventDateShort}, ${endDate.formatDate}';
 }
 
+extension VacationListEx on List<Vacation> {
+  bool isVacationValid(DateTime startDate, DateTime endDate) {
+    // Iterate through each existing vacation for the user
+    for (var vacation in this) {
+      final adjustedStartDate = DateTime(
+        vacation.startDate.year,
+        vacation.startDate.month,
+        vacation.startDate.day,
+      );
+
+      final adjustedEndDate = DateTime(
+        vacation.endDate.year,
+        vacation.endDate.month,
+        vacation.endDate.day,
+      );
+
+      // Check if the new vacation's start or end date falls within any existing vacation range
+      if (HelperMethod.isWithinRange(
+              startDate, adjustedStartDate, adjustedEndDate) ||
+          HelperMethod.isWithinRange(
+              endDate, adjustedStartDate, adjustedEndDate) ||
+          HelperMethod.isWithinRange(adjustedStartDate, startDate, endDate) ||
+          HelperMethod.isWithinRange(adjustedEndDate, startDate, endDate)) {
+        return false; // Invalid if there's any overlap
+      }
+    }
+
+    // If all conditions are satisfied, the request is valid
+    return true;
+  }
+}
+
 extension HolidayEx on Holiday {
   String get formattedDates =>
       '${startDate.formatEventDateShort}, ${endDate.formatDate}';
+}
+
+extension HolidayListEx on List<Holiday> {
+  bool isVacationValid(DateTime startDate, DateTime endDate) {
+    // Iterate through each existing vacation for the user
+    for (var vacation in this) {
+      final adjustedStartDate = DateTime(
+        vacation.startDate.year,
+        vacation.startDate.month,
+        vacation.startDate.day,
+      );
+
+      final adjustedEndDate = DateTime(
+        vacation.endDate.year,
+        vacation.endDate.month,
+        vacation.endDate.day,
+      );
+
+      // Check if the new vacation's start or end date falls within any existing vacation range
+      if (HelperMethod.isWithinRange(
+              startDate, adjustedStartDate, adjustedEndDate) ||
+          HelperMethod.isWithinRange(
+              endDate, adjustedStartDate, adjustedEndDate) ||
+          HelperMethod.isWithinRange(adjustedStartDate, startDate, endDate) ||
+          HelperMethod.isWithinRange(adjustedEndDate, startDate, endDate)) {
+        return false; // Invalid if there's any overlap
+      }
+    }
+
+    // If all conditions are satisfied, the request is valid
+    return true;
+  }
 }
