@@ -92,6 +92,8 @@ extension DateTimeRangeEx on DateTimeRange {
 }
 
 extension DateTimeContextEx on BuildContext {
+  int get _lastDate => 1096; // 3 years
+
   Future<DateTime?> selectDate(
     String helperText, {
     DateTime? initialDate,
@@ -105,7 +107,7 @@ extension DateTimeContextEx on BuildContext {
       helpText: helperText,
       initialDate: initialDate ?? now,
       firstDate: firstDate ?? now,
-      lastDate: lastDate ?? now.add(const Duration(days: 90)),
+      lastDate: lastDate ?? now.add(Duration(days: _lastDate)),
     );
   }
 
@@ -118,30 +120,27 @@ extension DateTimeContextEx on BuildContext {
     final now = DateTime.now();
 
     return showDateRangePicker(
-      context: this,
-      firstDate: firstDate ?? now,
-      lastDate: lastDate ?? now.add(const Duration(days: 90)),
-      initialDateRange: initialDateRange,
-      helpText: helperText,
-      // builder: (context, child) {
-      //   return Center(
-      //     child: Column(
-      //       mainAxisAlignment: MainAxisAlignment.center,
-      //       children: [
-      //         Expanded(
-      //           child: ConstrainedBox(
-      //             constraints: const BoxConstraints(
-      //               maxWidth: 600.0,
-      //               maxHeight: 800.0,
-      //             ),
-      //             child: child,
-      //           ),
-      //         )
-      //       ],
-      //     ),
-      //   );
-      // },
-    );
+        context: this,
+        helpText: helperText,
+        initialDateRange: initialDateRange,
+        firstDate: firstDate ?? now,
+        lastDate: lastDate ?? now.add(Duration(days: _lastDate)),
+        builder: (_, child) {
+          return Column(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(top: 50.0),
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(
+                    maxHeight: 800,
+                    maxWidth: 700,
+                  ),
+                  child: child,
+                ),
+              ),
+            ],
+          );
+        });
   }
 
   Future<TimeOfDay?> selectTime(String helpText) => showTimePicker(
@@ -149,18 +148,4 @@ extension DateTimeContextEx on BuildContext {
         helpText: helpText,
         initialTime: TimeOfDay.now(),
       );
-
-// Future<DateTime?> setDateAndTime({required String helpDateText,
-//   required String helperTimeText,
-//   DateTime? initialDate}) async {
-//   final selectedDate = await selectDate(helpDateText, initialDate);
-//   if (selectedDate != null) {
-//     final selectedTime = await selectTime(helperTimeText) ?? TimeOfDay.now();
-//     final dateTime = DateTime(selectedDate.year, selectedDate.month,
-//         selectedDate.day, selectedTime.hour, selectedTime.minute);
-//
-//     return dateTime;
-//   }
-//   return null;
-// }
 }
