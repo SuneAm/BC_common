@@ -22,6 +22,7 @@ Holiday _$HolidayFromJson(Map<String, dynamic> json) {
 mixin _$Holiday {
   String get id => throw _privateConstructorUsedError;
   String get holidayName => throw _privateConstructorUsedError;
+  bool get isRecurring => throw _privateConstructorUsedError;
   @TimestampSerializer()
   DateTime get startDate => throw _privateConstructorUsedError;
   @TimestampSerializer()
@@ -46,6 +47,7 @@ abstract class $HolidayCopyWith<$Res> {
   $Res call(
       {String id,
       String holidayName,
+      bool isRecurring,
       @TimestampSerializer() DateTime startDate,
       @TimestampSerializer() DateTime endDate,
       @TimestampSerializer() DateTime createdAt});
@@ -68,6 +70,7 @@ class _$HolidayCopyWithImpl<$Res, $Val extends Holiday>
   $Res call({
     Object? id = null,
     Object? holidayName = null,
+    Object? isRecurring = null,
     Object? startDate = null,
     Object? endDate = null,
     Object? createdAt = null,
@@ -81,6 +84,10 @@ class _$HolidayCopyWithImpl<$Res, $Val extends Holiday>
           ? _value.holidayName
           : holidayName // ignore: cast_nullable_to_non_nullable
               as String,
+      isRecurring: null == isRecurring
+          ? _value.isRecurring
+          : isRecurring // ignore: cast_nullable_to_non_nullable
+              as bool,
       startDate: null == startDate
           ? _value.startDate
           : startDate // ignore: cast_nullable_to_non_nullable
@@ -107,6 +114,7 @@ abstract class _$$HolidayImplCopyWith<$Res> implements $HolidayCopyWith<$Res> {
   $Res call(
       {String id,
       String holidayName,
+      bool isRecurring,
       @TimestampSerializer() DateTime startDate,
       @TimestampSerializer() DateTime endDate,
       @TimestampSerializer() DateTime createdAt});
@@ -127,6 +135,7 @@ class __$$HolidayImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? holidayName = null,
+    Object? isRecurring = null,
     Object? startDate = null,
     Object? endDate = null,
     Object? createdAt = null,
@@ -140,6 +149,10 @@ class __$$HolidayImplCopyWithImpl<$Res>
           ? _value.holidayName
           : holidayName // ignore: cast_nullable_to_non_nullable
               as String,
+      isRecurring: null == isRecurring
+          ? _value.isRecurring
+          : isRecurring // ignore: cast_nullable_to_non_nullable
+              as bool,
       startDate: null == startDate
           ? _value.startDate
           : startDate // ignore: cast_nullable_to_non_nullable
@@ -162,6 +175,7 @@ class _$HolidayImpl extends _Holiday with DiagnosticableTreeMixin {
   const _$HolidayImpl(
       {this.id = '',
       required this.holidayName,
+      this.isRecurring = true,
       @TimestampSerializer() required this.startDate,
       @TimestampSerializer() required this.endDate,
       @TimestampSerializer() required this.createdAt})
@@ -176,6 +190,9 @@ class _$HolidayImpl extends _Holiday with DiagnosticableTreeMixin {
   @override
   final String holidayName;
   @override
+  @JsonKey()
+  final bool isRecurring;
+  @override
   @TimestampSerializer()
   final DateTime startDate;
   @override
@@ -187,7 +204,7 @@ class _$HolidayImpl extends _Holiday with DiagnosticableTreeMixin {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Holiday(id: $id, holidayName: $holidayName, startDate: $startDate, endDate: $endDate, createdAt: $createdAt)';
+    return 'Holiday(id: $id, holidayName: $holidayName, isRecurring: $isRecurring, startDate: $startDate, endDate: $endDate, createdAt: $createdAt)';
   }
 
   @override
@@ -197,6 +214,7 @@ class _$HolidayImpl extends _Holiday with DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('type', 'Holiday'))
       ..add(DiagnosticsProperty('id', id))
       ..add(DiagnosticsProperty('holidayName', holidayName))
+      ..add(DiagnosticsProperty('isRecurring', isRecurring))
       ..add(DiagnosticsProperty('startDate', startDate))
       ..add(DiagnosticsProperty('endDate', endDate))
       ..add(DiagnosticsProperty('createdAt', createdAt));
@@ -210,6 +228,8 @@ class _$HolidayImpl extends _Holiday with DiagnosticableTreeMixin {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.holidayName, holidayName) ||
                 other.holidayName == holidayName) &&
+            (identical(other.isRecurring, isRecurring) ||
+                other.isRecurring == isRecurring) &&
             (identical(other.startDate, startDate) ||
                 other.startDate == startDate) &&
             (identical(other.endDate, endDate) || other.endDate == endDate) &&
@@ -219,8 +239,8 @@ class _$HolidayImpl extends _Holiday with DiagnosticableTreeMixin {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, holidayName, startDate, endDate, createdAt);
+  int get hashCode => Object.hash(
+      runtimeType, id, holidayName, isRecurring, startDate, endDate, createdAt);
 
   /// Create a copy of Holiday
   /// with the given fields replaced by the non-null parameter values.
@@ -242,6 +262,7 @@ abstract class _Holiday extends Holiday {
   const factory _Holiday(
           {final String id,
           required final String holidayName,
+          final bool isRecurring,
           @TimestampSerializer() required final DateTime startDate,
           @TimestampSerializer() required final DateTime endDate,
           @TimestampSerializer() required final DateTime createdAt}) =
@@ -254,6 +275,8 @@ abstract class _Holiday extends Holiday {
   String get id;
   @override
   String get holidayName;
+  @override
+  bool get isRecurring;
   @override
   @TimestampSerializer()
   DateTime get startDate;

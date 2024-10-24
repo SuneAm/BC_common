@@ -10,6 +10,7 @@ _$HolidayImpl _$$HolidayImplFromJson(Map<String, dynamic> json) =>
     _$HolidayImpl(
       id: json['id'] as String? ?? '',
       holidayName: json['holidayName'] as String,
+      isRecurring: json['isRecurring'] as bool? ?? true,
       startDate:
           const TimestampSerializer().fromJson(json['startDate'] as Timestamp),
       endDate:
@@ -22,6 +23,7 @@ Map<String, dynamic> _$$HolidayImplToJson(_$HolidayImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'holidayName': instance.holidayName,
+      'isRecurring': instance.isRecurring,
       'startDate': const TimestampSerializer().toJson(instance.startDate),
       'endDate': const TimestampSerializer().toJson(instance.endDate),
       'createdAt': const TimestampSerializer().toJson(instance.createdAt),

@@ -15,6 +15,7 @@ abstract class Holiday implements _$Holiday {
   const factory Holiday({
     @Default('') String id,
     required String holidayName,
+    @Default(true) bool isRecurring,
     @TimestampSerializer() required DateTime startDate,
     @TimestampSerializer() required DateTime endDate,
     @TimestampSerializer() required DateTime createdAt,

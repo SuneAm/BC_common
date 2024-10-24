@@ -24,7 +24,7 @@ class HolidayRepository {
 
   Future<List<Holiday>> getHolidays() async {
     final snapshot =
-        await _firestore.collection(_collectionName).orderBy('createdAt').get();
+        await _firestore.collection(_collectionName).orderBy('startDate').get();
 
     return snapshot.docs.map((snap) => Holiday.fromFirestore(snap)).toList();
   }
