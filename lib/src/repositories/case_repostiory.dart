@@ -204,7 +204,7 @@ class CaseRepository {
   }
 
   // updating case
-  void updateCase(Case caseItem, {bool merge = true}) async {
+  Future<void> updateCase(Case caseItem, {bool merge = true}) async {
     final casesRef = _firestore.collection('cases').doc(caseItem.caseNumber);
     await casesRef.set(
       caseItem.toFirestore(),
@@ -214,7 +214,7 @@ class CaseRepository {
 }
 
 final watchProduktionCases = StreamProvider<List<Case>>(
-        (ref) => ref.watch(caseRepoProvider).watchProduktionCases());
+    (ref) => ref.watch(caseRepoProvider).watchProduktionCases());
 
 final watchMontageCases = StreamProvider<List<Case>>(
-        (ref) => ref.watch(caseRepoProvider).watchMontageCases());
+    (ref) => ref.watch(caseRepoProvider).watchMontageCases());
