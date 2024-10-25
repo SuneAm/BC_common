@@ -21,9 +21,9 @@ CaseCalendar _$CaseCalendarFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$CaseCalendar {
   @TimestampSerializer()
-  DateTime? get startDate => throw _privateConstructorUsedError;
+  DateTime get startDate => throw _privateConstructorUsedError;
   @TimestampSerializer()
-  DateTime? get endDate => throw _privateConstructorUsedError;
+  DateTime get endDate => throw _privateConstructorUsedError;
 
   /// Serializes this CaseCalendar to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -42,8 +42,8 @@ abstract class $CaseCalendarCopyWith<$Res> {
       _$CaseCalendarCopyWithImpl<$Res, CaseCalendar>;
   @useResult
   $Res call(
-      {@TimestampSerializer() DateTime? startDate,
-      @TimestampSerializer() DateTime? endDate});
+      {@TimestampSerializer() DateTime startDate,
+      @TimestampSerializer() DateTime endDate});
 }
 
 /// @nodoc
@@ -61,18 +61,18 @@ class _$CaseCalendarCopyWithImpl<$Res, $Val extends CaseCalendar>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? startDate = freezed,
-    Object? endDate = freezed,
+    Object? startDate = null,
+    Object? endDate = null,
   }) {
     return _then(_value.copyWith(
-      startDate: freezed == startDate
+      startDate: null == startDate
           ? _value.startDate
           : startDate // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      endDate: freezed == endDate
+              as DateTime,
+      endDate: null == endDate
           ? _value.endDate
           : endDate // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+              as DateTime,
     ) as $Val);
   }
 }
@@ -86,8 +86,8 @@ abstract class _$$CaseCalendarImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@TimestampSerializer() DateTime? startDate,
-      @TimestampSerializer() DateTime? endDate});
+      {@TimestampSerializer() DateTime startDate,
+      @TimestampSerializer() DateTime endDate});
 }
 
 /// @nodoc
@@ -103,18 +103,18 @@ class __$$CaseCalendarImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? startDate = freezed,
-    Object? endDate = freezed,
+    Object? startDate = null,
+    Object? endDate = null,
   }) {
     return _then(_$CaseCalendarImpl(
-      startDate: freezed == startDate
+      startDate: null == startDate
           ? _value.startDate
           : startDate // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      endDate: freezed == endDate
+              as DateTime,
+      endDate: null == endDate
           ? _value.endDate
           : endDate // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+              as DateTime,
     ));
   }
 }
@@ -123,18 +123,18 @@ class __$$CaseCalendarImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$CaseCalendarImpl with DiagnosticableTreeMixin implements _CaseCalendar {
   const _$CaseCalendarImpl(
-      {@TimestampSerializer() this.startDate,
-      @TimestampSerializer() this.endDate});
+      {@TimestampSerializer() required this.startDate,
+      @TimestampSerializer() required this.endDate});
 
   factory _$CaseCalendarImpl.fromJson(Map<String, dynamic> json) =>
       _$$CaseCalendarImplFromJson(json);
 
   @override
   @TimestampSerializer()
-  final DateTime? startDate;
+  final DateTime startDate;
   @override
   @TimestampSerializer()
-  final DateTime? endDate;
+  final DateTime endDate;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
@@ -182,18 +182,19 @@ class _$CaseCalendarImpl with DiagnosticableTreeMixin implements _CaseCalendar {
 
 abstract class _CaseCalendar implements CaseCalendar {
   const factory _CaseCalendar(
-      {@TimestampSerializer() final DateTime? startDate,
-      @TimestampSerializer() final DateTime? endDate}) = _$CaseCalendarImpl;
+          {@TimestampSerializer() required final DateTime startDate,
+          @TimestampSerializer() required final DateTime endDate}) =
+      _$CaseCalendarImpl;
 
   factory _CaseCalendar.fromJson(Map<String, dynamic> json) =
       _$CaseCalendarImpl.fromJson;
 
   @override
   @TimestampSerializer()
-  DateTime? get startDate;
+  DateTime get startDate;
   @override
   @TimestampSerializer()
-  DateTime? get endDate;
+  DateTime get endDate;
 
   /// Create a copy of CaseCalendar
   /// with the given fields replaced by the non-null parameter values.
