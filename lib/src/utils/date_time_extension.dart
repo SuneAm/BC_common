@@ -25,7 +25,7 @@ extension DateTimeExtension on DateTime {
   }
 
   String get formatEventDateShort {
-    final dateFormat = DateFormat('MMMM d'); // Nov 30
+    final dateFormat = DateFormat('d MMM'); // Nov 30
     return dateFormat.format(this);
   }
 

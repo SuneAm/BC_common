@@ -1,12 +1,8 @@
 import 'package:flutter/foundation.dart';
-import 'package:ordrestyring_common/src/domain/case/case_calendar.dart';
-import 'package:ordrestyring_common/src/domain/case/contact_person.dart';
+import 'package:ordrestyring_common/ordrestyring_common.dart';
 import 'package:ordrestyring_common/src/domain/case/delivery_address.dart';
 
-import 'case_estimated_hour.dart';
 import 'case_type.dart';
-import 'economy.dart';
-import 'hour_aggregate.dart';
 import 'responsible_user.dart';
 import 'status.dart';
 
@@ -32,6 +28,8 @@ class Case {
     this.editorCalendar,
     this.productionCalendar,
     this.montageCalendar,
+    this.productionUsers,
+    this.montageUsers,
   });
 
   final int id;
@@ -57,6 +55,8 @@ class Case {
   final CaseCalendar? editorCalendar;
   final CaseCalendar? productionCalendar;
   final CaseCalendar? montageCalendar;
+  final List<User>? productionUsers;
+  final List<User>? montageUsers;
 
   Map<String, dynamic> toFirestore() {
     return {
@@ -82,6 +82,10 @@ class Case {
       if (productionCalendar != null)
         'productionCalendar': productionCalendar?.toJson(),
       if (montageCalendar != null) 'montageCalendar': montageCalendar?.toJson(),
+      if (productionUsers != null)
+        'productionUsers': productionUsers!.map((u) => u.toJson()),
+      if (montageUsers != null)
+        'montageUsers': montageUsers!.map((u) => u.toJson()),
     };
   }
 
@@ -104,11 +108,13 @@ class Case {
   factory Case.fromFirestore(Map<String, dynamic> json) {
     final estimatedHour = json['estimatedHours'];
     final deliveryAddress = json['deliveryAddress'];
-    final contactPersons = json['contactPersons'] as List? ?? [];
+    final contactPersons = json['contactPersons'] as List?;
 
     final editorCalendar = json['editorCalendar'];
     final productionCalendar = json['productionCalendar'];
     final montageCalendar = json['montageCalendar'];
+    final productionUsers = json['productionUsers'] as List?;
+    final montageUsers = json['montageUsers'] as List?;
 
     return Case(
       id: json['id'],
@@ -129,7 +135,7 @@ class Case {
           ? null
           : DeliveryAddress.fromJson(deliveryAddress),
       contactPersons:
-          contactPersons.map((e) => ContactPerson.fromJson(e)).toList(),
+          contactPersons?.map((e) => ContactPerson.fromJson(e)).toList(),
       isProduktion: json['isProduktion'] ?? false,
       isMontage: json['isMontage'] ?? false,
       useInCalendar: json['useInCalendar'] ?? false,
@@ -142,6 +148,8 @@ class Case {
       montageCalendar: montageCalendar == null
           ? null
           : CaseCalendar.fromJson(montageCalendar),
+      productionUsers: productionUsers?.map((u) => User.fromJson(u)).toList(),
+      montageUsers: montageUsers?.map((u) => User.fromJson(u)).toList(),
     );
   }
 
@@ -166,6 +174,8 @@ class Case {
     CaseCalendar? editorCalendar,
     CaseCalendar? productionCalendar,
     CaseCalendar? montageCalendar,
+    List<User>? productionUsers,
+    List<User>? montageUsers,
   }) {
     return Case(
       id: id ?? this.id,
@@ -187,6 +197,8 @@ class Case {
       editorCalendar: editorCalendar,
       productionCalendar: productionCalendar,
       montageCalendar: montageCalendar,
+      productionUsers: productionUsers,
+      montageUsers: montageUsers,
     );
   }
 }
