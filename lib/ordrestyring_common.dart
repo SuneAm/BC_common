@@ -9,6 +9,7 @@ export 'package:url_launcher/url_launcher.dart';
 
 // other
 export 'src/http_overrides.dart';
+export 'src/styles/ordrer_colors.dart';
 
 // repos
 export 'src/repositories/case_repostiory.dart';
@@ -49,6 +50,8 @@ export 'src/common_widgets/text/caption_text.dart';
 export 'src/common_widgets/list/scroll_with_bar.dart';
 export 'src/common_widgets/list/case_list_view.dart';
 export 'src/common_widgets/production_case_item.dart';
+export 'src/common_widgets/calendar/week_top_view.dart';
+export 'src/common_widgets/calendar/produktion_calendar_view.dart';
 
 // responsive
 export 'src/common_widgets/responsive/responsive_widget.dart';

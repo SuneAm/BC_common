@@ -213,6 +213,9 @@ class CaseRepository {
   }
 }
 
+final watchCasesProvider = StreamProvider<List<Case>>(
+  (ref) => ref.watch(caseRepoProvider).watchCases(),
+);
 final watchProduktionCases = StreamProvider<List<Case>>(
     (ref) => ref.watch(caseRepoProvider).watchProduktionCases());
 
