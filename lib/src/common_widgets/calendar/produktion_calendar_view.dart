@@ -1,53 +1,70 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:ordrestyring_common/ordrestyring_common.dart';
 import 'package:ordrestyring_common/src/common_widgets/containers/app_icon_container.dart';
 
 part 'produktion_calendar_controller.dart';
 part 'produktion_calendar_navigation_row.dart';
 
-class ProduktionCalendarView extends ConsumerWidget {
+class ProduktionCalendarView extends HookConsumerWidget {
   const ProduktionCalendarView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final zoomLevel = ref.watch(_produktionZoomLevelProvider);
     final startRangeDate = ref.watch(_startRangeProvider);
-    return Listener(
-      onPointerSignal: (event) {
-        if (event is PointerScrollEvent) {
-          final yScroll = event.scrollDelta.dy;
-          final currentStartRange = ref.read(_startRangeProvider);
-          late final DateTime newRange;
-          final duration = Duration(days: (zoomLevel.index + 1) <= 3 ? 1 : 7);
+    final focusNode = useFocusNode();
 
-          if (yScroll <= 0) {
-            newRange = currentStartRange.add(duration);
-          } else if (yScroll > 0) {
-            newRange = currentStartRange.subtract(duration);
-          } else {
-            newRange = currentStartRange;
-          }
-          ref.read(_startRangeProvider.notifier).state = newRange;
+    final isShiftPressed = useState<bool>(false);
+    return KeyboardListener(
+      focusNode: focusNode,
+      autofocus: true,
+      onKeyEvent: (event) {
+        if (event is KeyDownEvent &&
+            event.logicalKey == LogicalKeyboardKey.shiftLeft) {
+          isShiftPressed.value = true;
+        } else {
+          isShiftPressed.value = false;
         }
       },
-      child: ColoredBox(
-        color: Colors.white,
-        child: Column(
-          children: [
-            const _ProduktionCalendarNavigationRow(),
-            Expanded(
-              child: Stack(
-                children: [
-                  WeekTopView(
-                    totalWeeks: zoomLevel.totalWeeks,
-                    startRangeDate: startRangeDate,
-                  ),
-                  const _BarAcrossColumns(),
-                ],
+      child: Listener(
+        onPointerSignal: (event) {
+          if (!isShiftPressed.value) return;
+          if (event is PointerScrollEvent) {
+            final xScroll = event.scrollDelta.dx;
+            final currentStartRange = ref.read(_startRangeProvider);
+            late final DateTime newRange;
+            const duration = Duration(days: 7);
+
+            if (xScroll <= 0) {
+              newRange = currentStartRange.add(duration);
+            } else if (xScroll > 0) {
+              newRange = currentStartRange.subtract(duration);
+            } else {
+              newRange = currentStartRange;
+            }
+            ref.read(_startRangeProvider.notifier).state = newRange;
+          }
+        },
+        child: ColoredBox(
+          color: Colors.white,
+          child: Column(
+            children: [
+              const _ProduktionCalendarNavigationRow(),
+              Expanded(
+                child: Stack(
+                  children: [
+                    WeekTopView(
+                      totalWeeks: zoomLevel.totalWeeks,
+                      startRangeDate: startRangeDate,
+                    ),
+                    const _BarAcrossColumns(),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -58,7 +75,7 @@ class _BarAcrossColumns extends ConsumerWidget {
   const _BarAcrossColumns();
 
   // months height + weeks height + days height
-  double get topPadding => 32 + 20 + 30.0;
+  double get topMargin => 32 + 20 + 30.0;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -93,46 +110,26 @@ class _BarAcrossColumns extends ConsumerWidget {
         // Calculate the space allocated for each day
         final spacePerDay = maxWidthInView / totalDaysInView;
 
-        return SingleChildScrollView(
-          padding: EdgeInsets.only(top: topPadding),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: casesInView.map((caseItem) {
-              final adjustedViewFirstDate = DateTime(
-                viewFirstDate.year,
-                viewFirstDate.month,
-                viewFirstDate.day,
-              );
+        return Container(
+          width: maxWidthInView,
+          margin: EdgeInsets.only(top: topMargin),
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.only(bottom: 8),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: casesInView.map((caseItem) {
+                final adjustedViewFirstDate = DateTime(
+                  viewFirstDate.year,
+                  viewFirstDate.month,
+                  viewFirstDate.day,
+                );
 
-              final bars = <ProduktionBar>[];
+                final bars = <ProduktionBar>[];
 
-              final editor = caseItem.editorCalendar!;
+                final editor = caseItem.editorCalendar!;
 
-              final editorBar = calculateBar(
-                calendar: editor,
-                spacePerDay: spacePerDay,
-                adjustedViewFirstDate: adjustedViewFirstDate,
-              );
-
-              bars.add(
-                ProduktionBar(
-                  caseId: caseItem.caseNumber,
-                  projectName: caseItem.projectName,
-                  barColor: OrdrerColors.kEditorColor,
-                  barWidth: editorBar.$1,
-                  leftPosition: editorBar.$2,
-                  startDate: editor.startDate,
-                  endDate: editor.endDate,
-                  appointedUsers: const [],
-                ),
-              );
-
-              if (caseItem.productionCalendar != null &&
-                  caseItem.productionCalendar!.endDate.isAfter(viewFirstDate)) {
-                final calendar = caseItem.productionCalendar!;
-
-                final calendarBar = calculateBar(
-                  calendar: calendar,
+                final editorBar = calculateBar(
+                  calendar: editor,
                   spacePerDay: spacePerDay,
                   adjustedViewFirstDate: adjustedViewFirstDate,
                 );
@@ -140,47 +137,72 @@ class _BarAcrossColumns extends ConsumerWidget {
                 bars.add(
                   ProduktionBar(
                     caseId: caseItem.caseNumber,
-                    projectName: '',
-                    barColor: OrdrerColors.kProduktionAppColor,
-                    barWidth: calendarBar.$1,
-                    leftPosition: calendarBar.$2,
-                    startDate: calendar.startDate,
-                    endDate: calendar.endDate,
-                    appointedUsers: caseItem.productionUsers ?? [],
+                    projectName: caseItem.projectName,
+                    barColor: OrdrerColors.kEditorColor,
+                    barWidth: editorBar.$1,
+                    leftPosition: editorBar.$2,
+                    startDate: editor.startDate,
+                    endDate: editor.endDate,
+                    appointedUsers: const [],
                   ),
                 );
-              }
 
-              if (caseItem.montageCalendar != null &&
-                  caseItem.montageCalendar!.endDate.isAfter(viewFirstDate)) {
-                final montage = caseItem.montageCalendar!;
+                if (caseItem.productionCalendar != null &&
+                    caseItem.productionCalendar!.endDate
+                        .isAfter(viewFirstDate)) {
+                  final calendar = caseItem.productionCalendar!;
 
-                final montageBar = calculateBar(
-                  calendar: montage,
+                  final calendarBar = calculateBar(
+                    calendar: calendar,
+                    spacePerDay: spacePerDay,
+                    adjustedViewFirstDate: adjustedViewFirstDate,
+                  );
+
+                  bars.add(
+                    ProduktionBar(
+                      caseId: caseItem.caseNumber,
+                      projectName: '',
+                      barColor: OrdrerColors.kProduktionAppColor,
+                      barWidth: calendarBar.$1,
+                      leftPosition: calendarBar.$2,
+                      startDate: calendar.startDate,
+                      endDate: calendar.endDate,
+                      appointedUsers: caseItem.productionUsers ?? [],
+                    ),
+                  );
+                }
+
+                if (caseItem.montageCalendar != null &&
+                    caseItem.montageCalendar!.endDate.isAfter(viewFirstDate)) {
+                  final montage = caseItem.montageCalendar!;
+
+                  final montageBar = calculateBar(
+                    calendar: montage,
+                    spacePerDay: spacePerDay,
+                    adjustedViewFirstDate: adjustedViewFirstDate,
+                  );
+
+                  bars.add(
+                    ProduktionBar(
+                      caseId: caseItem.caseNumber,
+                      projectName: '',
+                      barColor: OrdrerColors.kMontageAppColor,
+                      barWidth: montageBar.$1,
+                      leftPosition: montageBar.$2,
+                      startDate: montage.startDate,
+                      endDate: montage.endDate,
+                      appointedUsers: caseItem.montageUsers ?? [],
+                    ),
+                  );
+                }
+
+                return _Bar(
+                  produktionBars: bars,
                   spacePerDay: spacePerDay,
-                  adjustedViewFirstDate: adjustedViewFirstDate,
+                  viewFirstDate: adjustedViewFirstDate,
                 );
-
-                bars.add(
-                  ProduktionBar(
-                    caseId: caseItem.caseNumber,
-                    projectName: '',
-                    barColor: OrdrerColors.kMontageAppColor,
-                    barWidth: montageBar.$1,
-                    leftPosition: montageBar.$2,
-                    startDate: montage.startDate,
-                    endDate: montage.endDate,
-                    appointedUsers: caseItem.montageUsers ?? [],
-                  ),
-                );
-              }
-
-              return _Bar(
-                produktionBars: bars,
-                spacePerDay: spacePerDay,
-                viewFirstDate: adjustedViewFirstDate,
-              );
-            }).toList(),
+              }).toList(),
+            ),
           ),
         );
       },
