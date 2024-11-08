@@ -5,6 +5,7 @@ import 'package:ordrestyring_common/ordrestyring_common.dart';
 import 'package:ordrestyring_common/src/common_widgets/containers/app_icon_container.dart';
 
 part 'produktion_calendar_controller.dart';
+
 part 'produktion_calendar_navigation_row.dart';
 
 class ProduktionCalendarView extends HookConsumerWidget {
@@ -24,7 +25,8 @@ class ProduktionCalendarView extends HookConsumerWidget {
         if (event is KeyDownEvent &&
             event.logicalKey == LogicalKeyboardKey.shiftLeft) {
           isShiftPressed.value = true;
-        } else {
+        } else if (event is KeyUpEvent &&
+            event.logicalKey == LogicalKeyboardKey.shiftLeft) {
           isShiftPressed.value = false;
         }
       },
