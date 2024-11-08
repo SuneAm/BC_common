@@ -7,12 +7,12 @@ final produktionCalendarCases = Provider.autoDispose<List<Case>>((ref) {
   return cases.where((element) => element.useInCalendar ?? false).toList();
 });
 
-final _startRange = StateProvider.autoDispose<DateTime>(
+final _startRangeProvider = StateProvider.autoDispose<DateTime>(
   (ref) => HelperMethod.getStartOfCurrentWeek(),
 );
 
 final _endRangeProvider = Provider.autoDispose<DateTime>((ref) {
-  final startRange = ref.watch(_startRange);
+  final startRange = ref.watch(_startRangeProvider);
   final ferieZoomLevel = ref.watch(_produktionZoomLevelProvider);
   return startRange.add(
     Duration(

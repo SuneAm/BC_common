@@ -16,12 +16,12 @@ class _ProduktionCalendarNavigationRow extends ConsumerWidget {
             iconSize: 20,
             icon: Icons.arrow_back_ios_new,
             onTap: () {
-              final currentStartRange = ref.read(_startRange);
+              final currentStartRange = ref.read(_startRangeProvider);
 
               final newRange =
                   currentStartRange.subtract(const Duration(days: 7));
 
-              ref.read(_startRange.notifier).state = newRange;
+              ref.read(_startRangeProvider.notifier).state = newRange;
             },
           ),
           AppIconContainer(
@@ -40,11 +40,11 @@ class _ProduktionCalendarNavigationRow extends ConsumerWidget {
             iconSize: 20,
             icon: Icons.arrow_forward_ios,
             onTap: () {
-              final currentStartRange = ref.read(_startRange);
+              final currentStartRange = ref.read(_startRangeProvider);
 
               final newRange = currentStartRange.add(const Duration(days: 7));
 
-              ref.read(_startRange.notifier).state = newRange;
+              ref.read(_startRangeProvider.notifier).state = newRange;
             },
           ),
         ],

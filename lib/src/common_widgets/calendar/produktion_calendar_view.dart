@@ -1,9 +1,9 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:ordrestyring_common/ordrestyring_common.dart';
 import 'package:ordrestyring_common/src/common_widgets/containers/app_icon_container.dart';
 
 part 'produktion_calendar_controller.dart';
-
 part 'produktion_calendar_navigation_row.dart';
 
 class ProduktionCalendarView extends ConsumerWidget {
@@ -12,24 +12,43 @@ class ProduktionCalendarView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final zoomLevel = ref.watch(_produktionZoomLevelProvider);
-    final startRangeDate = ref.watch(_startRange);
-    return ColoredBox(
-      color: Colors.white,
-      child: Column(
-        children: [
-          const _ProduktionCalendarNavigationRow(),
-          Expanded(
-            child: Stack(
-              children: [
-                WeekTopView(
-                  totalWeeks: zoomLevel.totalWeeks,
-                  startRangeDate: startRangeDate,
-                ),
-                const _BarAcrossColumns(),
-              ],
+    final startRangeDate = ref.watch(_startRangeProvider);
+    return Listener(
+      onPointerSignal: (event) {
+        if (event is PointerScrollEvent) {
+          final yScroll = event.scrollDelta.dy;
+          final currentStartRange = ref.read(_startRangeProvider);
+          late final DateTime newRange;
+          final duration = Duration(days: (zoomLevel.index + 1) <= 3 ? 1 : 7);
+
+          if (yScroll <= 0) {
+            newRange = currentStartRange.add(duration);
+          } else if (yScroll > 0) {
+            newRange = currentStartRange.subtract(duration);
+          } else {
+            newRange = currentStartRange;
+          }
+          ref.read(_startRangeProvider.notifier).state = newRange;
+        }
+      },
+      child: ColoredBox(
+        color: Colors.white,
+        child: Column(
+          children: [
+            const _ProduktionCalendarNavigationRow(),
+            Expanded(
+              child: Stack(
+                children: [
+                  WeekTopView(
+                    totalWeeks: zoomLevel.totalWeeks,
+                    startRangeDate: startRangeDate,
+                  ),
+                  const _BarAcrossColumns(),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -46,7 +65,7 @@ class _BarAcrossColumns extends ConsumerWidget {
     final cases = ref.watch(produktionCalendarCases);
     if (cases.isEmpty) return const SizedBox();
 
-    final viewFirstDate = ref.watch(_startRange);
+    final viewFirstDate = ref.watch(_startRangeProvider);
     final viewLastDate = ref.watch(_endRangeProvider);
 
     final editorCases = cases.where((e) => e.editorCalendar != null).toList();
