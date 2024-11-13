@@ -1,10 +1,12 @@
 part of 'produktion_calendar_view.dart';
 
-final produktionCalendarCases = Provider.autoDispose<List<Case>>((ref) {
-  final value = ref.watch(watchCasesProvider);
+final produktionCasesNotifierProvider =
+    StateNotifierProvider<CasesStateNotifier, List<Case>>((ref) {
+  final value = ref.watch(watchCasesProvider).value ?? [];
 
-  final cases = value.value ?? [];
-  return cases.where((element) => element.useInCalendar ?? false).toList();
+  return CasesStateNotifier(
+    value.where((element) => element.useInCalendar ?? false).toList(),
+  );
 });
 
 final _startRangeProvider = StateProvider.autoDispose<DateTime>(

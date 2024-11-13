@@ -11,6 +11,9 @@ export 'package:url_launcher/url_launcher.dart';
 export 'src/http_overrides.dart';
 export 'src/styles/ordrer_colors.dart';
 
+// controllers
+export 'src/controllers/case_controller.dart';
+
 // repos
 export 'src/repositories/case_repostiory.dart';
 export 'src/repositories/user_repository.dart';

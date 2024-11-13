@@ -81,7 +81,7 @@ class _BarAcrossColumns extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final cases = ref.watch(produktionCalendarCases);
+    final cases = ref.watch(produktionCasesNotifierProvider);
     if (cases.isEmpty) return const SizedBox();
 
     final viewFirstDate = ref.watch(_startRangeProvider);
