@@ -9,6 +9,6 @@ part 'vacation_wrapper.freezed.dart';
 abstract class VacationWrapper with _$VacationWrapper {
   const factory VacationWrapper.holiday(Holiday holiday) =
       _HolidayVacationWrapper;
-  const factory VacationWrapper.vacation(Vacation vacation) =
+  const factory VacationWrapper.vacation(List<Vacation> vacations) =
       _VacationVacationWrapper;
 }
