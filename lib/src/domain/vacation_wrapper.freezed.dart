@@ -19,19 +19,19 @@ mixin _$VacationWrapper {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(Holiday holiday) holiday,
-    required TResult Function(List<Vacation> vacations) vacation,
+    required TResult Function(Vacation vacation) vacation,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(Holiday holiday)? holiday,
-    TResult? Function(List<Vacation> vacations)? vacation,
+    TResult? Function(Vacation vacation)? vacation,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Holiday holiday)? holiday,
-    TResult Function(List<Vacation> vacations)? vacation,
+    TResult Function(Vacation vacation)? vacation,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -161,7 +161,7 @@ class _$HolidayVacationWrapperImpl implements _HolidayVacationWrapper {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(Holiday holiday) holiday,
-    required TResult Function(List<Vacation> vacations) vacation,
+    required TResult Function(Vacation vacation) vacation,
   }) {
     return holiday(this.holiday);
   }
@@ -170,7 +170,7 @@ class _$HolidayVacationWrapperImpl implements _HolidayVacationWrapper {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(Holiday holiday)? holiday,
-    TResult? Function(List<Vacation> vacations)? vacation,
+    TResult? Function(Vacation vacation)? vacation,
   }) {
     return holiday?.call(this.holiday);
   }
@@ -179,7 +179,7 @@ class _$HolidayVacationWrapperImpl implements _HolidayVacationWrapper {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Holiday holiday)? holiday,
-    TResult Function(List<Vacation> vacations)? vacation,
+    TResult Function(Vacation vacation)? vacation,
     required TResult orElse(),
   }) {
     if (holiday != null) {
@@ -240,7 +240,9 @@ abstract class _$$VacationVacationWrapperImplCopyWith<$Res> {
           $Res Function(_$VacationVacationWrapperImpl) then) =
       __$$VacationVacationWrapperImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<Vacation> vacations});
+  $Res call({Vacation vacation});
+
+  $VacationCopyWith<$Res> get vacation;
 }
 
 /// @nodoc
@@ -257,34 +259,38 @@ class __$$VacationVacationWrapperImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? vacations = null,
+    Object? vacation = null,
   }) {
     return _then(_$VacationVacationWrapperImpl(
-      null == vacations
-          ? _value._vacations
-          : vacations // ignore: cast_nullable_to_non_nullable
-              as List<Vacation>,
+      null == vacation
+          ? _value.vacation
+          : vacation // ignore: cast_nullable_to_non_nullable
+              as Vacation,
     ));
+  }
+
+  /// Create a copy of VacationWrapper
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $VacationCopyWith<$Res> get vacation {
+    return $VacationCopyWith<$Res>(_value.vacation, (value) {
+      return _then(_value.copyWith(vacation: value));
+    });
   }
 }
 
 /// @nodoc
 
 class _$VacationVacationWrapperImpl implements _VacationVacationWrapper {
-  const _$VacationVacationWrapperImpl(final List<Vacation> vacations)
-      : _vacations = vacations;
+  const _$VacationVacationWrapperImpl(this.vacation);
 
-  final List<Vacation> _vacations;
   @override
-  List<Vacation> get vacations {
-    if (_vacations is EqualUnmodifiableListView) return _vacations;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_vacations);
-  }
+  final Vacation vacation;
 
   @override
   String toString() {
-    return 'VacationWrapper.vacation(vacations: $vacations)';
+    return 'VacationWrapper.vacation(vacation: $vacation)';
   }
 
   @override
@@ -292,13 +298,12 @@ class _$VacationVacationWrapperImpl implements _VacationVacationWrapper {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$VacationVacationWrapperImpl &&
-            const DeepCollectionEquality()
-                .equals(other._vacations, _vacations));
+            (identical(other.vacation, vacation) ||
+                other.vacation == vacation));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_vacations));
+  int get hashCode => Object.hash(runtimeType, vacation);
 
   /// Create a copy of VacationWrapper
   /// with the given fields replaced by the non-null parameter values.
@@ -313,29 +318,29 @@ class _$VacationVacationWrapperImpl implements _VacationVacationWrapper {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(Holiday holiday) holiday,
-    required TResult Function(List<Vacation> vacations) vacation,
+    required TResult Function(Vacation vacation) vacation,
   }) {
-    return vacation(vacations);
+    return vacation(this.vacation);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(Holiday holiday)? holiday,
-    TResult? Function(List<Vacation> vacations)? vacation,
+    TResult? Function(Vacation vacation)? vacation,
   }) {
-    return vacation?.call(vacations);
+    return vacation?.call(this.vacation);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Holiday holiday)? holiday,
-    TResult Function(List<Vacation> vacations)? vacation,
+    TResult Function(Vacation vacation)? vacation,
     required TResult orElse(),
   }) {
     if (vacation != null) {
-      return vacation(vacations);
+      return vacation(this.vacation);
     }
     return orElse();
   }
@@ -373,10 +378,10 @@ class _$VacationVacationWrapperImpl implements _VacationVacationWrapper {
 }
 
 abstract class _VacationVacationWrapper implements VacationWrapper {
-  const factory _VacationVacationWrapper(final List<Vacation> vacations) =
+  const factory _VacationVacationWrapper(final Vacation vacation) =
       _$VacationVacationWrapperImpl;
 
-  List<Vacation> get vacations;
+  Vacation get vacation;
 
   /// Create a copy of VacationWrapper
   /// with the given fields replaced by the non-null parameter values.
