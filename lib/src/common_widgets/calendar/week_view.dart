@@ -97,7 +97,8 @@ class WeekView extends StatelessWidget {
                                             day.weekday == DateTime.saturday)
                                         ? Colors.grey.shade100
                                         : day.isToday
-                                            ? OrdrerColors.kEditorColor
+                                            ? Colors.orange
+                                                .shade200 //OrdrerColors.kEditorColor
                                             : null,
                                   ),
                                   child: Center(
@@ -120,7 +121,8 @@ class WeekView extends StatelessWidget {
                                         ),
                                         child: ColoredBox(
                                           color: day.isToday
-                                              ? OrdrerColors.kEditorColor
+                                              ? Colors.orange
+                                                  .shade200 // OrdrerColors.kEditorColor
                                               : Colors.grey.shade100,
                                         ),
                                       ),

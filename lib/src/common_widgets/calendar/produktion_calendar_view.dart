@@ -34,7 +34,7 @@ class ProduktionCalendarView extends HookConsumerWidget {
         onPointerSignal: (event) {
           if (!isShiftPressed.value) return;
           if (event is PointerScrollEvent) {
-            final xScroll = event.scrollDelta.dx;
+            final xScroll = event.scrollDelta.dy;
             final currentStartRange = ref.read(_startRangeProvider);
             late final DateTime newRange;
             const duration = Duration(days: 7);
