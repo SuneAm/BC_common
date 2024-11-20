@@ -15,12 +15,10 @@ class ProduktionCalendarView extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final zoomLevel = ref.watch(_produktionZoomLevelProvider);
     final startRangeDate = ref.watch(_startRangeProvider);
-    final focusNode = useFocusNode();
 
     final isShiftPressed = useState<bool>(false);
-    return KeyboardListener(
-      focusNode: focusNode,
-      autofocus: true,
+
+    return ShiftScrollListener(
       onKeyEvent: (event) {
         if (event is KeyDownEvent &&
             event.logicalKey == LogicalKeyboardKey.shiftLeft) {
@@ -30,43 +28,41 @@ class ProduktionCalendarView extends HookConsumerWidget {
           isShiftPressed.value = false;
         }
       },
-      child: Listener(
-        onPointerSignal: (event) {
-          if (!isShiftPressed.value) return;
-          if (event is PointerScrollEvent) {
-            final xScroll = event.scrollDelta.dy;
-            final currentStartRange = ref.read(_startRangeProvider);
-            late final DateTime newRange;
-            const duration = Duration(days: 7);
+      onPointerSignal: (event) {
+        if (!isShiftPressed.value) return;
+        if (event is PointerScrollEvent) {
+          final yScroll = event.scrollDelta.dy;
+          final currentStartRange = ref.read(_startRangeProvider);
+          late final DateTime newRange;
+          const duration = Duration(days: 7);
 
-            if (xScroll <= 0) {
-              newRange = currentStartRange.add(duration);
-            } else if (xScroll > 0) {
-              newRange = currentStartRange.subtract(duration);
-            } else {
-              newRange = currentStartRange;
-            }
-            ref.read(_startRangeProvider.notifier).state = newRange;
+          if (yScroll <= 0) {
+            newRange = currentStartRange.add(duration);
+          } else if (yScroll > 0) {
+            newRange = currentStartRange.subtract(duration);
+          } else {
+            newRange = currentStartRange;
           }
-        },
-        child: ColoredBox(
-          color: Colors.white,
-          child: Column(
-            children: [
-              const _ProduktionCalendarNavigationRow(),
-              Expanded(
-                child: Stack(
-                  children: [
-                    WeekTopView(
-                      totalWeeks: zoomLevel.totalWeeks,
-                      startRangeDate: startRangeDate,
-                    ),
-                    const _BarAcrossColumns(),
-                  ],
-                ),
+          ref.read(_startRangeProvider.notifier).state = newRange;
+        }
+      },
+      child: ColoredBox(
+        color: Colors.white,
+        child: Column(
+          children: [
+            const _ProduktionCalendarNavigationRow(),
+            Expanded(
+              child: Stack(
+                children: [
+                  WeekTopView(
+                    totalWeeks: zoomLevel.totalWeeks,
+                    startRangeDate: startRangeDate,
+                  ),
+                  const _BarAcrossColumns(),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
