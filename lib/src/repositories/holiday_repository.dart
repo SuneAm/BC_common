@@ -22,11 +22,12 @@ class HolidayRepository {
     return await docRef.delete();
   }
 
-  Future<List<Holiday>> getHolidays() async {
+  Stream<List<Holiday>> getHolidays() {
     final snapshot =
-        await _firestore.collection(_collectionName).orderBy('startDate').get();
+        _firestore.collection(_collectionName).orderBy('startDate').snapshots();
 
-    return snapshot.docs.map((snap) => Holiday.fromFirestore(snap)).toList();
+    return snapshot
+        .map((s) => s.docs.map((snap) => Holiday.fromFirestore(snap)).toList());
   }
 }
 
@@ -34,12 +35,11 @@ final holidayRepoProvider = Provider<HolidayRepository>((ref) {
   return HolidayRepository(ref);
 });
 
-final getHolidaysProvider =
-    FutureProvider.autoDispose<List<Holiday>>((ref) async {
+final _watchHolidaysProvider = StreamProvider.autoDispose<List<Holiday>>((ref) {
   return ref.watch(holidayRepoProvider).getHolidays();
 });
 
 final holidaysProvider = Provider.autoDispose<List<Holiday>>((ref) {
-  final future = ref.watch(getHolidaysProvider);
+  final future = ref.watch(_watchHolidaysProvider);
   return future.value ?? [];
 });
