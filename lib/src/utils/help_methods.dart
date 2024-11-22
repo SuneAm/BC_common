@@ -159,4 +159,20 @@ class HelperMethod {
   ) =>
       (date.isAfter(startDate) || date.isAtSameMomentAs(startDate)) &&
       (date.isBefore(endDate) || date.isAtSameMomentAs(endDate));
+
+  // Check if the current day is on or between the start and end dates
+  static bool isAdjustedWithinRange(
+    DateTime date,
+    DateTime startDate,
+    DateTime endDate,
+  ) {
+    final adjustedDate = DateTime(date.year, date.month, date.day);
+    final adjustedStart =
+        DateTime(startDate.year, startDate.month, startDate.day);
+    final adjustedEnd = DateTime(endDate.year, endDate.month, endDate.day);
+    return (adjustedDate.isAfter(adjustedStart) ||
+            adjustedDate.isAtSameMomentAs(adjustedStart)) &&
+        (adjustedDate.isBefore(adjustedEnd) ||
+            adjustedDate.isAtSameMomentAs(adjustedEnd));
+  }
 }
