@@ -1,7 +1,7 @@
 part of 'produktion_calendar_view.dart';
 
-class _ProduktionCalendarNavigationRow extends ConsumerWidget {
-  const _ProduktionCalendarNavigationRow();
+class ProduktionCalendarNavigationRow extends ConsumerWidget {
+  const ProduktionCalendarNavigationRow();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

@@ -9,7 +9,9 @@ part 'produktion_calendar_controller.dart';
 part 'produktion_calendar_navigation_row.dart';
 
 class ProduktionCalendarView extends HookConsumerWidget {
-  const ProduktionCalendarView({super.key});
+  const ProduktionCalendarView({this.showNavigationArrows = true, super.key});
+
+  final bool showNavigationArrows;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -50,7 +52,7 @@ class ProduktionCalendarView extends HookConsumerWidget {
         color: Colors.white,
         child: Column(
           children: [
-            const _ProduktionCalendarNavigationRow(),
+            if (showNavigationArrows) const ProduktionCalendarNavigationRow(),
             Expanded(
               child: Stack(
                 children: [
