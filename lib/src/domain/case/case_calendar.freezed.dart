@@ -24,6 +24,7 @@ mixin _$CaseCalendar {
   DateTime get startDate => throw _privateConstructorUsedError;
   @TimestampSerializer()
   DateTime get endDate => throw _privateConstructorUsedError;
+  PeopleColor? get peopleColor => throw _privateConstructorUsedError;
 
   /// Serializes this CaseCalendar to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -43,7 +44,8 @@ abstract class $CaseCalendarCopyWith<$Res> {
   @useResult
   $Res call(
       {@TimestampSerializer() DateTime startDate,
-      @TimestampSerializer() DateTime endDate});
+      @TimestampSerializer() DateTime endDate,
+      PeopleColor? peopleColor});
 }
 
 /// @nodoc
@@ -63,6 +65,7 @@ class _$CaseCalendarCopyWithImpl<$Res, $Val extends CaseCalendar>
   $Res call({
     Object? startDate = null,
     Object? endDate = null,
+    Object? peopleColor = freezed,
   }) {
     return _then(_value.copyWith(
       startDate: null == startDate
@@ -73,6 +76,10 @@ class _$CaseCalendarCopyWithImpl<$Res, $Val extends CaseCalendar>
           ? _value.endDate
           : endDate // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      peopleColor: freezed == peopleColor
+          ? _value.peopleColor
+          : peopleColor // ignore: cast_nullable_to_non_nullable
+              as PeopleColor?,
     ) as $Val);
   }
 }
@@ -87,7 +94,8 @@ abstract class _$$CaseCalendarImplCopyWith<$Res>
   @useResult
   $Res call(
       {@TimestampSerializer() DateTime startDate,
-      @TimestampSerializer() DateTime endDate});
+      @TimestampSerializer() DateTime endDate,
+      PeopleColor? peopleColor});
 }
 
 /// @nodoc
@@ -105,6 +113,7 @@ class __$$CaseCalendarImplCopyWithImpl<$Res>
   $Res call({
     Object? startDate = null,
     Object? endDate = null,
+    Object? peopleColor = freezed,
   }) {
     return _then(_$CaseCalendarImpl(
       startDate: null == startDate
@@ -115,6 +124,10 @@ class __$$CaseCalendarImplCopyWithImpl<$Res>
           ? _value.endDate
           : endDate // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      peopleColor: freezed == peopleColor
+          ? _value.peopleColor
+          : peopleColor // ignore: cast_nullable_to_non_nullable
+              as PeopleColor?,
     ));
   }
 }
@@ -124,7 +137,8 @@ class __$$CaseCalendarImplCopyWithImpl<$Res>
 class _$CaseCalendarImpl with DiagnosticableTreeMixin implements _CaseCalendar {
   const _$CaseCalendarImpl(
       {@TimestampSerializer() required this.startDate,
-      @TimestampSerializer() required this.endDate});
+      @TimestampSerializer() required this.endDate,
+      this.peopleColor});
 
   factory _$CaseCalendarImpl.fromJson(Map<String, dynamic> json) =>
       _$$CaseCalendarImplFromJson(json);
@@ -135,10 +149,12 @@ class _$CaseCalendarImpl with DiagnosticableTreeMixin implements _CaseCalendar {
   @override
   @TimestampSerializer()
   final DateTime endDate;
+  @override
+  final PeopleColor? peopleColor;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'CaseCalendar(startDate: $startDate, endDate: $endDate)';
+    return 'CaseCalendar(startDate: $startDate, endDate: $endDate, peopleColor: $peopleColor)';
   }
 
   @override
@@ -147,7 +163,8 @@ class _$CaseCalendarImpl with DiagnosticableTreeMixin implements _CaseCalendar {
     properties
       ..add(DiagnosticsProperty('type', 'CaseCalendar'))
       ..add(DiagnosticsProperty('startDate', startDate))
-      ..add(DiagnosticsProperty('endDate', endDate));
+      ..add(DiagnosticsProperty('endDate', endDate))
+      ..add(DiagnosticsProperty('peopleColor', peopleColor));
   }
 
   @override
@@ -157,12 +174,14 @@ class _$CaseCalendarImpl with DiagnosticableTreeMixin implements _CaseCalendar {
             other is _$CaseCalendarImpl &&
             (identical(other.startDate, startDate) ||
                 other.startDate == startDate) &&
-            (identical(other.endDate, endDate) || other.endDate == endDate));
+            (identical(other.endDate, endDate) || other.endDate == endDate) &&
+            (identical(other.peopleColor, peopleColor) ||
+                other.peopleColor == peopleColor));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, startDate, endDate);
+  int get hashCode => Object.hash(runtimeType, startDate, endDate, peopleColor);
 
   /// Create a copy of CaseCalendar
   /// with the given fields replaced by the non-null parameter values.
@@ -182,9 +201,9 @@ class _$CaseCalendarImpl with DiagnosticableTreeMixin implements _CaseCalendar {
 
 abstract class _CaseCalendar implements CaseCalendar {
   const factory _CaseCalendar(
-          {@TimestampSerializer() required final DateTime startDate,
-          @TimestampSerializer() required final DateTime endDate}) =
-      _$CaseCalendarImpl;
+      {@TimestampSerializer() required final DateTime startDate,
+      @TimestampSerializer() required final DateTime endDate,
+      final PeopleColor? peopleColor}) = _$CaseCalendarImpl;
 
   factory _CaseCalendar.fromJson(Map<String, dynamic> json) =
       _$CaseCalendarImpl.fromJson;
@@ -195,6 +214,8 @@ abstract class _CaseCalendar implements CaseCalendar {
   @override
   @TimestampSerializer()
   DateTime get endDate;
+  @override
+  PeopleColor? get peopleColor;
 
   /// Create a copy of CaseCalendar
   /// with the given fields replaced by the non-null parameter values.

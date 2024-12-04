@@ -138,7 +138,8 @@ class _BarAcrossColumns extends ConsumerWidget {
                   ProduktionBar(
                     caseId: caseItem.caseNumber,
                     projectName: caseItem.projectName,
-                    barColor: OrdrerColors.kEditorColor,
+                    barColor: caseItem.editorCalendar?.peopleColor?.toColor ??
+                        OrdrerColors.kEditorColor,
                     barWidth: editorBar.$1,
                     leftPosition: editorBar.$2,
                     startDate: editor.startDate,

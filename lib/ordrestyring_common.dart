@@ -35,6 +35,7 @@ export 'src/domain/case/case_calendar.dart';
 
 // utils
 export 'src/utils/app_extensions.dart';
+export 'src/utils/enum_extensions.dart';
 export 'src/utils/domain_extensions.dart';
 export 'src/utils/date_time_extension.dart';
 export 'src/utils/debounce.dart';
