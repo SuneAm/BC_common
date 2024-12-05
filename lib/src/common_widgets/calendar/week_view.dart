@@ -18,10 +18,15 @@ class WeekView extends StatelessWidget {
   Widget build(BuildContext context) {
     final borderColor = Colors.grey.shade300;
 
+    final colorScheme = Theme.of(context).colorScheme;
+    final surfaceColor = colorScheme.surface;
+    final weekendColor = colorScheme.onInverseSurface;
     return Column(
       children: [
+        const Divider(height: 0),
         ColoredBox(
-          color: Colors.grey.shade400,
+          // color: Colors.grey.shade400,
+          color: surfaceColor,
           child: SizedBox(
             height: 32,
             child: Row(
@@ -95,10 +100,10 @@ class WeekView extends StatelessWidget {
                                     ),
                                     color: (day.weekday == DateTime.sunday ||
                                             day.weekday == DateTime.saturday)
-                                        ? Colors.grey.shade100
+                                        // ? Colors.grey.shade100
+                                        ? weekendColor
                                         : day.isToday
-                                            ? Colors.orange
-                                                .shade200 //OrdrerColors.kEditorColor
+                                            ? Colors.orange.shade200
                                             : null,
                                   ),
                                   child: Center(
@@ -121,9 +126,9 @@ class WeekView extends StatelessWidget {
                                         ),
                                         child: ColoredBox(
                                           color: day.isToday
-                                              ? Colors.orange
-                                                  .shade200 // OrdrerColors.kEditorColor
-                                              : Colors.grey.shade100,
+                                              ? Colors.orange.shade200
+                                              // : Colors.grey.shade100,
+                                              : weekendColor,
                                         ),
                                       ),
                                     ),
