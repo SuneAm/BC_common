@@ -270,9 +270,9 @@ class _Bar extends StatelessWidget {
         margin: EdgeInsets.only(left: editorBar.leftPosition),
         width: editorBar.barWidth,
         decoration: BoxDecoration(
-          color: const Color.fromARGB(100, 187, 222, 251),
-          borderRadius:
-              BorderRadius.circular(10), // Adjust the radius as needed
+          // color: const Color.fromARGB(100, 187, 222, 251)
+          color: editorBar.barColor.withOpacity(.3),
+          borderRadius: BorderRadius.circular(10),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -329,7 +329,7 @@ class _Bar extends StatelessWidget {
                       ),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
-                          vertical: 1,
+                          vertical: 2,
                           horizontal: 8,
                         ),
                         child: Wrap(
@@ -342,31 +342,32 @@ class _Bar extends StatelessWidget {
                               ),
                               scrollDirection: Axis.horizontal,
                               child: Wrap(
-                                spacing: 1.5, // Adjust spacing as needed
+                                spacing: 1.5,
+                                crossAxisAlignment: WrapCrossAlignment.center,
                                 children: [
-                                  //we want to align the text to vertical center
                                   RichText(
                                     text: TextSpan(
                                       children: [
                                         TextSpan(
                                           text: '${bar.caseId} - ',
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             overflow: TextOverflow.ellipsis,
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),
-                                        TextSpan(
-                                          text: '${bar.projectName}',
-                                        ),
+                                        TextSpan(text: bar.projectName),
                                       ],
                                     ),
                                   ),
                                   ...bar.appointedUsers.map(
-                                    (user) => CircleAvatar(
-                                      backgroundColor:
-                                          _getLighterShade(bar.barColor, 0.2),
-                                      radius: 12,
-                                      child: CaptionText(user.initials),
+                                    (user) => Padding(
+                                      padding: const EdgeInsets.only(left: 2),
+                                      child: CircleAvatar(
+                                        backgroundColor:
+                                            _getLighterShade(bar.barColor, 0.2),
+                                        radius: 12,
+                                        child: CaptionText(user.initials),
+                                      ),
                                     ),
                                   ),
                                 ],
