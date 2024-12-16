@@ -145,6 +145,18 @@ class HelperMethod {
         startOfWeek.isAfter(firstDayOfMonth.subtract(const Duration(days: 1)));
   }
 
+  // Helper function to check if dates are in same week
+  static bool isInSameWeek(DateTime date1, DateTime date2) {
+    // Get the start of week for both dates
+    // Assuming weeks start on Monday (can be adjusted if needed)
+    final startOfWeek1 = date1.subtract(Duration(days: date1.weekday - 1));
+    final startOfWeek2 = date2.subtract(Duration(days: date2.weekday - 1));
+
+    return startOfWeek1.year == startOfWeek2.year &&
+        startOfWeek1.month == startOfWeek2.month &&
+        startOfWeek1.day == startOfWeek2.day;
+  }
+
   static bool areDatesEqual(DateTime date1, DateTime date2) {
     return date1.year == date2.year &&
         date1.month == date2.month &&

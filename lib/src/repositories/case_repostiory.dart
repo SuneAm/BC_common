@@ -110,7 +110,7 @@ class CaseRepository {
       final casesWithHours = <Case>[];
 
       for (final element in cases) {
-        final aggregateHour = await fetchCaseHours(element.id);
+        final aggregateHour = await _fetchCaseHours(element.id);
 
         casesWithHours.add(element.copyWith(hourAggregate: aggregateHour));
       }
@@ -118,7 +118,7 @@ class CaseRepository {
     }
   }
 
-  Future<HourAggregate> fetchCaseHours(int caseId) async {
+  Future<HourAggregate> _fetchCaseHours(int caseId) async {
     final response = await http.post(
       Uri.parse(
           'https://europe-west3-bc-ordrestyrring.cloudfunctions.net/fetchCaseHours'),
