@@ -1,13 +1,16 @@
 part of 'produktion_calendar_view.dart';
 
-final produktionCasesNotifierProvider =
-    StateNotifierProvider<CasesStateNotifier, List<Case>>((ref) {
-  final value = ref.watch(watchCasesProvider).value ?? [];
-
-  return CasesStateNotifier(
-    value.where((element) => element.useInCalendar ?? false).toList(),
-  );
+final useInCalendarCasesProvider = Provider<List<Case>>((ref) {
+  return ref
+      .watch(casesProvider)
+      .where((e) => e.useInCalendar ?? false)
+      .toList();
 });
+
+final produktionCasesNotifierProvider =
+    StateNotifierProvider<CasesStateNotifier, List<Case>>(
+  (ref) => CasesStateNotifier(ref.watch(useInCalendarCasesProvider)),
+);
 
 final _startRangeProvider = StateProvider.autoDispose<DateTime>(
   (ref) => HelperMethod.getStartOfCurrentWeek(),

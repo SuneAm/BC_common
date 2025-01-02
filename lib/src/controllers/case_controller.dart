@@ -18,8 +18,7 @@ class CasesStateNotifier extends StateNotifier<List<Case>> {
 }
 
 final caseLeaderNamesProvider = Provider.autoDispose<Set<String>>((ref) {
-  final cases = ref.watch(watchCasesProvider);
+  final cases = ref.watch(casesProvider);
 
-  return cases.asData?.value.map((e) => e.responsibleUser.fullName).toSet() ??
-      {};
+  return cases.map((e) => e.responsibleUser.fullName).toSet();
 });

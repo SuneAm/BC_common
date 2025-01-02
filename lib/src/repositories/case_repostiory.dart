@@ -213,11 +213,34 @@ class CaseRepository {
   }
 }
 
-final watchCasesProvider = StreamProvider<List<Case>>(
+final _watchCasesProvider = StreamProvider<List<Case>>(
   (ref) => ref.watch(caseRepoProvider).watchCases(),
 );
-final watchProduktionCases = StreamProvider<List<Case>>(
-    (ref) => ref.watch(caseRepoProvider).watchProduktionCases());
+final _watchProduktionCases = StreamProvider<List<Case>>(
+  (ref) => ref.watch(caseRepoProvider).watchProduktionCases(),
+);
 
-final watchMontageCases = StreamProvider<List<Case>>(
-    (ref) => ref.watch(caseRepoProvider).watchMontageCases());
+final _watchMontageCases = StreamProvider<List<Case>>(
+  (ref) => ref.watch(caseRepoProvider).watchMontageCases(),
+);
+
+final casesProvider = Provider<List<Case>>(
+  (ref) => ref.watch(_watchCasesProvider).maybeWhen(
+        orElse: () => [],
+        data: (cases) => cases,
+      ),
+);
+
+final productionCasesProvider = Provider<List<Case>>(
+  (ref) => ref.watch(_watchProduktionCases).maybeWhen(
+        orElse: () => [],
+        data: (cases) => cases,
+      ),
+);
+
+final montageCasesProvider = Provider<List<Case>>(
+  (ref) => ref.watch(_watchMontageCases).maybeWhen(
+        orElse: () => [],
+        data: (cases) => cases,
+      ),
+);
