@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:ordrestyring_common/src/domain/vacation.dart';
+import 'package:ordrestyring_common/src/domain/vacation/vacation.dart';
 import 'package:ordrestyring_common/src/providers.dart';
 
 class VacationRepository {
@@ -22,12 +22,11 @@ class VacationRepository {
 
   Stream<List<Vacation>> watchVacations() {
     final snapshots =
-    _firestore.collection(_vacations).orderBy('createdAt').snapshots();
+        _firestore.collection(_vacations).orderBy('createdAt').snapshots();
 
-    return snapshots.map((snapshot) =>
-        snapshot.docs
-            .map((document) => Vacation.fromFirestore(document))
-            .toList());
+    return snapshots.map((snapshot) => snapshot.docs
+        .map((document) => Vacation.fromFirestore(document))
+        .toList());
   }
 
   Future<void> approvedRequest(String docId, String status) async {
@@ -39,7 +38,8 @@ class VacationRepository {
   Future<List<Vacation>> getUserVacations(int userId) async {
     final snapshot = await _firestore
         .collection(_vacations)
-        .where('user.id', isEqualTo: userId).orderBy('createdAt')
+        .where('user.id', isEqualTo: userId)
+        .orderBy('createdAt')
         .get();
 
     return snapshot.docs.map((snap) => Vacation.fromFirestore(snap)).toList();
@@ -68,7 +68,7 @@ final vacationRepoProvider = Provider<VacationRepository>((ref) {
 });
 
 final _watchVacationsProvider = StreamProvider.autoDispose<List<Vacation>>(
-      (ref) => ref.watch(vacationRepoProvider).watchVacations(),
+  (ref) => ref.watch(vacationRepoProvider).watchVacations(),
 );
 
 final vacationsProvider = Provider.autoDispose<List<Vacation>>((ref) {
@@ -88,7 +88,7 @@ final vacationsProvider = Provider.autoDispose<List<Vacation>>((ref) {
     // start a 1 minute timer
     timer = Timer(
       const Duration(minutes: 1),
-          () => link.close(), // dispose on timeout
+      () => link.close(), // dispose on timeout
     );
   });
 

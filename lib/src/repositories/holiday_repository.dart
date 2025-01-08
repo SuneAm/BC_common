@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:ordrestyring_common/src/domain/holiday.dart';
+import 'package:ordrestyring_common/src/domain/vacation/holiday.dart';
 import 'package:ordrestyring_common/src/providers.dart';
 
 class HolidayRepository {

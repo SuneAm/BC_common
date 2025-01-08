@@ -6,7 +6,7 @@ class OrdrerColors {
       kProduktionAppColor = Colors.grey;
 }
 
-enum PeopleColor {
+enum AssignmentColor {
   blue([154, 199, 244]),
   turquoise([82, 181, 159]),
   green([99, 203, 101]),
@@ -17,7 +17,7 @@ enum PeopleColor {
   marine([101, 125, 255]),
   purple([164, 104, 255]);
 
-  const PeopleColor(this.rgb);
+  const AssignmentColor(this.rgb);
 
   final List<int> rgb;
 }

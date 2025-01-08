@@ -19,12 +19,15 @@ export 'src/repositories/case_repostiory.dart';
 export 'src/repositories/user_repository.dart';
 export 'src/repositories/vacation_repository.dart';
 export 'src/repositories/holiday_repository.dart';
+export 'src/repositories/assignment_repository.dart';
 
 // domain
 export 'src/domain/users/user.dart';
-export 'src/domain/vacation.dart';
-export 'src/domain/holiday.dart';
-export 'src/domain/vacation_wrapper.dart';
+export 'src/domain/vacation/vacation.dart';
+export 'src/domain/vacation/holiday.dart';
+export 'src/domain/vacation/vacation_wrapper.dart';
+export 'src/domain/assignment/assignment.dart';
+export 'src/domain/assignment/assignment_calendar.dart';
 
 export 'src/domain/case/case.dart';
 export 'src/domain/case/hour_aggregate.dart';
@@ -45,6 +48,7 @@ export 'src/utils/help_methods.dart';
 // widgets
 export 'src/firebase_options.dart';
 export 'src/common_widgets/common_async_widget.dart';
+export 'src/common_widgets/app_dialog.dart';
 export 'src/common_widgets/charts/progress_bar.dart';
 export 'src/common_widgets/containers/app_container.dart';
 export 'src/common_widgets/containers/icon_container.dart';

@@ -13,7 +13,7 @@ _$CaseCalendarImpl _$$CaseCalendarImplFromJson(Map<String, dynamic> json) =>
       endDate:
           const TimestampSerializer().fromJson(json['endDate'] as Timestamp),
       peopleColor:
-          $enumDecodeNullable(_$PeopleColorEnumMap, json['peopleColor']),
+          $enumDecodeNullable(_$AssignmentColorEnumMap, json['peopleColor']),
     );
 
 Map<String, dynamic> _$$CaseCalendarImplToJson(_$CaseCalendarImpl instance) {
@@ -28,18 +28,18 @@ Map<String, dynamic> _$$CaseCalendarImplToJson(_$CaseCalendarImpl instance) {
     }
   }
 
-  writeNotNull('peopleColor', _$PeopleColorEnumMap[instance.peopleColor]);
+  writeNotNull('peopleColor', _$AssignmentColorEnumMap[instance.peopleColor]);
   return val;
 }
 
-const _$PeopleColorEnumMap = {
-  PeopleColor.blue: 'blue',
-  PeopleColor.turquoise: 'turquoise',
-  PeopleColor.green: 'green',
-  PeopleColor.yellow: 'yellow',
-  PeopleColor.brown: 'brown',
-  PeopleColor.red: 'red',
-  PeopleColor.pink: 'pink',
-  PeopleColor.marine: 'marine',
-  PeopleColor.purple: 'purple',
+const _$AssignmentColorEnumMap = {
+  AssignmentColor.blue: 'blue',
+  AssignmentColor.turquoise: 'turquoise',
+  AssignmentColor.green: 'green',
+  AssignmentColor.yellow: 'yellow',
+  AssignmentColor.brown: 'brown',
+  AssignmentColor.red: 'red',
+  AssignmentColor.pink: 'pink',
+  AssignmentColor.marine: 'marine',
+  AssignmentColor.purple: 'purple',
 };

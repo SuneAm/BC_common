@@ -1,15 +1,15 @@
 part of 'produktion_calendar_view.dart';
 
-final useInCalendarCasesProvider = Provider<List<Case>>((ref) {
+final calendarCasesProvider = Provider<List<Case>>((ref) {
   return ref
       .watch(casesProvider)
       .where((e) => e.useInCalendar ?? false)
       .toList();
 });
 
-final produktionCasesNotifierProvider =
+final calendarCasesNotifierProvider =
     StateNotifierProvider<CasesStateNotifier, List<Case>>(
-  (ref) => CasesStateNotifier(ref.watch(useInCalendarCasesProvider)),
+  (ref) => CasesStateNotifier(ref.watch(calendarCasesProvider)),
 );
 
 final _startRangeProvider = StateProvider.autoDispose<DateTime>(
@@ -61,3 +61,13 @@ enum _ProduktionZoomLevel {
         _ProduktionZoomLevel.level5 => _ProduktionZoomLevel.level4,
       };
 }
+
+final calendarWrapperProvider =
+    Provider.autoDispose<List<CalendarWrapper>>((ref) {
+  final calendarCases = ref.watch(calendarCasesNotifierProvider);
+  final assignments = ref.watch(assignmentsProvider);
+  return [
+    ...calendarCases.map((c) => CalendarWrapper.job(c)),
+    ...assignments.map((a) => CalendarWrapper.assignment(a)),
+  ];
+});
