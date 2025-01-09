@@ -40,6 +40,8 @@ final _watchHolidaysProvider = StreamProvider.autoDispose<List<Holiday>>((ref) {
 });
 
 final holidaysProvider = Provider.autoDispose<List<Holiday>>((ref) {
-  final future = ref.watch(_watchHolidaysProvider);
-  return future.value ?? [];
+  return ref.watch(_watchHolidaysProvider).maybeWhen(
+        orElse: () => [],
+        data: (holidays) => holidays,
+      );
 });
