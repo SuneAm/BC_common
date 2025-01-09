@@ -4,11 +4,11 @@ class AppDialog extends StatelessWidget {
   const AppDialog({
     super.key,
     required this.child,
-    this.maxWidth = 450,
-    this.maxHeight,
+    this.maxWidth = 500,
+    this.maxHeight = 500,
   });
 
-  final double? maxHeight;
+  final double maxHeight;
   final double maxWidth;
   final Widget child;
 
@@ -23,9 +23,11 @@ class AppDialog extends StatelessWidget {
           bottomRight: Radius.circular(24),
         ),
       ),
-      child: SizedBox(
-        width: maxWidth,
-        height: maxHeight,
+      child: ConstrainedBox(
+        constraints: BoxConstraints(
+          maxWidth: maxWidth,
+          maxHeight: maxHeight,
+        ),
         child: child,
       ),
     );

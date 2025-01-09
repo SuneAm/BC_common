@@ -49,6 +49,8 @@ export 'src/utils/help_methods.dart';
 export 'src/firebase_options.dart';
 export 'src/common_widgets/common_async_widget.dart';
 export 'src/common_widgets/app_dialog.dart';
+export 'src/common_widgets/color_row.dart';
+export 'src/common_widgets/containers/date_selection_container.dart';
 export 'src/common_widgets/charts/progress_bar.dart';
 export 'src/common_widgets/containers/app_container.dart';
 export 'src/common_widgets/containers/icon_container.dart';
@@ -59,7 +61,7 @@ export 'src/common_widgets/list/scroll_with_bar.dart';
 export 'src/common_widgets/list/case_list_view.dart';
 export 'src/common_widgets/production_case_item.dart';
 export 'src/common_widgets/calendar/week_top_view.dart';
-export 'src/common_widgets/calendar/produktion_calendar_view.dart';
+export 'src/common_widgets/calendar/calendar_view.dart';
 export 'src/common_widgets/listeners/shift_scroll_listener.dart';
 
 // responsive

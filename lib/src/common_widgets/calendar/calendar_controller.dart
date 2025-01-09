@@ -1,4 +1,4 @@
-part of 'produktion_calendar_view.dart';
+part of 'calendar_view.dart';
 
 final calendarCasesProvider = Provider<List<Case>>((ref) {
   return ref
