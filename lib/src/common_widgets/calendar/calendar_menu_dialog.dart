@@ -196,6 +196,8 @@ class CalendarMenuDialog extends HookConsumerWidget {
                       montageCalendar: montageCalendar,
                       productionUsers: productionUsers,
                       montageUsers: montageUsers,
+                      isProduktion: productionCalendar != null,
+                      isMontage: montageCalendar != null,
                     );
                     await ref.read(caseRepoProvider).updateCase(
                           updatedCase,

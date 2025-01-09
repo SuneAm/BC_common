@@ -85,7 +85,8 @@ class DateSelectionContainer extends StatelessWidget {
                                       (user) => CircleAvatar(
                                         radius: 12,
                                         backgroundColor: backgroundColor,
-                                        child: CaptionText(user.initials),
+                                        child: FittedBox(
+                                            child: CaptionText(user.initials)),
                                       ),
                                     )
                                     .toList(),

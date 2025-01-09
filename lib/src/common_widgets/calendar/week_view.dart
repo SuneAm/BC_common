@@ -132,7 +132,7 @@ class WeekView extends StatelessWidget {
                                         ),
                                       ),
                                     ),
-                                  )
+                                  ),
                               ],
                             ),
                           ),
