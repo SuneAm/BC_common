@@ -5,12 +5,10 @@ import 'package:ordrestyring_common/ordrestyring_common.dart';
 import 'package:ordrestyring_common/src/common_widgets/containers/app_icon_container.dart';
 import 'package:ordrestyring_common/src/domain/assignment/calendar_wrapper.dart';
 
+part 'assignment_dialog.dart';
 part 'calendar_controller.dart';
-
-part 'calendar_navigation_row.dart';
-
 part 'calendar_menu_dialog.dart';
-
+part 'calendar_navigation_row.dart';
 part 'calendar_user_notifier.dart';
 
 class CalendarView extends HookConsumerWidget {
@@ -251,7 +249,10 @@ class _BarAcrossColumns extends ConsumerWidget {
                   produktionBars: bars,
                   spacePerDay: spacePerDay,
                   viewFirstDate: adjustedViewFirstDate,
-                  onTap: () => wrapper.whenOrNull(
+                  onTap: () => wrapper.when(
+                    assignment: (a) => context.openDialog(
+                      AssignmentDialog(assignment: a),
+                    ),
                     job: (c) => context.openDialog(
                       CalendarMenuDialog(
                         caseItem: c,

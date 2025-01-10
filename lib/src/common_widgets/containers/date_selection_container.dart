@@ -13,7 +13,7 @@ class DateSelectionContainer extends StatelessWidget {
     this.formatDate,
     this.onDateSelect,
     this.onDateClear,
-    required this.users,
+    this.users = const [],
     this.onPeopleSelect,
   });
 

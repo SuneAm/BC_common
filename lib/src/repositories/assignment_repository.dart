@@ -21,6 +21,12 @@ class AssignmentRepository {
             assignment.toFirestore(),
           );
 
+  Future<void> updateAssignment(Assignment assignment) async =>
+      await _firestore.collection(_collectionName).doc(assignment.id).set(
+            assignment.toFirestore(),
+            SetOptions(merge: true),
+          );
+
   Stream<List<Assignment>> watchAssignments() {
     final snapshots = _firestore.collection(_collectionName).snapshots();
 
