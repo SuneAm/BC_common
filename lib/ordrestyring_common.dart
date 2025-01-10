@@ -1,4 +1,4 @@
-library ordrestyring_common;
+library;
 
 // 3rd party libraries
 export 'package:intl/intl.dart';
@@ -6,10 +6,12 @@ export 'package:firebase_core/firebase_core.dart';
 export 'package:hooks_riverpod/hooks_riverpod.dart';
 export 'package:flutter_hooks/flutter_hooks.dart';
 export 'package:url_launcher/url_launcher.dart';
+export 'package:shared_preferences/shared_preferences.dart';
 
 // other
 export 'src/http_overrides.dart';
 export 'src/styles/ordrer_colors.dart';
+export 'src/providers.dart';
 
 // controllers
 export 'src/controllers/case_controller.dart';
