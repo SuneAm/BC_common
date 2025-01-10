@@ -6,7 +6,7 @@ class IconContainer extends StatelessWidget {
   const IconContainer({
     required this.icon,
     this.onTap,
-    this.size,
+    this.size = 24,
     this.color,
     this.backgroundColor = Colors.transparent,
     super.key,
@@ -14,7 +14,7 @@ class IconContainer extends StatelessWidget {
 
   final IconData icon;
   final VoidCallback? onTap;
-  final double? size;
+  final double size;
   final Color? color;
   final Color backgroundColor;
 
@@ -22,7 +22,7 @@ class IconContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppContainer(
       onTap: onTap,
-      boxShape: BoxShape.circle,
+      borderRadius: BorderRadius.circular(size),
       padding: const EdgeInsets.all(4.0),
       color: backgroundColor,
       child: Icon(

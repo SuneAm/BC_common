@@ -16,28 +16,31 @@ class AssignmentRepository {
 
   static const _collectionName = 'assignments';
 
-  Future<void> addNewAssignment(Assignment assignment) async =>
+  Future<void> addNew(Assignment assignment) async =>
       await _firestore.collection(_collectionName).add(
             assignment.toFirestore(),
           );
 
-  Future<void> updateAssignment(Assignment assignment) async =>
-      await _firestore.collection(_collectionName).doc(assignment.id).set(
-            assignment.toFirestore(),
-            SetOptions(merge: true),
-          );
-
-  Stream<List<Assignment>> watchAssignments() {
+  Stream<List<Assignment>> watch() {
     final snapshots = _firestore.collection(_collectionName).snapshots();
 
     return snapshots.map(
       (snap) => snap.docs.map((doc) => Assignment.fromFirestore(doc)).toList(),
     );
   }
+
+  Future<void> update(Assignment assignment) async =>
+      await _firestore.collection(_collectionName).doc(assignment.id).set(
+            assignment.toFirestore(),
+            SetOptions(merge: true),
+          );
+
+  Future<void> delete(String id) async =>
+      await _firestore.collection(_collectionName).doc(id).delete();
 }
 
 final _watchAssignmentsProvider = StreamProvider<List<Assignment>>(
-  (ref) => ref.watch(assignmentRepoProvider).watchAssignments(),
+  (ref) => ref.watch(assignmentRepoProvider).watch(),
 );
 
 final assignmentsProvider = Provider<List<Assignment>>(

@@ -28,12 +28,12 @@ class AssignmentDialog extends HookConsumerWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             TitleText(
-                '${assignment == null ? 'Add' : 'Update'} New Assignment'),
+                assignment == null ? 'tilføje opgave' : 'opdateringsopgave'),
             TextField(
               controller: nameController,
               decoration: const InputDecoration(
-                hintText: 'Assignment Name',
-                labelText: 'Name',
+                hintText: 'opgavens navn',
+                labelText: 'navn',
               ),
             ),
             DateSelectionContainer(
@@ -50,6 +50,7 @@ class AssignmentDialog extends HookConsumerWidget {
               },
             ),
             Row(
+              spacing: 12,
               children: [
                 Expanded(
                   child: ColorRow(
@@ -58,7 +59,7 @@ class AssignmentDialog extends HookConsumerWidget {
                   ),
                 ),
                 ElevatedButton(
-                  child: const Text('Gem og luk'),
+                  child: const Text('Gem'),
                   onPressed: () async {
                     final name = nameController.text.trim();
                     final color = selectedAssignmentColor.value;
@@ -86,11 +87,21 @@ class AssignmentDialog extends HookConsumerWidget {
                     final repo = ref.read(assignmentRepoProvider);
 
                     assignment == null
-                        ? await repo.addNewAssignment(newAssignment)
-                        : await repo.updateAssignment(newAssignment);
+                        ? await repo.addNew(newAssignment)
+                        : await repo.update(newAssignment);
                     if (context.mounted) Navigator.pop(context);
                   },
                 ),
+                if (assignment != null)
+                  IconContainer(
+                    onTap: () {
+                      ref.read(assignmentRepoProvider).delete(assignment!.id);
+                      if (context.mounted) Navigator.pop(context);
+                    },
+                    icon: Icons.close,
+                    color: Colors.white,
+                    backgroundColor: Colors.red,
+                  ),
               ],
             ),
           ],
