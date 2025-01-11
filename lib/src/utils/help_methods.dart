@@ -1,4 +1,3 @@
-import 'package:intl/intl.dart';
 import 'package:ordrestyring_common/src/utils/date_time_extension.dart';
 
 class HelperMethod {
@@ -13,30 +12,6 @@ class HelperMethod {
   static DateTime getStartOfWeekByDate(DateTime dateTime) {
     // Find the Monday of the current week (assuming Monday is the start of the week)
     return dateTime.subtract(Duration(days: dateTime.weekday - 1));
-  }
-
-  static DateTime getFirstDayOfWeek(int weekNumber, int year) {
-    // Get the first day of the year
-    DateTime firstDayOfYear = DateTime(year, 1, 1);
-
-    // Get the number of weeks in the current year
-    int totalWeeksInYear =
-        ((DateTime(year + 1, 1, 1).difference(firstDayOfYear).inDays) / 7)
-            .ceil();
-
-    // Handle if the week number is greater than total weeks in the year
-    if (weekNumber > totalWeeksInYear) {
-      weekNumber -= totalWeeksInYear;
-      year += 1; // Roll over to the next year
-      firstDayOfYear = DateTime(year, 1, 1);
-    }
-
-    // Calculate the first day of the week
-    DateTime firstDayOfWeek =
-        firstDayOfYear.add(Duration(days: (weekNumber - 1) * 7));
-
-    // Adjust to the start of the week (assuming Monday as the first day of the week)
-    return firstDayOfWeek.subtract(Duration(days: firstDayOfWeek.weekday - 1));
   }
 
   // get all days of the week
@@ -72,55 +47,29 @@ class HelperMethod {
     return weekDays;
   }
 
-  static int getWeeksInYear(int year) {
-    // Get the first day of the next year
-    DateTime firstDayOfNextYear = DateTime(year + 1, 1, 1);
-
-    // Get the last day of the current year
-    DateTime lastDayOfYear =
-        firstDayOfNextYear.subtract(const Duration(days: 1));
-
-    // Calculate the week number for the last day of the year
-    int weekNumber = (lastDayOfYear.day / 7).ceil();
-
-    return weekNumber;
-  }
-
-  static (int, int) getValidWeekNumber(int weekNumber, int year) {
-    // Get the last day of the current year
-    final lastDayOfYear = DateTime(year, 12, 31);
-
-    // Determine if the year has 52 or 53 weeks
-    final maxWeeks = (DateFormat('w').format(lastDayOfYear) == '53') ? 53 : 52;
-
-    // Handle the case when the week number is greater than the max weeks (next year scenario)
-    if (weekNumber > maxWeeks) {
-      return (weekNumber - maxWeeks, year + 1);
+  // First get the ISO week-year for the start date of the week
+  static DateTime getFirstDayOfWeek(int week, int yr) {
+    // Find first Thursday of the year
+    DateTime firstThursday = DateTime(yr, 1, 1);
+    while (firstThursday.weekday != DateTime.thursday) {
+      firstThursday = firstThursday.add(const Duration(days: 1));
     }
 
-    // Handle the case when the week number is less than 1 (previous year scenario)
-    if (weekNumber < 1) {
-      // Get the last day of the previous year
-      final lastDayOfPreviousYear = DateTime(year - 1, 12, 31);
+    // Calculate the start of the requested week
+    final daysToAdd = (week - 1) * 7;
+    final targetThursday = firstThursday.add(Duration(days: daysToAdd));
 
-      // Determine if the previous year had 52 or 53 weeks
-      final maxWeeksPreviousYear =
-          (DateFormat('w').format(lastDayOfPreviousYear) == '53') ? 53 : 52;
-
-      // Return the week number from the previous year
-      return (maxWeeksPreviousYear + weekNumber, year - 1);
-    }
-
-    // If the week number is valid, return it with the same year
-    return (weekNumber, year);
+    // Go back to Monday of that week
+    return targetThursday
+        .subtract(Duration(days: targetThursday.weekday - DateTime.monday));
   }
 
   /// Function to get the month of the week number
   static String getMonthFromWeekNumber(int weekNumber, int year) {
-    DateTime startOfWeek = _getDateFromWeekNumber(weekNumber, year);
+    final startOfWeek = _getDateFromWeekNumber(weekNumber, year);
     // e.g., "January", "February"
     // return DateFormat('MMMM').format(startOfWeek);
-    return startOfWeek.convertedToDanishMonthName;
+    return '${startOfWeek.convertedToDanishMonthName} ${startOfWeek.year}';
   }
 
   // Function to get the start date of a week number
@@ -186,5 +135,14 @@ class HelperMethod {
             adjustedDate.isAtSameMomentAs(adjustedStart)) &&
         (adjustedDate.isBefore(adjustedEnd) ||
             adjustedDate.isAtSameMomentAs(adjustedEnd));
+  }
+
+  static int getISOWeekYear(DateTime date) {
+    // Calculate the Thursday of the current week
+    final thursdayOfCurrentWeek =
+        date.add(Duration(days: (4 - (date.weekday % 7))));
+
+    // The ISO year is the year of this Thursday
+    return thursdayOfCurrentWeek.year;
   }
 }

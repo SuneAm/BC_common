@@ -13,20 +13,18 @@ class WeekTopView extends StatelessWidget {
   final int totalWeeks;
   final DateTime startRangeDate;
 
-  int get currentWeek => startRangeDate.currentWeek;
-
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         for (int index = 0; index < totalWeeks; index++)
           ...() {
-            final weekToShow = currentWeek + index;
-            final (validatedWeek, validatedYear) =
-                HelperMethod.getValidWeekNumber(
-              weekToShow,
-              startRangeDate.year,
+            final weekStartRange = startRangeDate.add(
+              Duration(days: 7 * index),
             );
+
+            final validatedWeek = weekStartRange.currentWeekOfYear;
+            final validatedYear = HelperMethod.getISOWeekYear(weekStartRange);
 
             final firstColumn = index == 0;
             final isFirstWeekOfMonth = HelperMethod.isFirstWeekOfMonth(

@@ -61,29 +61,23 @@ extension DateTimeExtension on DateTime {
   bool get isWeekend =>
       weekday == DateTime.saturday || weekday == DateTime.sunday;
 
-  int get currentWeek => weekOfYear;
+  int get currentWeekOfYear => weekOfYear;
 
-  int get weekYear => year;
-
-  String get convertedToDanishMonthName {
-    final currentMonth = switch (month) {
-      1 => 'Januar',
-      2 => 'Februar',
-      3 => 'Marts',
-      4 => 'April',
-      5 => 'Maj',
-      6 => 'Juni',
-      7 => 'Juli',
-      8 => 'August',
-      9 => 'September',
-      10 => 'Oktober',
-      11 => 'November',
-      12 => 'December',
-      _ => '',
-    };
-
-    return '$currentMonth $year';
-  }
+  String get convertedToDanishMonthName => switch (month) {
+        1 => 'Januar',
+        2 => 'Februar',
+        3 => 'Marts',
+        4 => 'April',
+        5 => 'Maj',
+        6 => 'Juni',
+        7 => 'Juli',
+        8 => 'August',
+        9 => 'September',
+        10 => 'Oktober',
+        11 => 'November',
+        12 => 'December',
+        _ => '',
+      };
 }
 
 extension DateTimeRangeEx on DateTimeRange {
