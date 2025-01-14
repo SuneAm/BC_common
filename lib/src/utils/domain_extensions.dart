@@ -1,5 +1,17 @@
 import 'package:ordrestyring_common/ordrestyring_common.dart';
 
+extension CaseCalendarEx on CaseCalendar? {
+  String get toFormattedDates => this == null
+      ? ''
+      : '${this!.startDate.formatDateShort} - ${this!.endDate.formatDateShort}';
+}
+
+extension AssignmentCalendarEx on AssignmentCalendar? {
+  String get toFormattedDates => this == null
+      ? ''
+      : '${this!.startDate.formatDateShort} - ${this!.endDate.formatDateShort}';
+}
+
 extension CaseEstimatedHourEx on CaseEstimatedHour? {
   double get projectEstimatedHour => this?.estimatedProjectHour ?? 0;
 
@@ -151,7 +163,7 @@ extension VacationStatusEx on VacationStatus {
 
 extension VacationEx on Vacation {
   String get formattedDates =>
-      '${startDate.formatEventDateShort}, ${endDate.formatDate}';
+      '${startDate.formatDateShort}, ${endDate.formatDate}';
 }
 
 extension VacationListEx on List<Vacation> {
@@ -188,7 +200,7 @@ extension VacationListEx on List<Vacation> {
 
 extension HolidayEx on Holiday {
   String get formattedDates =>
-      '${startDate.formatEventDateShort}, ${endDate.formatDate}';
+      '${startDate.formatDateShort}, ${endDate.formatDate}';
 }
 
 extension HolidayListEx on List<Holiday> {

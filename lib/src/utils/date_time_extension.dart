@@ -24,8 +24,8 @@ extension DateTimeExtension on DateTime {
     return dateFormat.format(this);
   }
 
-  String get formatEventDateShort {
-    final dateFormat = DateFormat('d MMM'); // Nov 30
+  String get formatDateShort {
+    final dateFormat = DateFormat('d MMM'); // 30 Nov
     return dateFormat.format(this);
   }
 
@@ -81,8 +81,7 @@ extension DateTimeExtension on DateTime {
 }
 
 extension DateTimeRangeEx on DateTimeRange {
-  String get formattedDates =>
-      '${start.formatEventDateShort}, ${end.formatDate}';
+  String get formattedDates => '${start.formatDateShort}, ${end.formatDate}';
 }
 
 extension DateTimeContextEx on BuildContext {
