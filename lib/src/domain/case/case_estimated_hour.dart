@@ -12,8 +12,23 @@ class CaseEstimatedHour with _$CaseEstimatedHour {
     double? estimatedProductionHour,
     double? estimatedMontageHour,
     double? estimatedMaterialPrice,
+    HourRate? projectRate,
+    HourRate? produktionRate,
+    HourRate? montageRate,
+    HourRate? materialRate,
   }) = _CaseEstimatedHour;
 
   factory CaseEstimatedHour.fromJson(Map<String, dynamic> json) =>
       _$CaseEstimatedHourFromJson(json);
+}
+
+@freezed
+class HourRate with _$HourRate {
+  const factory HourRate({
+    double? costPrice,
+    double? salesPrice,
+  }) = _EstimatedHourRate;
+
+  factory HourRate.fromJson(Map<String, dynamic> json) =>
+      _$HourRateFromJson(json);
 }

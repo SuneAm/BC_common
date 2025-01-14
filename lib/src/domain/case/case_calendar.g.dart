@@ -16,21 +16,13 @@ _$CaseCalendarImpl _$$CaseCalendarImplFromJson(Map<String, dynamic> json) =>
           $enumDecodeNullable(_$AssignmentColorEnumMap, json['peopleColor']),
     );
 
-Map<String, dynamic> _$$CaseCalendarImplToJson(_$CaseCalendarImpl instance) {
-  final val = <String, dynamic>{
-    'startDate': const TimestampSerializer().toJson(instance.startDate),
-    'endDate': const TimestampSerializer().toJson(instance.endDate),
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('peopleColor', _$AssignmentColorEnumMap[instance.peopleColor]);
-  return val;
-}
+Map<String, dynamic> _$$CaseCalendarImplToJson(_$CaseCalendarImpl instance) =>
+    <String, dynamic>{
+      'startDate': const TimestampSerializer().toJson(instance.startDate),
+      'endDate': const TimestampSerializer().toJson(instance.endDate),
+      if (_$AssignmentColorEnumMap[instance.peopleColor] case final value?)
+        'peopleColor': value,
+    };
 
 const _$AssignmentColorEnumMap = {
   AssignmentColor.blue: 'blue',

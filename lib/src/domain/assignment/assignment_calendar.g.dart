@@ -19,18 +19,10 @@ _$AssignmentCalendarImpl _$$AssignmentCalendarImplFromJson(
     );
 
 Map<String, dynamic> _$$AssignmentCalendarImplToJson(
-    _$AssignmentCalendarImpl instance) {
-  final val = <String, dynamic>{
-    'startDate': const TimestampSerializer().toJson(instance.startDate),
-    'endDate': const TimestampSerializer().toJson(instance.endDate),
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('users', instance.users?.map((e) => e.toJson()).toList());
-  return val;
-}
+        _$AssignmentCalendarImpl instance) =>
+    <String, dynamic>{
+      'startDate': const TimestampSerializer().toJson(instance.startDate),
+      'endDate': const TimestampSerializer().toJson(instance.endDate),
+      if (instance.users?.map((e) => e.toJson()).toList() case final value?)
+        'users': value,
+    };

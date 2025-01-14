@@ -16,18 +16,10 @@ _$DeliveryAddressImpl _$$DeliveryAddressImplFromJson(
     );
 
 Map<String, dynamic> _$$DeliveryAddressImplToJson(
-    _$DeliveryAddressImpl instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('address', instance.address);
-  writeNotNull('postalCode', instance.postalCode);
-  writeNotNull('city', instance.city);
-  writeNotNull('name', instance.name);
-  return val;
-}
+        _$DeliveryAddressImpl instance) =>
+    <String, dynamic>{
+      if (instance.address case final value?) 'address': value,
+      if (instance.postalCode case final value?) 'postalCode': value,
+      if (instance.city case final value?) 'city': value,
+      if (instance.name case final value?) 'name': value,
+    };
