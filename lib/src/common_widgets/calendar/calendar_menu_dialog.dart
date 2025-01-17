@@ -168,34 +168,45 @@ class CalendarMenuDialog extends HookConsumerWidget {
                 ElevatedButton(
                   child: const Text('Gem og luk'),
                   onPressed: () async {
-                    if (editorDateRange.value == null) return;
+                    late final Case updatedCase;
+                    late final CaseCalendar? editorCalendar;
+                    late final CaseCalendar? productionCalendar;
+                    late final CaseCalendar? montageCalendar;
+                    if (editorDateRange.value == null) {
+                      // clears the calendar dates
+                      editorCalendar = null;
+                      productionCalendar = null;
+                      montageCalendar = null;
+                    } else {
+                      editorCalendar = CaseCalendar(
+                        startDate: editorDateRange.value!.start,
+                        endDate: editorDateRange.value!.end,
+                        peopleColor: selectedEditorColor.value,
+                      );
 
-                    final editorCalendar = CaseCalendar(
-                      startDate: editorDateRange.value!.start,
-                      endDate: editorDateRange.value!.end,
-                      peopleColor: selectedEditorColor.value,
-                    );
+                      productionCalendar = productionDateRange.value == null
+                          ? null
+                          : CaseCalendar(
+                              startDate: productionDateRange.value!.start,
+                              endDate: productionDateRange.value!.end,
+                            );
 
-                    final productionCalendar = productionDateRange.value == null
-                        ? null
-                        : CaseCalendar(
-                            startDate: productionDateRange.value!.start,
-                            endDate: productionDateRange.value!.end,
-                          );
+                      montageCalendar = (montageDateRange.value == null)
+                          ? null
+                          : CaseCalendar(
+                              startDate: montageDateRange.value!.start,
+                              endDate: montageDateRange.value!.end,
+                            );
+                    }
 
-                    final montageCalendar = (montageDateRange.value == null)
-                        ? null
-                        : CaseCalendar(
-                            startDate: montageDateRange.value!.start,
-                            endDate: montageDateRange.value!.end,
-                          );
-
-                    final updatedCase = caseItem.copyWith(
+                    updatedCase = caseItem.copyWith(
                       editorCalendar: editorCalendar,
                       productionCalendar: productionCalendar,
                       montageCalendar: montageCalendar,
-                      productionUsers: productionUsers,
-                      montageUsers: montageUsers,
+                      productionUsers:
+                          productionCalendar == null ? null : productionUsers,
+                      montageUsers:
+                          montageCalendar == null ? null : montageUsers,
                       isProduktion: productionCalendar != null,
                       isMontage: montageCalendar != null,
                     );

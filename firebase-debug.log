@@ -1,0 +1,8 @@
+[debug] [2024-10-23T13:53:05.725Z] ----------------------------------------------------------------------
+[debug] [2024-10-23T13:53:05.731Z] Command:       /opt/homebrew/Cellar/node/22.9.0/bin/node /opt/homebrew/bin/firebase deploy --only functions
+[debug] [2024-10-23T13:53:05.731Z] CLI Version:   13.22.0
+[debug] [2024-10-23T13:53:05.731Z] Platform:      darwin
+[debug] [2024-10-23T13:53:05.731Z] Node Version:  v22.9.0
+[debug] [2024-10-23T13:53:05.732Z] Time:          Wed Oct 23 2024 18:53:05 GMT+0500 (Pakistan Standard Time)
+[debug] [2024-10-23T13:53:05.732Z] ----------------------------------------------------------------------
+[debug] 
