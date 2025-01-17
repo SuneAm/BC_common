@@ -397,8 +397,7 @@ class _Bar extends StatelessWidget {
                         width: barWidth,
                         decoration: BoxDecoration(
                           color: bar.barColor,
-                          borderRadius: BorderRadius.circular(
-                              10), // Adjust the radius as needed
+                          borderRadius: BorderRadius.circular(10),
                         ),
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
@@ -440,7 +439,9 @@ class _Bar extends StatelessWidget {
                                           backgroundColor: _getLighterShade(
                                               bar.barColor, 0.2),
                                           radius: 12,
-                                          child: CaptionText(user.initials),
+                                          child: FittedBox(
+                                            child: CaptionText(user.initials),
+                                          ),
                                         ),
                                       ),
                                     ),
