@@ -4,11 +4,16 @@ import 'package:flutter/services.dart';
 import 'package:ordrestyring_common/ordrestyring_common.dart';
 import 'package:ordrestyring_common/src/common_widgets/containers/app_icon_container.dart';
 import 'package:ordrestyring_common/src/domain/assignment/calendar_wrapper.dart';
+import 'package:ordrestyring_common/src/utils/case_extension.dart';
 
 part 'assignment_dialog.dart';
+
 part 'calendar_controller.dart';
+
 part 'calendar_menu_dialog.dart';
+
 part 'calendar_navigation_row.dart';
+
 part 'calendar_user_notifier.dart';
 
 class CalendarView extends HookConsumerWidget {
@@ -343,7 +348,7 @@ class _Bar extends StatelessWidget {
           margin: EdgeInsets.only(left: editorBar.leftPosition),
           width: editorBar.barWidth,
           decoration: BoxDecoration(
-            color: editorBar.barColor.withOpacity(.3),
+            color: editorBar.barColor.withValues(alpha: .3),
             borderRadius: BorderRadius.circular(10),
           ),
           child: Column(

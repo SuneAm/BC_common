@@ -134,7 +134,8 @@ class CaseRepository {
   Stream<List<Case>> watchCases() {
     final snapshots = _firestore
         .collection('cases')
-        .orderBy('caseNumber', descending: true)
+        // .orderBy('caseNumber', descending: true)
+        .orderBy('caseNumber')
         .snapshots();
 
     return snapshots.map((snapshot) => snapshot.docs
