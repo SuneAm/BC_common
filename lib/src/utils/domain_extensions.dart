@@ -13,19 +13,19 @@ extension AssignmentCalendarEx on AssignmentCalendar? {
 }
 
 extension CaseEstimatedHourEx on CaseEstimatedHour? {
-  double get projectEstimatedHour => this?.estimatedProjectHour ?? 0;
+  double get estimatedProjectHour => this?.estimatedProjectHour ?? 0;
 
-  double get productionEstimatedHour => this?.estimatedProductionHour ?? 0;
+  double get estimatedProductionHour => this?.estimatedProductionHour ?? 0;
 
-  double get montageEstimatedHour => this?.estimatedMontageHour ?? 0;
+  double get estimatedMontageHour => this?.estimatedMontageHour ?? 0;
 
   double get estimatedMaterialPrice => this?.estimatedMaterialPrice ?? 0.0;
 
   double get totalEstimatedHour =>
-      (projectEstimatedHour + productionEstimatedHour + montageEstimatedHour);
+      (estimatedProjectHour + estimatedProductionHour + estimatedMontageHour);
 }
 
-extension HourAggregateEx on HourAggregate {
+extension HourAggregateEx on HourAggregate? {
   // double get projectEstimatedHour {
   //   final calculationTypes = CalculationHourTypes.values.where(
   //       (element) => element.calculationTypes == CalculationTypes.Projekt);
@@ -39,9 +39,12 @@ extension HourAggregateEx on HourAggregate {
   // }
 
   double get projectHourSpent {
+    if (this == null) return 0.0;
+
     final calculationTypes = CalculationHourTypes.values.where(
         (element) => element.calculationTypes == CalculationTypes.Projekt);
-    final filteredList = hourTypes
+    final filteredList = this!
+        .hourTypes
         .where((hour) =>
             calculationTypes.any((type) => hour.name.contains(type.name)))
         .toList();
@@ -66,9 +69,11 @@ extension HourAggregateEx on HourAggregate {
   // }
 
   double get productionHourSpent {
+    if (this == null) return 0.0;
     final calculationTypes = CalculationHourTypes.values.where(
         (element) => element.calculationTypes == CalculationTypes.Produktion);
-    final filteredList = hourTypes
+    final filteredList = this!
+        .hourTypes
         .where((hour) =>
             calculationTypes.any((type) => hour.name.contains(type.name)))
         .toList();
@@ -92,9 +97,11 @@ extension HourAggregateEx on HourAggregate {
   // }
 
   double get montageHourSpent {
+    if (this == null) return 0.0;
     final calculationTypes = CalculationHourTypes.values.where(
         (element) => element.calculationTypes == CalculationTypes.Montage);
-    final filteredList = hourTypes
+    final filteredList = this!
+        .hourTypes
         .where((hour) =>
             calculationTypes.any((type) => hour.name.contains(type.name)))
         .toList();

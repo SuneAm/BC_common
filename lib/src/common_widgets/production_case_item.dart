@@ -17,7 +17,7 @@ class ProductionCaseItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final budget = caseItem.estimatedHours.productionEstimatedHour;
+    final budget = caseItem.estimatedHours.estimatedProductionHour;
     final hourSpent = caseItem.hourAggregate?.productionHourSpent ?? 0;
 
     return Container(
