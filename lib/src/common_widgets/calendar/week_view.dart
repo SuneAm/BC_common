@@ -62,7 +62,7 @@ class WeekView extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(4.0),
                     child: Text(
-                      'Week $week',
+                      'uge $week',
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 16,
