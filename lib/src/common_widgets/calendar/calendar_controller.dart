@@ -110,3 +110,35 @@ final calendarWrapperProvider =
     ...assignments.map((a) => CalendarWrapper.assignment(a)),
   ];
 });
+
+final calendarWrapperInViewProvider =
+    Provider.autoDispose<List<CalendarWrapper>>((ref) {
+  final calendarWrappers = ref.watch(calendarWrapperProvider);
+  final viewFirstDate = ref.watch(_startRangeProvider);
+  final viewLastDate = ref.watch(_endRangeProvider);
+
+  return calendarWrappers.where((wrapper) {
+    return wrapper.when(
+      job: (job) {
+        if (job.editorCalendar == null) return false;
+
+        final editorCalendar = job.editorCalendar!;
+        final overlapsWithView = editorCalendar.startDate
+                .isBefore(viewLastDate.add(const Duration(days: 1))) &&
+            editorCalendar.endDate
+                .isAfter(viewFirstDate.subtract(const Duration(days: 1)));
+
+        return overlapsWithView;
+      },
+      assignment: (assignment) {
+        final calendar = assignment.calendar;
+        final overlapsWithView = calendar.startDate
+                .isBefore(viewLastDate.add(const Duration(days: 1))) &&
+            calendar.endDate
+                .isAfter(viewFirstDate.subtract(const Duration(days: 1)));
+
+        return overlapsWithView;
+      },
+    );
+  }).toList();
+});

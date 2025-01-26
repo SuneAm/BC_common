@@ -87,39 +87,11 @@ class _BarAcrossColumns extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final calendarWrappers = ref.watch(calendarWrapperProvider);
-    if (calendarWrappers.isEmpty) return const SizedBox();
+    final wrappersInView = ref.watch(calendarWrapperInViewProvider);
+    if (wrappersInView.isEmpty) return const SizedBox();
 
     final viewFirstDate = ref.watch(_startRangeProvider);
     final viewLastDate = ref.watch(_endRangeProvider);
-
-    final wrappersInView = calendarWrappers.where((wrapper) {
-      return wrapper.when(
-        job: (job) {
-          if (job.editorCalendar == null) return false;
-
-          final editorCalendar = job.editorCalendar!;
-          final overlapsWithView = editorCalendar.startDate
-                  .isBefore(viewLastDate.add(const Duration(days: 1))) &&
-              editorCalendar.endDate
-                  .isAfter(viewFirstDate.subtract(const Duration(days: 1)));
-
-          return overlapsWithView;
-        },
-        assignment: (assignment) {
-          final calendar = assignment.calendar;
-          // Include vacations that overlap with the current view range, including boundary days
-          final overlapsWithView = calendar.startDate
-                  .isBefore(viewLastDate.add(const Duration(days: 1))) &&
-              calendar.endDate
-                  .isAfter(viewFirstDate.subtract(const Duration(days: 1)));
-
-          return overlapsWithView;
-        },
-      );
-    }).toList();
-
-    if (wrappersInView.isEmpty) return const SizedBox();
 
     return LayoutBuilder(
       builder: (context, constraints) {
@@ -192,6 +164,7 @@ class _BarAcrossColumns extends ConsumerWidget {
                         startDate: editor.startDate,
                         endDate: editor.endDate,
                         appointedUsers: const [],
+                        isEditorBar: true,
                       ),
                     );
 
@@ -323,7 +296,7 @@ class _BarAcrossColumns extends ConsumerWidget {
   }
 }
 
-class _Bar extends StatelessWidget {
+class _Bar extends HookConsumerWidget {
   const _Bar({
     required this.produktionBars,
     required this.spacePerDay,
@@ -339,7 +312,8 @@ class _Bar extends StatelessWidget {
   ProduktionBar get editorBar => produktionBars.first;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final toggleBar = useState<bool>(false);
     return InkWell(
       onTap: onTap,
       child: Padding(
@@ -353,57 +327,58 @@ class _Bar extends StatelessWidget {
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: produktionBars
-                .map(
-                  (bar) => LayoutBuilder(
-                    builder:
-                        (BuildContext context, BoxConstraints constraints) {
-                      final adjustedViewFirstDate =
-                          editorBar.startDate.isBefore(viewFirstDate)
-                              ? viewFirstDate
-                              : DateTime(
-                                  editorBar.startDate.year,
-                                  editorBar.startDate.month,
-                                  editorBar.startDate.day,
-                                );
+            children: produktionBars.map(
+              (bar) {
+                if (!bar.isEditorBar && toggleBar.value) {
+                  return const SizedBox();
+                }
+                final adjustedViewFirstDate =
+                    editorBar.startDate.isBefore(viewFirstDate)
+                        ? viewFirstDate
+                        : DateTime(
+                            editorBar.startDate.year,
+                            editorBar.startDate.month,
+                            editorBar.startDate.day,
+                          );
 
-                      // Calculate effective start and end days within the current view range
-                      final adjustedStartDate =
-                          bar.startDate.isBefore(adjustedViewFirstDate)
-                              ? adjustedViewFirstDate
-                              : DateTime(
-                                  bar.startDate.year,
-                                  bar.startDate.month,
-                                  bar.startDate.day,
-                                );
+                // Calculate effective start and end days within the current view range
+                final adjustedStartDate =
+                    bar.startDate.isBefore(adjustedViewFirstDate)
+                        ? adjustedViewFirstDate
+                        : DateTime(
+                            bar.startDate.year,
+                            bar.startDate.month,
+                            bar.startDate.day,
+                          );
 
-                      final adjustedEndDate = DateTime(
-                        bar.endDate.year,
-                        bar.endDate.month,
-                        bar.endDate.day,
-                      );
+                final adjustedEndDate = DateTime(
+                  bar.endDate.year,
+                  bar.endDate.month,
+                  bar.endDate.day,
+                );
 
-                      final startDayIndex = adjustedStartDate
-                          .difference(adjustedViewFirstDate)
-                          .inDays;
-                      final endDayIndex = adjustedEndDate
-                          .difference(adjustedViewFirstDate)
-                          .inDays;
+                final startDayIndex =
+                    adjustedStartDate.difference(adjustedViewFirstDate).inDays;
+                final endDayIndex =
+                    adjustedEndDate.difference(adjustedViewFirstDate).inDays;
 
-                      // Calculate the left position based on the start day index and width for each day
-                      final leftPosition = spacePerDay * startDayIndex;
+                // Calculate the left position based on the start day index and width for each day
+                final leftPosition = spacePerDay * startDayIndex;
 
-                      // // // Calculate the width of the bar based on the total number of days the vacation spans
-                      final barWidth =
-                          spacePerDay * (endDayIndex - startDayIndex + 1);
+                // // // Calculate the width of the bar based on the total number of days the vacation spans
+                final barWidth =
+                    spacePerDay * (endDayIndex - startDayIndex + 1);
 
-                      return Container(
-                        margin: EdgeInsets.only(left: leftPosition),
-                        width: barWidth,
-                        decoration: BoxDecoration(
-                          color: bar.barColor,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
+                return Container(
+                  margin: EdgeInsets.only(left: leftPosition),
+                  width: barWidth,
+                  decoration: BoxDecoration(
+                    color: bar.barColor,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Row(
+                    children: [
+                      Expanded(
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
                             vertical: 2,
@@ -456,11 +431,20 @@ class _Bar extends StatelessWidget {
                             ],
                           ),
                         ),
-                      );
-                    },
+                      ),
+                      if (bar.isEditorBar)
+                        IconContainer(
+                          icon: toggleBar.value
+                              ? Icons.arrow_upward
+                              : Icons.arrow_downward,
+                          size: 16,
+                          onTap: () => toggleBar.value = !toggleBar.value,
+                        ),
+                    ],
                   ),
-                )
-                .toList(),
+                );
+              },
+            ).toList(),
           ),
         ),
       ),
@@ -486,6 +470,7 @@ class ProduktionBar {
     required this.startDate,
     required this.endDate,
     required this.appointedUsers,
+    this.isEditorBar = false,
   });
 
   final String caseId;
@@ -496,4 +481,5 @@ class ProduktionBar {
   final DateTime startDate;
   final DateTime endDate;
   final List<User> appointedUsers;
+  final bool isEditorBar;
 }
