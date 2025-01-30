@@ -77,7 +77,7 @@ final calendarSortByProvider = StateProvider.autoDispose<CalendarSortBy>(
   (ref) => CalendarSortBy.projectNumber,
 );
 
-final _calendarCaseSortByProvider = Provider<List<Case>>((ref) {
+final _calendarCaseSortByProvider = Provider.autoDispose<List<Case>>((ref) {
   final calendarCases = ref.watch(calendarCasesNotifierProvider);
   final sortBy = ref.watch(calendarSortByProvider);
 
