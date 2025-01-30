@@ -85,6 +85,7 @@ extension DateTimeRangeEx on DateTimeRange {
 }
 
 extension DateTimeContextEx on BuildContext {
+  int get _fistDate => 365; // 1 year
   int get _lastDate => 1096; // 3 years
 
   Future<DateTime?> selectDate(
@@ -93,14 +94,14 @@ extension DateTimeContextEx on BuildContext {
     DateTime? firstDate,
     DateTime? lastDate,
   }) {
-    final now = DateTime.now();
+    final today = DateTime.now();
 
     return showDatePicker(
       context: this,
       helpText: helperText,
-      initialDate: initialDate ?? now,
-      firstDate: firstDate ?? now,
-      lastDate: lastDate ?? now.add(Duration(days: _lastDate)),
+      initialDate: initialDate ?? today,
+      firstDate: firstDate ?? today.subtract(Duration(days: _fistDate)),
+      lastDate: lastDate ?? today.add(Duration(days: _lastDate)),
     );
   }
 
@@ -110,14 +111,14 @@ extension DateTimeContextEx on BuildContext {
     DateTime? lastDate,
     DateTimeRange? initialDateRange,
   }) {
-    final now = DateTime.now();
+    final today = DateTime.now();
 
     return showDateRangePicker(
         context: this,
         helpText: helperText,
         initialDateRange: initialDateRange,
-        firstDate: firstDate ?? now,
-        lastDate: lastDate ?? now.add(Duration(days: _lastDate)),
+        firstDate: firstDate ?? today.subtract(Duration(days: _fistDate)),
+        lastDate: lastDate ?? today.add(Duration(days: _lastDate)),
         builder: (_, child) {
           return Column(
             children: <Widget>[
