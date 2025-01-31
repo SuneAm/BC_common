@@ -98,9 +98,8 @@ class AssignmentDialog extends HookConsumerWidget {
                       ref.read(assignmentRepoProvider).delete(assignment!.id);
                       if (context.mounted) Navigator.pop(context);
                     },
-                    icon: Icons.close,
-                    color: Colors.white,
-                    backgroundColor: Colors.red,
+                    icon: Icons.delete_forever,
+                    color: Colors.red,
                   ),
               ],
             ),
