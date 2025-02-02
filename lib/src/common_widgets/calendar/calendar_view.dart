@@ -161,8 +161,9 @@ class _BarAcrossColumns extends ConsumerWidget {
 
                     final editorViewBar = _CalendarViewBar(
                       name: caseItem.projectName,
-                      barColor: caseItem.editorCalendar?.peopleColor?.toColor ??
-                          OrdrerColors.kEditorColor,
+                      barColor:
+                          caseItem.editorCalendar?.calendarColor?.toColor ??
+                              OrdrerColors.kEditorColor,
                       barWidth: editorBar.$1,
                       leftPosition: editorBar.$2,
                       isCollapsable: true,

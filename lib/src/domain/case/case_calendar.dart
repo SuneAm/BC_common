@@ -13,7 +13,8 @@ class CaseCalendar with _$CaseCalendar {
   const factory CaseCalendar({
     @TimestampSerializer() required DateTime startDate,
     @TimestampSerializer() required DateTime endDate,
-    AssignmentColor? peopleColor,
+    CalendarColor? calendarColor,
+    double? progress,
   }) = _CaseCalendar;
 
   factory CaseCalendar.fromJson(Map<String, dynamic> json) =>

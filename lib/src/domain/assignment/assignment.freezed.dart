@@ -24,7 +24,7 @@ mixin _$Assignment {
   String get name => throw _privateConstructorUsedError;
   @TimestampSerializer()
   DateTime get createdAt => throw _privateConstructorUsedError;
-  AssignmentColor get color => throw _privateConstructorUsedError;
+  CalendarColor get color => throw _privateConstructorUsedError;
   AssignmentCalendar get calendar => throw _privateConstructorUsedError;
   AssignmentType get type => throw _privateConstructorUsedError;
 
@@ -48,7 +48,7 @@ abstract class $AssignmentCopyWith<$Res> {
       {String id,
       String name,
       @TimestampSerializer() DateTime createdAt,
-      AssignmentColor color,
+      CalendarColor color,
       AssignmentCalendar calendar,
       AssignmentType type});
 
@@ -93,7 +93,7 @@ class _$AssignmentCopyWithImpl<$Res, $Val extends Assignment>
       color: null == color
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
-              as AssignmentColor,
+              as CalendarColor,
       calendar: null == calendar
           ? _value.calendar
           : calendar // ignore: cast_nullable_to_non_nullable
@@ -128,7 +128,7 @@ abstract class _$$AssignmentImplCopyWith<$Res>
       {String id,
       String name,
       @TimestampSerializer() DateTime createdAt,
-      AssignmentColor color,
+      CalendarColor color,
       AssignmentCalendar calendar,
       AssignmentType type});
 
@@ -172,7 +172,7 @@ class __$$AssignmentImplCopyWithImpl<$Res>
       color: null == color
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
-              as AssignmentColor,
+              as CalendarColor,
       calendar: null == calendar
           ? _value.calendar
           : calendar // ignore: cast_nullable_to_non_nullable
@@ -192,7 +192,7 @@ class _$AssignmentImpl extends _Assignment {
       {this.id = '',
       required this.name,
       @TimestampSerializer() required this.createdAt,
-      this.color = AssignmentColor.blue,
+      this.color = CalendarColor.blue,
       required this.calendar,
       required this.type})
       : super._();
@@ -210,7 +210,7 @@ class _$AssignmentImpl extends _Assignment {
   final DateTime createdAt;
   @override
   @JsonKey()
-  final AssignmentColor color;
+  final CalendarColor color;
   @override
   final AssignmentCalendar calendar;
   @override
@@ -262,7 +262,7 @@ abstract class _Assignment extends Assignment {
       {final String id,
       required final String name,
       @TimestampSerializer() required final DateTime createdAt,
-      final AssignmentColor color,
+      final CalendarColor color,
       required final AssignmentCalendar calendar,
       required final AssignmentType type}) = _$AssignmentImpl;
   const _Assignment._() : super._();
@@ -278,7 +278,7 @@ abstract class _Assignment extends Assignment {
   @TimestampSerializer()
   DateTime get createdAt;
   @override
-  AssignmentColor get color;
+  CalendarColor get color;
   @override
   AssignmentCalendar get calendar;
   @override

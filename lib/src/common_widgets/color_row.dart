@@ -5,14 +5,14 @@ import 'package:ordrestyring_common/src/utils/enum_extensions.dart';
 class ColorRow extends StatelessWidget {
   const ColorRow({super.key, required this.value, required this.onSelect});
 
-  final AssignmentColor value;
-  final Function(AssignmentColor color) onSelect;
+  final CalendarColor value;
+  final Function(CalendarColor color) onSelect;
 
   @override
   Widget build(BuildContext context) {
     return Wrap(
       spacing: 2,
-      children: AssignmentColor.values
+      children: CalendarColor.values
           .map(
             (color) => InkWell(
               onTap: () => onSelect.call(color),

@@ -16,7 +16,7 @@ abstract class Assignment implements _$Assignment {
     @Default('') String id,
     required String name,
     @TimestampSerializer() required DateTime createdAt,
-    @Default(AssignmentColor.blue) AssignmentColor color,
+    @Default(CalendarColor.blue) CalendarColor color,
     required AssignmentCalendar calendar,
     required AssignmentType type,
     // AssignmentCalendar? production,

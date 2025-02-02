@@ -10,7 +10,7 @@ class AssignmentDialog extends HookConsumerWidget {
     final nameController =
         useTextEditingController(text: assignment?.name ?? '');
     final selectedAssignmentColor =
-        useState<AssignmentColor>(assignment?.color ?? AssignmentColor.blue);
+        useState<CalendarColor>(assignment?.color ?? CalendarColor.blue);
 
     final dateRangeState = useState<DateTimeRange?>(
       assignment?.calendar == null

@@ -12,8 +12,10 @@ class CalendarMenuDialog extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final selectedEditorColor = useState<AssignmentColor>(
-        caseItem.editorCalendar?.peopleColor ?? AssignmentColor.blue);
+    final progressState =
+        useRef<double>(caseItem.editorCalendar?.progress ?? 0.0);
+    final selectedEditorColor = useState<CalendarColor>(
+        caseItem.editorCalendar?.calendarColor ?? CalendarColor.blue);
     final editorDateRange = useState<DateTimeRange?>(
       caseItem.editorCalendar == null
           ? null
@@ -87,6 +89,11 @@ class CalendarMenuDialog extends HookConsumerWidget {
                 montageDateRange.value = null;
               }
             },
+          ),
+          _ProgressSlider(
+            color: selectedEditorColor.value.toColor,
+            value: progressState.value,
+            onChanged: (v) => progressState.value = v,
           ),
           DateSelectionContainer(
             title: 'Production',
@@ -181,9 +188,13 @@ class CalendarMenuDialog extends HookConsumerWidget {
                       editorCalendar = CaseCalendar(
                         startDate: editorDateRange.value!.start,
                         endDate: editorDateRange.value!.end,
-                        peopleColor: selectedEditorColor.value,
+                        calendarColor: selectedEditorColor.value,
+                        progress: double.parse(
+                          progressState.value
+                              .clamp(0.0, 1.0)
+                              .toStringAsFixed(2),
+                        ),
                       );
-
                       productionCalendar = productionDateRange.value == null
                           ? null
                           : CaseCalendar(
@@ -288,6 +299,40 @@ class _UserListDialog extends ConsumerWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class _ProgressSlider extends HookConsumerWidget {
+  const _ProgressSlider({
+    required this.color,
+    required this.value,
+    required this.onChanged,
+  });
+
+  final double value;
+  final Color color;
+  final void Function(double) onChanged;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final progress = useState<double>(value);
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+      child: Row(
+        children: [
+          Expanded(
+            child: Slider(
+              inactiveColor: OrdrerColors.kProduktionAppColor,
+              activeColor: color,
+              value: progress.value,
+              onChangeEnd: onChanged,
+              onChanged: (v) => progress.value = v,
+            ),
+          ),
+          Text('${(progress.value * 100).round()}%')
+        ],
       ),
     );
   }
