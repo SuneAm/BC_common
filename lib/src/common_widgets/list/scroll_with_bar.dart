@@ -17,7 +17,7 @@ class ScrollWithBar extends StatelessWidget {
     return Theme(
       data: Theme.of(context).copyWith(
         scrollbarTheme: ScrollbarThemeData(
-          thumbColor: MaterialStateProperty.all(
+          thumbColor: WidgetStateProperty.all(
             scrollColor,
           ),
         ),

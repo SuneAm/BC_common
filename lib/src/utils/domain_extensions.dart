@@ -6,6 +6,12 @@ extension CaseCalendarEx on CaseCalendar? {
       : '${this!.startDate.formatDateShort} - ${this!.endDate.formatDateShort}';
 }
 
+extension AssignmentTypeEx on AssignmentType {
+  bool get isAssignment => this == AssignmentType.assignment;
+
+  bool get isMilestone => this == AssignmentType.milestone;
+}
+
 extension AssignmentCalendarEx on AssignmentCalendar? {
   String get toFormattedDates => this == null
       ? ''

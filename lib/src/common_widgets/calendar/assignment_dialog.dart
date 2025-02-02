@@ -17,8 +17,14 @@ class AssignmentDialog extends HookConsumerWidget {
           ? null
           : DateTimeRange(
               start: assignment!.calendar.startDate,
-              end: assignment!.calendar.endDate),
+              end: assignment!.calendar.endDate,
+            ),
     );
+
+    final type =
+        useState<AssignmentType>(assignment?.type ?? AssignmentType.assignment);
+
+    final isAssignment = type.value.isAssignment;
     return AppDialog(
       maxWidth: 500,
       child: Padding(
@@ -27,8 +33,28 @@ class AssignmentDialog extends HookConsumerWidget {
           spacing: 16,
           mainAxisSize: MainAxisSize.min,
           children: [
-            TitleText(
-                assignment == null ? 'tilføje opgave' : 'opdateringsopgave'),
+            Row(
+              children: [
+                Expanded(
+                  child: TitleText(
+                    assignment == null ? 'tilføje opgave' : 'opdateringsopgave',
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                IconContainer(
+                    icon: isAssignment ? Icons.toggle_on : Icons.toggle_off,
+                    onTap: () {
+                      type.value = isAssignment
+                          ? AssignmentType.milestone
+                          : AssignmentType.assignment;
+                      dateRangeState.value = assignment?.calendar == null
+                          ? null
+                          : DateTimeRange(
+                              start: assignment!.calendar.startDate,
+                              end: assignment!.calendar.endDate);
+                    }),
+              ],
+            ),
             TextField(
               controller: nameController,
               decoration: const InputDecoration(
@@ -36,19 +62,39 @@ class AssignmentDialog extends HookConsumerWidget {
                 labelText: 'navn',
               ),
             ),
-            DateSelectionContainer(
-              title: 'Projekt',
-              backgroundColor: selectedAssignmentColor.value.toColor,
-              onDateClear: () => dateRangeState.value == null,
-              formatDate: dateRangeState.value?.formattedDates,
-              onDateSelect: () async {
-                final selectedDate = await context.selectDateRange(
-                  'Projekt Dates',
-                  initialDateRange: dateRangeState.value,
-                );
-                if (selectedDate != null) dateRangeState.value = selectedDate;
-              },
-            ),
+            if (isAssignment)
+              DateSelectionContainer(
+                title: 'Projekt',
+                backgroundColor: selectedAssignmentColor.value.toColor,
+                onDateClear: () => dateRangeState.value == null,
+                formatDate: dateRangeState.value?.formattedDates,
+                onDateSelect: () async {
+                  final selectedDate = await context.selectDateRange(
+                    'Projekt Dates',
+                    initialDateRange: dateRangeState.value,
+                  );
+                  if (selectedDate != null) dateRangeState.value = selectedDate;
+                },
+              )
+            else
+              DateSelectionContainer(
+                title: '',
+                backgroundColor: selectedAssignmentColor.value.toColor,
+                onDateClear: () => dateRangeState.value == null,
+                formatDate: dateRangeState.value?.start.formatDate,
+                onDateSelect: () async {
+                  final selectedDate = await context.selectDate(
+                    'Projekt Dates',
+                    initialDate: dateRangeState.value?.start,
+                  );
+                  if (selectedDate != null) {
+                    dateRangeState.value = DateTimeRange(
+                      start: selectedDate,
+                      end: selectedDate,
+                    );
+                  }
+                },
+              ),
             Row(
               spacing: 12,
               children: [
@@ -70,17 +116,25 @@ class AssignmentDialog extends HookConsumerWidget {
                       return;
                     }
                     if (dateRange == null) {
-                      context.showSnackBar('Select Start and End Dates');
+                      context.showSnackBar(
+                        isAssignment
+                            ? 'Select Start and End Dates'
+                            : 'Select Date',
+                      );
                       return;
                     }
 
                     final newAssignment = Assignment(
                       id: assignment?.id ?? '',
+                      createdAt: assignment?.createdAt ?? DateTime.now(),
                       name: name,
                       color: color,
+                      type: type.value,
                       calendar: AssignmentCalendar(
                         startDate: dateRange.start,
-                        endDate: dateRange.end,
+                        endDate: type.value.isMilestone
+                            ? dateRange.start
+                            : dateRange.end,
                       ),
                     );
 

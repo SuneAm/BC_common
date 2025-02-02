@@ -63,6 +63,7 @@ class CalendarView extends HookConsumerWidget {
             if (showNavigationArrows) const ProduktionCalendarNavigationRow(),
             Expanded(
               child: Stack(
+                fit: StackFit.expand,
                 children: [
                   WeekTopView(
                     totalWeeks: zoomLevel.totalWeeks,
@@ -117,31 +118,37 @@ class _BarAcrossColumns extends ConsumerWidget {
                   viewFirstDate.day,
                 );
 
-                final List<ProduktionBar> bars = wrapper.when(
+                final _CalendarBar bars = wrapper.when(
                   assignment: (assignment) {
                     final startDate = assignment.calendar.startDate;
                     final endDate = assignment.calendar.endDate;
                     final bar = calculateBar(
                       startDate: startDate,
-                      endDate: assignment.calendar.endDate,
+                      endDate: endDate,
                       spacePerDay: spacePerDay,
                       adjustedViewFirstDate: adjustedViewFirstDate,
                     );
-                    return [
-                      ProduktionBar(
-                        caseId: '',
-                        projectName: assignment.name,
-                        barColor: assignment.color.toColor,
-                        barWidth: bar.$1,
-                        leftPosition: bar.$2,
-                        startDate: startDate,
-                        endDate: endDate,
-                        appointedUsers: const [],
-                      )
-                    ];
+
+                    final parentView = _CalendarViewBar(
+                      name: assignment.name,
+                      barColor: assignment.color.toColor,
+                      barWidth: bar.$1,
+                      leftPosition: bar.$2,
+                      dateRange: DateTimeRange(
+                        start: startDate,
+                        end: endDate,
+                      ),
+                    );
+                    return _CalendarBar(
+                      parentViewBar: parentView,
+                      assignmentBar: _CalendarAssignmentBar(
+                        assignment: assignment,
+                        viewBar: parentView,
+                      ),
+                    );
                   },
                   job: (caseItem) {
-                    final bars = <ProduktionBar>[];
+                    final caseBars = <_CalendarCaseBar>[];
 
                     final editor = caseItem.editorCalendar!;
 
@@ -152,21 +159,26 @@ class _BarAcrossColumns extends ConsumerWidget {
                       adjustedViewFirstDate: adjustedViewFirstDate,
                     );
 
-                    bars.add(
-                      ProduktionBar(
-                        caseId: caseItem.caseNumber,
-                        projectName: caseItem.projectName,
-                        barColor:
-                            caseItem.editorCalendar?.peopleColor?.toColor ??
-                                OrdrerColors.kEditorColor,
-                        barWidth: editorBar.$1,
-                        leftPosition: editorBar.$2,
-                        startDate: editor.startDate,
-                        endDate: editor.endDate,
-                        appointedUsers: const [],
-                        isEditorBar: true,
+                    final editorViewBar = _CalendarViewBar(
+                      name: caseItem.projectName,
+                      barColor: caseItem.editorCalendar?.peopleColor?.toColor ??
+                          OrdrerColors.kEditorColor,
+                      barWidth: editorBar.$1,
+                      leftPosition: editorBar.$2,
+                      isCollapsable: true,
+                      dateRange: DateTimeRange(
+                        start: editor.startDate,
+                        end: editor.endDate,
                       ),
                     );
+
+                    final editorCaseBar = _CalendarCaseBar(
+                      caseId: caseItem.caseNumber,
+                      appointedUsers: const [],
+                      viewBar: editorViewBar,
+                    );
+
+                    caseBars.add(editorCaseBar);
 
                     if (caseItem.productionCalendar != null &&
                         caseItem.productionCalendar!.endDate
@@ -180,16 +192,20 @@ class _BarAcrossColumns extends ConsumerWidget {
                         adjustedViewFirstDate: adjustedViewFirstDate,
                       );
 
-                      bars.add(
-                        ProduktionBar(
+                      caseBars.add(
+                        _CalendarCaseBar(
                           caseId: caseItem.caseNumber,
-                          projectName: '',
-                          barColor: OrdrerColors.kProduktionAppColor,
-                          barWidth: calendarBar.$1,
-                          leftPosition: calendarBar.$2,
-                          startDate: calendar.startDate,
-                          endDate: calendar.endDate,
                           appointedUsers: caseItem.productionUsers ?? [],
+                          viewBar: _CalendarViewBar(
+                            name: '',
+                            barColor: OrdrerColors.kProduktionAppColor,
+                            barWidth: calendarBar.$1,
+                            leftPosition: calendarBar.$2,
+                            dateRange: DateTimeRange(
+                              start: calendar.startDate,
+                              end: calendar.endDate,
+                            ),
+                          ),
                         ),
                       );
                     }
@@ -206,25 +222,34 @@ class _BarAcrossColumns extends ConsumerWidget {
                         adjustedViewFirstDate: adjustedViewFirstDate,
                       );
 
-                      bars.add(
-                        ProduktionBar(
+                      caseBars.add(
+                        _CalendarCaseBar(
                           caseId: caseItem.caseNumber,
-                          projectName: '',
-                          barColor: OrdrerColors.kMontageAppColor,
-                          barWidth: montageBar.$1,
-                          leftPosition: montageBar.$2,
-                          startDate: montage.startDate,
-                          endDate: montage.endDate,
                           appointedUsers: caseItem.montageUsers ?? [],
+                          viewBar: _CalendarViewBar(
+                            name: '',
+                            barColor: OrdrerColors.kMontageAppColor,
+                            barWidth: montageBar.$1,
+                            leftPosition: montageBar.$2,
+                            dateRange: DateTimeRange(
+                              start: montage.startDate,
+                              end: montage.endDate,
+                            ),
+                          ),
                         ),
                       );
                     }
-                    return bars;
+                    // return caseBars;
+
+                    return _CalendarBar(
+                      parentViewBar: editorViewBar,
+                      caseBars: caseBars,
+                    );
                   },
                 );
 
                 return _Bar(
-                  produktionBars: bars,
+                  calendarBar: bars,
                   spacePerDay: spacePerDay,
                   viewFirstDate: adjustedViewFirstDate,
                   onTap: () => wrapper.when(
@@ -298,84 +323,132 @@ class _BarAcrossColumns extends ConsumerWidget {
 
 class _Bar extends HookConsumerWidget {
   const _Bar({
-    required this.produktionBars,
+    required this.calendarBar,
     required this.spacePerDay,
     required this.viewFirstDate,
     required this.onTap,
   });
 
   final VoidCallback onTap;
-  final List<ProduktionBar> produktionBars;
+  final _CalendarBar calendarBar;
   final double spacePerDay;
   final DateTime viewFirstDate;
 
-  ProduktionBar get editorBar => produktionBars.first;
+  _CalendarViewBar get parentViewBar => calendarBar.parentViewBar;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final toggleBar = useState<bool>(false);
     return InkWell(
       onTap: onTap,
       child: Padding(
         padding: const EdgeInsets.only(top: 4.0), // Spacing between bars
-        child: Container(
-          margin: EdgeInsets.only(left: editorBar.leftPosition),
-          width: editorBar.barWidth,
-          decoration: BoxDecoration(
-            color: editorBar.barColor.withValues(alpha: .3),
-            borderRadius: BorderRadius.circular(10),
+        child: (calendarBar.assignmentBar != null)
+            ? _CalendarAssignmentContainer(
+                assignmentBar: calendarBar.assignmentBar!,
+                spacePerDay: spacePerDay,
+              )
+            : _CalendarCaseContainer(
+                calendarBar: calendarBar,
+                spacePerDay: spacePerDay,
+              ),
+      ),
+    );
+  }
+}
+
+class _CalendarAssignmentContainer extends StatelessWidget {
+  const _CalendarAssignmentContainer({
+    required this.assignmentBar,
+    required this.spacePerDay,
+  });
+
+  final _CalendarAssignmentBar assignmentBar;
+  final double spacePerDay;
+
+  _CalendarViewBar get viewBar => assignmentBar.viewBar;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(left: viewBar.leftPosition),
+      width: viewBar.barWidth,
+      child: switch (assignmentBar.assignment.type) {
+        AssignmentType.milestone => Tooltip(
+            message: assignmentBar.assignment.name,
+            child: Icon(
+              Icons.hexagon,
+              color: assignmentBar.viewBar.barColor,
+              size: viewBar.barWidth,
+            ),
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: produktionBars.map(
-              (bar) {
-                if (!bar.isEditorBar && toggleBar.value) {
+        AssignmentType.assignment => _CalendarBarContainer(
+            viewBar: viewBar,
+            spacePerDay: spacePerDay,
+            parentDateRange: viewBar.dateRange,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                vertical: 2,
+                horizontal: 8,
+              ),
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 1.0,
+                ),
+                scrollDirection: Axis.horizontal,
+                child: Text(viewBar.name),
+              ),
+            ),
+          ),
+      },
+    );
+  }
+}
+
+class _CalendarCaseContainer extends HookConsumerWidget {
+  const _CalendarCaseContainer({
+    required this.calendarBar,
+    required this.spacePerDay,
+  });
+
+  final _CalendarBar calendarBar;
+  final double spacePerDay;
+
+  _CalendarViewBar get parentViewBar => calendarBar.parentViewBar;
+
+  Color _getLighterShade(Color color, double factor) {
+    HSLColor hsl = HSLColor.fromColor(color);
+    return hsl
+        .withLightness((hsl.lightness + factor).clamp(0.0, 1.0))
+        .toColor();
+  }
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final toggleBar = useState<bool>(false);
+
+    return Container(
+      margin: EdgeInsets.only(left: parentViewBar.leftPosition),
+      width: parentViewBar.barWidth,
+      decoration: BoxDecoration(
+        color: parentViewBar.barColor.withValues(alpha: .3),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: calendarBar.caseBars == null
+          ? const SizedBox()
+          : Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: calendarBar.caseBars!.map((bar) {
+                final viewBar = bar.viewBar;
+                if (!viewBar.isCollapsable && toggleBar.value) {
                   return const SizedBox();
                 }
-                final adjustedViewFirstDate =
-                    editorBar.startDate.isBefore(viewFirstDate)
-                        ? viewFirstDate
-                        : DateTime(
-                            editorBar.startDate.year,
-                            editorBar.startDate.month,
-                            editorBar.startDate.day,
-                          );
 
-                // Calculate effective start and end days within the current view range
-                final adjustedStartDate =
-                    bar.startDate.isBefore(adjustedViewFirstDate)
-                        ? adjustedViewFirstDate
-                        : DateTime(
-                            bar.startDate.year,
-                            bar.startDate.month,
-                            bar.startDate.day,
-                          );
+                final parentDateRange = parentViewBar.dateRange;
 
-                final adjustedEndDate = DateTime(
-                  bar.endDate.year,
-                  bar.endDate.month,
-                  bar.endDate.day,
-                );
-
-                final startDayIndex =
-                    adjustedStartDate.difference(adjustedViewFirstDate).inDays;
-                final endDayIndex =
-                    adjustedEndDate.difference(adjustedViewFirstDate).inDays;
-
-                // Calculate the left position based on the start day index and width for each day
-                final leftPosition = spacePerDay * startDayIndex;
-
-                // // // Calculate the width of the bar based on the total number of days the vacation spans
-                final barWidth =
-                    spacePerDay * (endDayIndex - startDayIndex + 1);
-
-                return Container(
-                  margin: EdgeInsets.only(left: leftPosition),
-                  width: barWidth,
-                  decoration: BoxDecoration(
-                    color: bar.barColor,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
+                return _CalendarBarContainer(
+                  viewBar: viewBar,
+                  spacePerDay: spacePerDay,
+                  parentDateRange: parentDateRange,
                   child: Row(
                     children: [
                       Expanded(
@@ -400,15 +473,14 @@ class _Bar extends HookConsumerWidget {
                                     RichText(
                                       text: TextSpan(
                                         children: [
-                                          if (bar.caseId.isNotEmpty)
-                                            TextSpan(
-                                              text: '${bar.caseId} - ',
-                                              style: const TextStyle(
-                                                overflow: TextOverflow.ellipsis,
-                                                fontWeight: FontWeight.bold,
-                                              ),
+                                          TextSpan(
+                                            text: '${bar.caseId} - ',
+                                            style: const TextStyle(
+                                              overflow: TextOverflow.ellipsis,
+                                              fontWeight: FontWeight.bold,
                                             ),
-                                          TextSpan(text: bar.projectName),
+                                          ),
+                                          TextSpan(text: viewBar.name),
                                         ],
                                       ),
                                     ),
@@ -417,7 +489,7 @@ class _Bar extends HookConsumerWidget {
                                         padding: const EdgeInsets.only(left: 2),
                                         child: CircleAvatar(
                                           backgroundColor: _getLighterShade(
-                                              bar.barColor, 0.2),
+                                              viewBar.barColor, 0.2),
                                           radius: 12,
                                           child: FittedBox(
                                             child: CaptionText(user.initials),
@@ -432,7 +504,7 @@ class _Bar extends HookConsumerWidget {
                           ),
                         ),
                       ),
-                      if (bar.isEditorBar)
+                      if (viewBar.isCollapsable)
                         IconContainer(
                           icon: toggleBar.value
                               ? Icons.arrow_upward
@@ -443,43 +515,134 @@ class _Bar extends HookConsumerWidget {
                     ],
                   ),
                 );
-              },
-            ).toList(),
-          ),
-        ),
-      ),
+              }).toList(),
+            ),
     );
   }
+}
 
-  Color _getLighterShade(Color color, double factor) {
-    HSLColor hsl = HSLColor.fromColor(color);
-    return hsl
-        .withLightness((hsl.lightness + factor).clamp(0.0, 1.0))
-        .toColor();
+class _CalendarBarContainer extends ConsumerWidget {
+  const _CalendarBarContainer({
+    required this.viewBar,
+    required this.spacePerDay,
+    required this.child,
+    required this.parentDateRange,
+  });
+
+  final _CalendarViewBar viewBar;
+  final double spacePerDay;
+  final Widget child;
+  final DateTimeRange parentDateRange;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final viewStartRange = ref.watch(_startRangeProvider);
+
+    final viewFirstDate = DateTime(
+      viewStartRange.year,
+      viewStartRange.month,
+      viewStartRange.day,
+    );
+
+    final adjustedViewFirstDate = parentDateRange.start.isBefore(viewFirstDate)
+        ? viewFirstDate
+        : DateTime(
+            parentDateRange.start.year,
+            parentDateRange.start.month,
+            parentDateRange.start.day,
+          );
+
+    // Calculate effective start and end days within the current view range
+
+    final barDateRange = viewBar.dateRange;
+    final adjustedStartDate = barDateRange.start.isBefore(adjustedViewFirstDate)
+        ? adjustedViewFirstDate
+        : DateTime(
+            barDateRange.start.year,
+            barDateRange.start.month,
+            barDateRange.start.day,
+          );
+
+    final adjustedEndDate = DateTime(
+      barDateRange.end.year,
+      barDateRange.end.month,
+      barDateRange.end.day,
+    );
+
+    final startDayIndex =
+        adjustedStartDate.difference(adjustedViewFirstDate).inDays;
+    final endDayIndex =
+        adjustedEndDate.difference(adjustedViewFirstDate).inDays;
+
+    // Calculate the left position based on the start day index and width for each day
+    final leftPosition = spacePerDay * startDayIndex;
+
+    // // // Calculate the width of the bar based on the total number of days the vacation spans
+    final barWidth = spacePerDay * (endDayIndex - startDayIndex + 1);
+    return Container(
+      margin: EdgeInsets.only(left: leftPosition),
+      width: barWidth,
+      decoration: BoxDecoration(
+        color: viewBar.barColor,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: child,
+    );
   }
 }
 
 @immutable
-class ProduktionBar {
-  const ProduktionBar({
-    required this.caseId,
-    required this.projectName,
+class _CalendarViewBar {
+  const _CalendarViewBar({
+    required this.name,
     required this.barColor,
     required this.barWidth,
     required this.leftPosition,
-    required this.startDate,
-    required this.endDate,
-    required this.appointedUsers,
-    this.isEditorBar = false,
+    required this.dateRange,
+    this.isCollapsable = false,
   });
 
-  final String caseId;
-  final String projectName;
+  final String name;
   final Color barColor;
   final double barWidth;
   final double leftPosition;
-  final DateTime startDate;
-  final DateTime endDate;
+  final DateTimeRange dateRange;
+  final bool isCollapsable;
+}
+
+@immutable
+class _CalendarBar {
+  const _CalendarBar({
+    required this.parentViewBar,
+    this.caseBars,
+    this.assignmentBar,
+  });
+
+  final _CalendarViewBar parentViewBar;
+  final List<_CalendarCaseBar>? caseBars;
+  final _CalendarAssignmentBar? assignmentBar;
+}
+
+@immutable
+class _CalendarCaseBar {
+  const _CalendarCaseBar({
+    required this.caseId,
+    required this.appointedUsers,
+    required this.viewBar,
+  });
+
+  final String caseId;
   final List<User> appointedUsers;
-  final bool isEditorBar;
+  final _CalendarViewBar viewBar;
+}
+
+@immutable
+class _CalendarAssignmentBar {
+  const _CalendarAssignmentBar({
+    required this.assignment,
+    required this.viewBar,
+  });
+
+  final Assignment assignment;
+  final _CalendarViewBar viewBar;
 }

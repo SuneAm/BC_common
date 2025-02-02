@@ -22,8 +22,11 @@ Assignment _$AssignmentFromJson(Map<String, dynamic> json) {
 mixin _$Assignment {
   String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
-  AssignmentCalendar get calendar => throw _privateConstructorUsedError;
+  @TimestampSerializer()
+  DateTime get createdAt => throw _privateConstructorUsedError;
   AssignmentColor get color => throw _privateConstructorUsedError;
+  AssignmentCalendar get calendar => throw _privateConstructorUsedError;
+  AssignmentType get type => throw _privateConstructorUsedError;
 
   /// Serializes this Assignment to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -44,8 +47,10 @@ abstract class $AssignmentCopyWith<$Res> {
   $Res call(
       {String id,
       String name,
+      @TimestampSerializer() DateTime createdAt,
+      AssignmentColor color,
       AssignmentCalendar calendar,
-      AssignmentColor color});
+      AssignmentType type});
 
   $AssignmentCalendarCopyWith<$Res> get calendar;
 }
@@ -67,8 +72,10 @@ class _$AssignmentCopyWithImpl<$Res, $Val extends Assignment>
   $Res call({
     Object? id = null,
     Object? name = null,
-    Object? calendar = null,
+    Object? createdAt = null,
     Object? color = null,
+    Object? calendar = null,
+    Object? type = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -79,14 +86,22 @@ class _$AssignmentCopyWithImpl<$Res, $Val extends Assignment>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      calendar: null == calendar
-          ? _value.calendar
-          : calendar // ignore: cast_nullable_to_non_nullable
-              as AssignmentCalendar,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       color: null == color
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
               as AssignmentColor,
+      calendar: null == calendar
+          ? _value.calendar
+          : calendar // ignore: cast_nullable_to_non_nullable
+              as AssignmentCalendar,
+      type: null == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as AssignmentType,
     ) as $Val);
   }
 
@@ -112,8 +127,10 @@ abstract class _$$AssignmentImplCopyWith<$Res>
   $Res call(
       {String id,
       String name,
+      @TimestampSerializer() DateTime createdAt,
+      AssignmentColor color,
       AssignmentCalendar calendar,
-      AssignmentColor color});
+      AssignmentType type});
 
   @override
   $AssignmentCalendarCopyWith<$Res> get calendar;
@@ -134,8 +151,10 @@ class __$$AssignmentImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? name = null,
-    Object? calendar = null,
+    Object? createdAt = null,
     Object? color = null,
+    Object? calendar = null,
+    Object? type = null,
   }) {
     return _then(_$AssignmentImpl(
       id: null == id
@@ -146,14 +165,22 @@ class __$$AssignmentImplCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      calendar: null == calendar
-          ? _value.calendar
-          : calendar // ignore: cast_nullable_to_non_nullable
-              as AssignmentCalendar,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       color: null == color
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
               as AssignmentColor,
+      calendar: null == calendar
+          ? _value.calendar
+          : calendar // ignore: cast_nullable_to_non_nullable
+              as AssignmentCalendar,
+      type: null == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as AssignmentType,
     ));
   }
 }
@@ -164,8 +191,10 @@ class _$AssignmentImpl extends _Assignment {
   const _$AssignmentImpl(
       {this.id = '',
       required this.name,
+      @TimestampSerializer() required this.createdAt,
+      this.color = AssignmentColor.blue,
       required this.calendar,
-      this.color = AssignmentColor.blue})
+      required this.type})
       : super._();
 
   factory _$AssignmentImpl.fromJson(Map<String, dynamic> json) =>
@@ -177,14 +206,19 @@ class _$AssignmentImpl extends _Assignment {
   @override
   final String name;
   @override
-  final AssignmentCalendar calendar;
+  @TimestampSerializer()
+  final DateTime createdAt;
   @override
   @JsonKey()
   final AssignmentColor color;
+  @override
+  final AssignmentCalendar calendar;
+  @override
+  final AssignmentType type;
 
   @override
   String toString() {
-    return 'Assignment(id: $id, name: $name, calendar: $calendar, color: $color)';
+    return 'Assignment(id: $id, name: $name, createdAt: $createdAt, color: $color, calendar: $calendar, type: $type)';
   }
 
   @override
@@ -194,14 +228,18 @@ class _$AssignmentImpl extends _Assignment {
             other is _$AssignmentImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
+            (identical(other.color, color) || other.color == color) &&
             (identical(other.calendar, calendar) ||
                 other.calendar == calendar) &&
-            (identical(other.color, color) || other.color == color));
+            (identical(other.type, type) || other.type == type));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, calendar, color);
+  int get hashCode =>
+      Object.hash(runtimeType, id, name, createdAt, color, calendar, type);
 
   /// Create a copy of Assignment
   /// with the given fields replaced by the non-null parameter values.
@@ -223,8 +261,10 @@ abstract class _Assignment extends Assignment {
   const factory _Assignment(
       {final String id,
       required final String name,
+      @TimestampSerializer() required final DateTime createdAt,
+      final AssignmentColor color,
       required final AssignmentCalendar calendar,
-      final AssignmentColor color}) = _$AssignmentImpl;
+      required final AssignmentType type}) = _$AssignmentImpl;
   const _Assignment._() : super._();
 
   factory _Assignment.fromJson(Map<String, dynamic> json) =
@@ -235,9 +275,14 @@ abstract class _Assignment extends Assignment {
   @override
   String get name;
   @override
-  AssignmentCalendar get calendar;
+  @TimestampSerializer()
+  DateTime get createdAt;
   @override
   AssignmentColor get color;
+  @override
+  AssignmentCalendar get calendar;
+  @override
+  AssignmentType get type;
 
   /// Create a copy of Assignment
   /// with the given fields replaced by the non-null parameter values.

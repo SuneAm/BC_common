@@ -24,7 +24,6 @@ mixin _$AssignmentCalendar {
   DateTime get startDate => throw _privateConstructorUsedError;
   @TimestampSerializer()
   DateTime get endDate => throw _privateConstructorUsedError;
-  List<UserInfo>? get users => throw _privateConstructorUsedError;
 
   /// Serializes this AssignmentCalendar to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -44,8 +43,7 @@ abstract class $AssignmentCalendarCopyWith<$Res> {
   @useResult
   $Res call(
       {@TimestampSerializer() DateTime startDate,
-      @TimestampSerializer() DateTime endDate,
-      List<UserInfo>? users});
+      @TimestampSerializer() DateTime endDate});
 }
 
 /// @nodoc
@@ -65,7 +63,6 @@ class _$AssignmentCalendarCopyWithImpl<$Res, $Val extends AssignmentCalendar>
   $Res call({
     Object? startDate = null,
     Object? endDate = null,
-    Object? users = freezed,
   }) {
     return _then(_value.copyWith(
       startDate: null == startDate
@@ -76,10 +73,6 @@ class _$AssignmentCalendarCopyWithImpl<$Res, $Val extends AssignmentCalendar>
           ? _value.endDate
           : endDate // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      users: freezed == users
-          ? _value.users
-          : users // ignore: cast_nullable_to_non_nullable
-              as List<UserInfo>?,
     ) as $Val);
   }
 }
@@ -94,8 +87,7 @@ abstract class _$$AssignmentCalendarImplCopyWith<$Res>
   @useResult
   $Res call(
       {@TimestampSerializer() DateTime startDate,
-      @TimestampSerializer() DateTime endDate,
-      List<UserInfo>? users});
+      @TimestampSerializer() DateTime endDate});
 }
 
 /// @nodoc
@@ -113,7 +105,6 @@ class __$$AssignmentCalendarImplCopyWithImpl<$Res>
   $Res call({
     Object? startDate = null,
     Object? endDate = null,
-    Object? users = freezed,
   }) {
     return _then(_$AssignmentCalendarImpl(
       startDate: null == startDate
@@ -124,10 +115,6 @@ class __$$AssignmentCalendarImplCopyWithImpl<$Res>
           ? _value.endDate
           : endDate // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      users: freezed == users
-          ? _value._users
-          : users // ignore: cast_nullable_to_non_nullable
-              as List<UserInfo>?,
     ));
   }
 }
@@ -137,9 +124,7 @@ class __$$AssignmentCalendarImplCopyWithImpl<$Res>
 class _$AssignmentCalendarImpl implements _AssignmentCalendar {
   const _$AssignmentCalendarImpl(
       {@TimestampSerializer() required this.startDate,
-      @TimestampSerializer() required this.endDate,
-      final List<UserInfo>? users})
-      : _users = users;
+      @TimestampSerializer() required this.endDate});
 
   factory _$AssignmentCalendarImpl.fromJson(Map<String, dynamic> json) =>
       _$$AssignmentCalendarImplFromJson(json);
@@ -150,19 +135,10 @@ class _$AssignmentCalendarImpl implements _AssignmentCalendar {
   @override
   @TimestampSerializer()
   final DateTime endDate;
-  final List<UserInfo>? _users;
-  @override
-  List<UserInfo>? get users {
-    final value = _users;
-    if (value == null) return null;
-    if (_users is EqualUnmodifiableListView) return _users;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
 
   @override
   String toString() {
-    return 'AssignmentCalendar(startDate: $startDate, endDate: $endDate, users: $users)';
+    return 'AssignmentCalendar(startDate: $startDate, endDate: $endDate)';
   }
 
   @override
@@ -172,14 +148,12 @@ class _$AssignmentCalendarImpl implements _AssignmentCalendar {
             other is _$AssignmentCalendarImpl &&
             (identical(other.startDate, startDate) ||
                 other.startDate == startDate) &&
-            (identical(other.endDate, endDate) || other.endDate == endDate) &&
-            const DeepCollectionEquality().equals(other._users, _users));
+            (identical(other.endDate, endDate) || other.endDate == endDate));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, startDate, endDate,
-      const DeepCollectionEquality().hash(_users));
+  int get hashCode => Object.hash(runtimeType, startDate, endDate);
 
   /// Create a copy of AssignmentCalendar
   /// with the given fields replaced by the non-null parameter values.
@@ -200,9 +174,9 @@ class _$AssignmentCalendarImpl implements _AssignmentCalendar {
 
 abstract class _AssignmentCalendar implements AssignmentCalendar {
   const factory _AssignmentCalendar(
-      {@TimestampSerializer() required final DateTime startDate,
-      @TimestampSerializer() required final DateTime endDate,
-      final List<UserInfo>? users}) = _$AssignmentCalendarImpl;
+          {@TimestampSerializer() required final DateTime startDate,
+          @TimestampSerializer() required final DateTime endDate}) =
+      _$AssignmentCalendarImpl;
 
   factory _AssignmentCalendar.fromJson(Map<String, dynamic> json) =
       _$AssignmentCalendarImpl.fromJson;
@@ -213,8 +187,6 @@ abstract class _AssignmentCalendar implements AssignmentCalendar {
   @override
   @TimestampSerializer()
   DateTime get endDate;
-  @override
-  List<UserInfo>? get users;
 
   /// Create a copy of AssignmentCalendar
   /// with the given fields replaced by the non-null parameter values.
