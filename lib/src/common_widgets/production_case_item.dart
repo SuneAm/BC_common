@@ -30,13 +30,27 @@ class ProductionCaseItem extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Text(
-            caseItem.caseNumber,
-            style: const TextStyle(
-              fontSize: 50,
-              fontWeight: FontWeight.bold,
-              color: Color.fromARGB(255, 49, 49, 49),
-            ),
+          Column(
+            children: [
+              Text(
+                caseItem.caseNumber,
+                style: const TextStyle(
+                  fontSize: 50,
+                  fontWeight: FontWeight.bold,
+                  color: Color.fromARGB(255, 49, 49, 49),
+                ),
+              ),
+              if (caseItem.editorCalendar != null) ...[
+                Text(
+                  caseItem.editorCalendar!.toFormattedDates,
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Color.fromARGB(255, 49, 49, 49),
+                  ),
+                ),
+              ],
+            ],
           ),
           const SizedBox(width: 16),
           Expanded(
