@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ordrestyring_common/src/domain/case/case.dart';
-import 'package:ordrestyring_common/src/utils/domain_extensions.dart';
-
-import 'charts/progress_bar.dart';
+import 'package:ordrestyring_common/ordrestyring_common.dart';
 
 class ProductionCaseItem extends StatelessWidget {
   const ProductionCaseItem(this.caseItem, {super.key});
@@ -40,16 +37,31 @@ class ProductionCaseItem extends StatelessWidget {
                   color: Color.fromARGB(255, 49, 49, 49),
                 ),
               ),
-              if (caseItem.editorCalendar != null) ...[
-                Text(
-                  caseItem.editorCalendar!.toFormattedDates,
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(255, 49, 49, 49),
+              if (caseItem.editorCalendar != null)
+                RichText(
+                  text: TextSpan(
+                    style: const TextStyle(
+                      fontSize: 18,
+                      color: Color.fromARGB(255, 49, 49, 49),
+                    ),
+                    children: [
+                      TextSpan(
+                        text:
+                            '${caseItem.editorCalendar!.startDate.formatDateShort} - ',
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      TextSpan(
+                        text: caseItem.editorCalendar!.endDate.formatDateShort,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.red,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-              ],
             ],
           ),
           const SizedBox(width: 16),
