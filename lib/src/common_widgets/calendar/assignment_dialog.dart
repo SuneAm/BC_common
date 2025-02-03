@@ -42,7 +42,7 @@ class AssignmentDialog extends HookConsumerWidget {
                   ),
                 ),
                 IconContainer(
-                    icon: isAssignment ? Icons.toggle_on : Icons.toggle_off,
+                    icon: isAssignment ? Icons.hexagon_outlined : Icons.hexagon,
                     onTap: () {
                       type.value = isAssignment
                           ? AssignmentType.milestone
@@ -78,13 +78,13 @@ class AssignmentDialog extends HookConsumerWidget {
               )
             else
               DateSelectionContainer(
-                title: '',
+                title: 'Milestone',
                 backgroundColor: selectedAssignmentColor.value.toColor,
                 onDateClear: () => dateRangeState.value == null,
                 formatDate: dateRangeState.value?.start.formatDate,
                 onDateSelect: () async {
                   final selectedDate = await context.selectDate(
-                    'Projekt Dates',
+                    'Milestone Dates',
                     initialDate: dateRangeState.value?.start,
                   );
                   if (selectedDate != null) {
