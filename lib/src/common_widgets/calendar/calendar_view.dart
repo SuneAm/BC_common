@@ -369,19 +369,38 @@ class _CalendarAssignmentContainer extends StatelessWidget {
 
   _CalendarViewBar get viewBar => assignmentBar.viewBar;
 
+  bool get isMilestone => assignmentBar.assignment.type.isMilestone;
+
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(left: viewBar.leftPosition),
-      width: viewBar.barWidth,
+      width: isMilestone ? null : viewBar.barWidth,
       child: switch (assignmentBar.assignment.type) {
-        AssignmentType.milestone => Tooltip(
-            message: assignmentBar.assignment.name,
-            child: Icon(
-              Icons.hexagon,
-              color: assignmentBar.viewBar.barColor,
-              size: viewBar.barWidth,
-            ),
+        AssignmentType.milestone => Row(
+            children: [
+              Consumer(
+                builder: (_, WidgetRef ref, __) {
+                  final zoomLevel = ref.watch(_produktionZoomLevelProvider);
+                  return Icon(
+                    Icons.hexagon,
+                    color: assignmentBar.viewBar.barColor,
+                    size: switch (zoomLevel) {
+                      _ProduktionZoomLevel.level1 ||
+                      _ProduktionZoomLevel.level2 ||
+                      _ProduktionZoomLevel.level3 =>
+                        24,
+                      _ => viewBar.barWidth,
+                    },
+                  );
+                },
+              ),
+              SizedBox(width: 4),
+              Text(
+                assignmentBar.assignment.name,
+                style: TextStyle(fontWeight: FontWeight.w600),
+              )
+            ],
           ),
         AssignmentType.assignment => _CalendarBarContainer(
             viewBar: viewBar,
