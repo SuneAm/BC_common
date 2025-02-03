@@ -177,6 +177,7 @@ class _BarAcrossColumns extends ConsumerWidget {
                       caseId: caseItem.caseNumber,
                       appointedUsers: const [],
                       viewBar: editorViewBar,
+                      progress: caseItem.editorCalendar?.progress,
                     );
 
                     caseBars.add(editorCaseBar);
@@ -438,81 +439,104 @@ class _CalendarCaseContainer extends HookConsumerWidget {
           ? const SizedBox()
           : Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: calendarBar.caseBars!.map((bar) {
-                final viewBar = bar.viewBar;
+              children: calendarBar.caseBars!.map((caseBar) {
+                final viewBar = caseBar.viewBar;
                 if (!viewBar.isCollapsable && toggleBar.value) {
                   return const SizedBox();
                 }
 
                 final parentDateRange = parentViewBar.dateRange;
+                final progress = caseBar.progress;
 
                 return _CalendarBarContainer(
                   viewBar: viewBar,
                   spacePerDay: spacePerDay,
                   parentDateRange: parentDateRange,
-                  child: Row(
+                  child: Stack(
                     children: [
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 2,
-                            horizontal: 8,
+                      if (progress != null)
+                        Positioned.fill(
+                          child: FractionallySizedBox(
+                            alignment: Alignment.centerLeft,
+                            widthFactor: progress.clamp(0.0, 1.0),
+                            // Ensuring the value is between 0 and 1
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.black26,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
                           ),
-                          child: Wrap(
-                            runSpacing: 6,
-                            spacing: 6,
-                            children: [
-                              SingleChildScrollView(
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 1.0,
-                                ),
-                                scrollDirection: Axis.horizontal,
-                                child: Wrap(
-                                  spacing: 1.5,
-                                  crossAxisAlignment: WrapCrossAlignment.center,
-                                  children: [
-                                    RichText(
-                                      text: TextSpan(
-                                        children: [
-                                          TextSpan(
-                                            text: '${bar.caseId} - ',
-                                            style: const TextStyle(
-                                              overflow: TextOverflow.ellipsis,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                          TextSpan(text: viewBar.name),
-                                        ],
-                                      ),
+                        ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 2,
+                                horizontal: 8,
+                              ),
+                              child: Wrap(
+                                runSpacing: 6,
+                                spacing: 6,
+                                children: [
+                                  SingleChildScrollView(
+                                    padding: const EdgeInsets.symmetric(
+                                      vertical: 1.0,
                                     ),
-                                    ...bar.appointedUsers.map(
-                                      (user) => Padding(
-                                        padding: const EdgeInsets.only(left: 2),
-                                        child: CircleAvatar(
-                                          backgroundColor: _getLighterShade(
-                                              viewBar.barColor, 0.2),
-                                          radius: 12,
-                                          child: FittedBox(
-                                            child: CaptionText(user.initials),
+                                    scrollDirection: Axis.horizontal,
+                                    child: Wrap(
+                                      spacing: 1.5,
+                                      crossAxisAlignment:
+                                          WrapCrossAlignment.center,
+                                      children: [
+                                        RichText(
+                                          text: TextSpan(
+                                            children: [
+                                              TextSpan(
+                                                text: '${caseBar.caseId} - ',
+                                                style: const TextStyle(
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                              TextSpan(text: viewBar.name),
+                                            ],
                                           ),
                                         ),
-                                      ),
+                                        ...caseBar.appointedUsers.map(
+                                          (user) => Padding(
+                                            padding:
+                                                const EdgeInsets.only(left: 2),
+                                            child: CircleAvatar(
+                                              backgroundColor: _getLighterShade(
+                                                  viewBar.barColor, 0.2),
+                                              radius: 12,
+                                              child: FittedBox(
+                                                child:
+                                                    CaptionText(user.initials),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
-                            ],
+                            ),
                           ),
-                        ),
+                          if (viewBar.isCollapsable)
+                            IconContainer(
+                              icon: toggleBar.value
+                                  ? Icons.arrow_upward
+                                  : Icons.arrow_downward,
+                              size: 16,
+                              onTap: () => toggleBar.value = !toggleBar.value,
+                            ),
+                        ],
                       ),
-                      if (viewBar.isCollapsable)
-                        IconContainer(
-                          icon: toggleBar.value
-                              ? Icons.arrow_upward
-                              : Icons.arrow_downward,
-                          size: 16,
-                          onTap: () => toggleBar.value = !toggleBar.value,
-                        ),
                     ],
                   ),
                 );
@@ -630,9 +654,11 @@ class _CalendarCaseBar {
     required this.caseId,
     required this.appointedUsers,
     required this.viewBar,
+    this.progress,
   });
 
   final String caseId;
+  final double? progress;
   final List<User> appointedUsers;
   final _CalendarViewBar viewBar;
 }
