@@ -3,13 +3,15 @@ import 'package:ordrestyring_common/ordrestyring_common.dart';
 
 class UserListDialog extends HookConsumerWidget {
   const UserListDialog({
-    required this.onValueChange,
+    required this.onSubmit,
     required this.selectedUsers,
+    this.isMultiple = true,
     super.key,
   });
 
-  final Function(List<User> selectedUsers) onValueChange;
+  final Function(List<User> selectedUsers) onSubmit;
   final List<User> selectedUsers;
+  final bool isMultiple;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -37,7 +39,7 @@ class UserListDialog extends HookConsumerWidget {
                   ),
                   TextButton(
                     onPressed: () {
-                      onValueChange(persons.value);
+                      onSubmit(persons.value);
                       Navigator.pop(context);
                     },
                     child: const Text('Submit'),
@@ -55,9 +57,17 @@ class UserListDialog extends HookConsumerWidget {
                       controlAffinity: ListTileControlAffinity.leading,
                       value: isSelected,
                       title: Text(u.fullName),
-                      onChanged: (newValue) => persons.value = newValue!
-                          ? [...persons.value, u]
-                          : persons.value.where((e) => e.id != u.id).toList(),
+                      onChanged: (newValue) {
+                        if (isMultiple) {
+                          persons.value = newValue!
+                              ? [...persons.value, u]
+                              : persons.value
+                                  .where((e) => e.id != u.id)
+                                  .toList();
+                        } else {
+                          persons.value = [u];
+                        }
+                      },
                     );
                   },
                 ),

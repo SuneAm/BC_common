@@ -16,6 +16,8 @@ _$VacationImpl _$$VacationImplFromJson(Map<String, dynamic> json) =>
       user: User.fromJson(json['user'] as Map<String, dynamic>),
       status: $enumDecodeNullable(_$VacationStatusEnumMap, json['status']) ??
           VacationStatus.pending,
+      type: $enumDecodeNullable(_$VacationTypeEnumMap, json['type']) ??
+          VacationType.vacation,
     );
 
 Map<String, dynamic> _$$VacationImplToJson(_$VacationImpl instance) =>
@@ -26,10 +28,17 @@ Map<String, dynamic> _$$VacationImplToJson(_$VacationImpl instance) =>
       'calendar': instance.calendar.toJson(),
       'user': instance.user.toJson(),
       'status': _$VacationStatusEnumMap[instance.status]!,
+      'type': _$VacationTypeEnumMap[instance.type]!,
     };
 
 const _$VacationStatusEnumMap = {
   VacationStatus.pending: 'pending',
   VacationStatus.approved: 'approved',
   VacationStatus.rejected: 'rejected',
+};
+
+const _$VacationTypeEnumMap = {
+  VacationType.vacation: 'vacation',
+  VacationType.sickLeave: 'sickLeave',
+  VacationType.other: 'other',
 };

@@ -27,6 +27,7 @@ mixin _$Vacation {
   DateCalendar get calendar => throw _privateConstructorUsedError;
   User get user => throw _privateConstructorUsedError;
   VacationStatus get status => throw _privateConstructorUsedError;
+  VacationType get type => throw _privateConstructorUsedError;
 
   /// Serializes this Vacation to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -49,7 +50,8 @@ abstract class $VacationCopyWith<$Res> {
       @TimestampSerializer() DateTime createdAt,
       DateCalendar calendar,
       User user,
-      VacationStatus status});
+      VacationStatus status,
+      VacationType type});
 
   $DateCalendarCopyWith<$Res> get calendar;
   $UserCopyWith<$Res> get user;
@@ -76,6 +78,7 @@ class _$VacationCopyWithImpl<$Res, $Val extends Vacation>
     Object? calendar = null,
     Object? user = null,
     Object? status = null,
+    Object? type = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -102,6 +105,10 @@ class _$VacationCopyWithImpl<$Res, $Val extends Vacation>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as VacationStatus,
+      type: null == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as VacationType,
     ) as $Val);
   }
 
@@ -140,7 +147,8 @@ abstract class _$$VacationImplCopyWith<$Res>
       @TimestampSerializer() DateTime createdAt,
       DateCalendar calendar,
       User user,
-      VacationStatus status});
+      VacationStatus status,
+      VacationType type});
 
   @override
   $DateCalendarCopyWith<$Res> get calendar;
@@ -167,6 +175,7 @@ class __$$VacationImplCopyWithImpl<$Res>
     Object? calendar = null,
     Object? user = null,
     Object? status = null,
+    Object? type = null,
   }) {
     return _then(_$VacationImpl(
       id: null == id
@@ -193,6 +202,10 @@ class __$$VacationImplCopyWithImpl<$Res>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as VacationStatus,
+      type: null == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as VacationType,
     ));
   }
 }
@@ -206,7 +219,8 @@ class _$VacationImpl extends _Vacation {
       @TimestampSerializer() required this.createdAt,
       required this.calendar,
       required this.user,
-      this.status = VacationStatus.pending})
+      this.status = VacationStatus.pending,
+      this.type = VacationType.vacation})
       : super._();
 
   factory _$VacationImpl.fromJson(Map<String, dynamic> json) =>
@@ -227,10 +241,13 @@ class _$VacationImpl extends _Vacation {
   @override
   @JsonKey()
   final VacationStatus status;
+  @override
+  @JsonKey()
+  final VacationType type;
 
   @override
   String toString() {
-    return 'Vacation(id: $id, name: $name, createdAt: $createdAt, calendar: $calendar, user: $user, status: $status)';
+    return 'Vacation(id: $id, name: $name, createdAt: $createdAt, calendar: $calendar, user: $user, status: $status, type: $type)';
   }
 
   @override
@@ -245,13 +262,14 @@ class _$VacationImpl extends _Vacation {
             (identical(other.calendar, calendar) ||
                 other.calendar == calendar) &&
             (identical(other.user, user) || other.user == user) &&
-            (identical(other.status, status) || other.status == status));
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.type, type) || other.type == type));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, name, createdAt, calendar, user, status);
+  int get hashCode => Object.hash(
+      runtimeType, id, name, createdAt, calendar, user, status, type);
 
   /// Create a copy of Vacation
   /// with the given fields replaced by the non-null parameter values.
@@ -276,7 +294,8 @@ abstract class _Vacation extends Vacation {
       @TimestampSerializer() required final DateTime createdAt,
       required final DateCalendar calendar,
       required final User user,
-      final VacationStatus status}) = _$VacationImpl;
+      final VacationStatus status,
+      final VacationType type}) = _$VacationImpl;
   const _Vacation._() : super._();
 
   factory _Vacation.fromJson(Map<String, dynamic> json) =
@@ -295,6 +314,8 @@ abstract class _Vacation extends Vacation {
   User get user;
   @override
   VacationStatus get status;
+  @override
+  VacationType get type;
 
   /// Create a copy of Vacation
   /// with the given fields replaced by the non-null parameter values.
