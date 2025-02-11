@@ -9,12 +9,10 @@ part of 'vacation.dart';
 _$VacationImpl _$$VacationImplFromJson(Map<String, dynamic> json) =>
     _$VacationImpl(
       id: json['id'] as String? ?? '',
-      startDate:
-          const TimestampSerializer().fromJson(json['startDate'] as Timestamp),
-      endDate:
-          const TimestampSerializer().fromJson(json['endDate'] as Timestamp),
+      name: json['name'] as String?,
       createdAt:
           const TimestampSerializer().fromJson(json['createdAt'] as Timestamp),
+      calendar: DateCalendar.fromJson(json['calendar'] as Map<String, dynamic>),
       user: User.fromJson(json['user'] as Map<String, dynamic>),
       status: $enumDecodeNullable(_$VacationStatusEnumMap, json['status']) ??
           VacationStatus.pending,
@@ -23,9 +21,9 @@ _$VacationImpl _$$VacationImplFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$$VacationImplToJson(_$VacationImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'startDate': const TimestampSerializer().toJson(instance.startDate),
-      'endDate': const TimestampSerializer().toJson(instance.endDate),
+      if (instance.name case final value?) 'name': value,
       'createdAt': const TimestampSerializer().toJson(instance.createdAt),
+      'calendar': instance.calendar.toJson(),
       'user': instance.user.toJson(),
       'status': _$VacationStatusEnumMap[instance.status]!,
     };

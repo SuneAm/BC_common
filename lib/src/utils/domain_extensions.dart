@@ -170,23 +170,25 @@ extension VacationStatusEx on VacationStatus {
 
 extension VacationEx on Vacation {
   String get formattedDates =>
-      '${startDate.formatDateShort}, ${endDate.formatDate}';
+      '${calendar.startDate.formatDateShort}, ${calendar.endDate.formatDate}';
 }
 
 extension VacationListEx on List<Vacation> {
   bool isVacationValid(DateTime startDate, DateTime endDate) {
     // Iterate through each existing vacation for the user
     for (var vacation in this) {
+      final vacationStartDate = vacation.calendar.startDate;
+      final vacationEndDate = vacation.calendar.endDate;
       final adjustedStartDate = DateTime(
-        vacation.startDate.year,
-        vacation.startDate.month,
-        vacation.startDate.day,
+        vacationStartDate.year,
+        vacationStartDate.month,
+        vacationStartDate.day,
       );
 
       final adjustedEndDate = DateTime(
-        vacation.endDate.year,
-        vacation.endDate.month,
-        vacation.endDate.day,
+        vacationEndDate.year,
+        vacationEndDate.month,
+        vacationEndDate.day,
       );
 
       // Check if the new vacation's start or end date falls within any existing vacation range

@@ -50,6 +50,7 @@ export 'src/utils/help_methods.dart';
 export 'src/firebase_options.dart';
 export 'src/common_widgets/common_async_widget.dart';
 export 'src/common_widgets/app_dialog.dart';
+export 'src/common_widgets/dialogs/user_list_dialog.dart';
 export 'src/common_widgets/color_row.dart';
 export 'src/common_widgets/containers/date_selection_container.dart';
 export 'src/common_widgets/charts/progress_bar.dart';

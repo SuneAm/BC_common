@@ -61,6 +61,17 @@ class VacationRepository {
 
     return await docRef.delete();
   }
+
+  Future<void> addVacations(List<Vacation> vacations) async {
+    final batch = _firestore.batch();
+
+    for (final vacation in vacations) {
+      final docRef = _firestore.collection(_vacations).doc();
+      batch.set(docRef, vacation.toFirestore());
+    }
+
+    return await batch.commit();
+  }
 }
 
 final vacationRepoProvider = Provider<VacationRepository>((ref) {

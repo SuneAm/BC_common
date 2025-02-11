@@ -21,12 +21,10 @@ Vacation _$VacationFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Vacation {
   String get id => throw _privateConstructorUsedError;
-  @TimestampSerializer()
-  DateTime get startDate => throw _privateConstructorUsedError;
-  @TimestampSerializer()
-  DateTime get endDate => throw _privateConstructorUsedError;
+  String? get name => throw _privateConstructorUsedError;
   @TimestampSerializer()
   DateTime get createdAt => throw _privateConstructorUsedError;
+  DateCalendar get calendar => throw _privateConstructorUsedError;
   User get user => throw _privateConstructorUsedError;
   VacationStatus get status => throw _privateConstructorUsedError;
 
@@ -47,12 +45,13 @@ abstract class $VacationCopyWith<$Res> {
   @useResult
   $Res call(
       {String id,
-      @TimestampSerializer() DateTime startDate,
-      @TimestampSerializer() DateTime endDate,
+      String? name,
       @TimestampSerializer() DateTime createdAt,
+      DateCalendar calendar,
       User user,
       VacationStatus status});
 
+  $DateCalendarCopyWith<$Res> get calendar;
   $UserCopyWith<$Res> get user;
 }
 
@@ -72,9 +71,9 @@ class _$VacationCopyWithImpl<$Res, $Val extends Vacation>
   @override
   $Res call({
     Object? id = null,
-    Object? startDate = null,
-    Object? endDate = null,
+    Object? name = freezed,
     Object? createdAt = null,
+    Object? calendar = null,
     Object? user = null,
     Object? status = null,
   }) {
@@ -83,18 +82,18 @@ class _$VacationCopyWithImpl<$Res, $Val extends Vacation>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      startDate: null == startDate
-          ? _value.startDate
-          : startDate // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      endDate: null == endDate
-          ? _value.endDate
-          : endDate // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+      name: freezed == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      calendar: null == calendar
+          ? _value.calendar
+          : calendar // ignore: cast_nullable_to_non_nullable
+              as DateCalendar,
       user: null == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
@@ -104,6 +103,16 @@ class _$VacationCopyWithImpl<$Res, $Val extends Vacation>
           : status // ignore: cast_nullable_to_non_nullable
               as VacationStatus,
     ) as $Val);
+  }
+
+  /// Create a copy of Vacation
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $DateCalendarCopyWith<$Res> get calendar {
+    return $DateCalendarCopyWith<$Res>(_value.calendar, (value) {
+      return _then(_value.copyWith(calendar: value) as $Val);
+    });
   }
 
   /// Create a copy of Vacation
@@ -127,12 +136,14 @@ abstract class _$$VacationImplCopyWith<$Res>
   @useResult
   $Res call(
       {String id,
-      @TimestampSerializer() DateTime startDate,
-      @TimestampSerializer() DateTime endDate,
+      String? name,
       @TimestampSerializer() DateTime createdAt,
+      DateCalendar calendar,
       User user,
       VacationStatus status});
 
+  @override
+  $DateCalendarCopyWith<$Res> get calendar;
   @override
   $UserCopyWith<$Res> get user;
 }
@@ -151,9 +162,9 @@ class __$$VacationImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
-    Object? startDate = null,
-    Object? endDate = null,
+    Object? name = freezed,
     Object? createdAt = null,
+    Object? calendar = null,
     Object? user = null,
     Object? status = null,
   }) {
@@ -162,18 +173,18 @@ class __$$VacationImplCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      startDate: null == startDate
-          ? _value.startDate
-          : startDate // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      endDate: null == endDate
-          ? _value.endDate
-          : endDate // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+      name: freezed == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      calendar: null == calendar
+          ? _value.calendar
+          : calendar // ignore: cast_nullable_to_non_nullable
+              as DateCalendar,
       user: null == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
@@ -191,9 +202,9 @@ class __$$VacationImplCopyWithImpl<$Res>
 class _$VacationImpl extends _Vacation {
   const _$VacationImpl(
       {this.id = '',
-      @TimestampSerializer() required this.startDate,
-      @TimestampSerializer() required this.endDate,
+      this.name,
       @TimestampSerializer() required this.createdAt,
+      required this.calendar,
       required this.user,
       this.status = VacationStatus.pending})
       : super._();
@@ -205,14 +216,12 @@ class _$VacationImpl extends _Vacation {
   @JsonKey()
   final String id;
   @override
-  @TimestampSerializer()
-  final DateTime startDate;
-  @override
-  @TimestampSerializer()
-  final DateTime endDate;
+  final String? name;
   @override
   @TimestampSerializer()
   final DateTime createdAt;
+  @override
+  final DateCalendar calendar;
   @override
   final User user;
   @override
@@ -221,7 +230,7 @@ class _$VacationImpl extends _Vacation {
 
   @override
   String toString() {
-    return 'Vacation(id: $id, startDate: $startDate, endDate: $endDate, createdAt: $createdAt, user: $user, status: $status)';
+    return 'Vacation(id: $id, name: $name, createdAt: $createdAt, calendar: $calendar, user: $user, status: $status)';
   }
 
   @override
@@ -230,11 +239,11 @@ class _$VacationImpl extends _Vacation {
         (other.runtimeType == runtimeType &&
             other is _$VacationImpl &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.startDate, startDate) ||
-                other.startDate == startDate) &&
-            (identical(other.endDate, endDate) || other.endDate == endDate) &&
+            (identical(other.name, name) || other.name == name) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
+            (identical(other.calendar, calendar) ||
+                other.calendar == calendar) &&
             (identical(other.user, user) || other.user == user) &&
             (identical(other.status, status) || other.status == status));
   }
@@ -242,7 +251,7 @@ class _$VacationImpl extends _Vacation {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, id, startDate, endDate, createdAt, user, status);
+      Object.hash(runtimeType, id, name, createdAt, calendar, user, status);
 
   /// Create a copy of Vacation
   /// with the given fields replaced by the non-null parameter values.
@@ -263,9 +272,9 @@ class _$VacationImpl extends _Vacation {
 abstract class _Vacation extends Vacation {
   const factory _Vacation(
       {final String id,
-      @TimestampSerializer() required final DateTime startDate,
-      @TimestampSerializer() required final DateTime endDate,
+      final String? name,
       @TimestampSerializer() required final DateTime createdAt,
+      required final DateCalendar calendar,
       required final User user,
       final VacationStatus status}) = _$VacationImpl;
   const _Vacation._() : super._();
@@ -276,14 +285,12 @@ abstract class _Vacation extends Vacation {
   @override
   String get id;
   @override
-  @TimestampSerializer()
-  DateTime get startDate;
-  @override
-  @TimestampSerializer()
-  DateTime get endDate;
+  String? get name;
   @override
   @TimestampSerializer()
   DateTime get createdAt;
+  @override
+  DateCalendar get calendar;
   @override
   User get user;
   @override
