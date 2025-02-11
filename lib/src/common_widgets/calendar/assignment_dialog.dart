@@ -37,7 +37,9 @@ class AssignmentDialog extends HookConsumerWidget {
               children: [
                 Expanded(
                   child: TitleText(
-                    assignment == null ? 'tilføje opgave' : 'opdateringsopgave',
+                    assignment == null
+                        ? 'Tilføj opgave eller milestone'
+                        : 'Opdateringsopgave',
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -58,8 +60,8 @@ class AssignmentDialog extends HookConsumerWidget {
             TextField(
               controller: nameController,
               decoration: const InputDecoration(
-                hintText: 'opgavens navn',
-                labelText: 'navn',
+                hintText: 'Opgavens navn',
+                labelText: 'Navn',
               ),
             ),
             if (isAssignment)
@@ -70,7 +72,7 @@ class AssignmentDialog extends HookConsumerWidget {
                 formatDate: dateRangeState.value?.formattedDates,
                 onDateSelect: () async {
                   final selectedDate = await context.selectDateRange(
-                    'Projekt Dates',
+                    'Projekt Datoer',
                     initialDateRange: dateRangeState.value,
                   );
                   if (selectedDate != null) dateRangeState.value = selectedDate;
@@ -84,7 +86,7 @@ class AssignmentDialog extends HookConsumerWidget {
                 formatDate: dateRangeState.value?.start.formatDate,
                 onDateSelect: () async {
                   final selectedDate = await context.selectDate(
-                    'Milestone Dates',
+                    'Milestone Dato',
                     initialDate: dateRangeState.value?.start,
                   );
                   if (selectedDate != null) {
@@ -117,9 +119,7 @@ class AssignmentDialog extends HookConsumerWidget {
                     }
                     if (dateRange == null) {
                       context.showSnackBar(
-                        isAssignment
-                            ? 'Select Start and End Dates'
-                            : 'Select Date',
+                        isAssignment ? 'Vælg Start og Slut Dato' : 'Vælg Dato',
                       );
                       return;
                     }

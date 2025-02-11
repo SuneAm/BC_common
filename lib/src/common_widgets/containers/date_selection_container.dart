@@ -40,7 +40,7 @@ class DateSelectionContainer extends StatelessWidget {
               TitleText(title),
               Row(
                 children: [
-                  const Expanded(child: Text('Date:')),
+                  const Expanded(child: Text('Dato:')),
                   Expanded(
                     flex: 2,
                     child: AppContainer(
@@ -49,7 +49,7 @@ class DateSelectionContainer extends StatelessWidget {
                       border: Border.all(),
                       padding: const EdgeInsets.all(4),
                       child: formatDate == null
-                          ? const CaptionText('Select dates')
+                          ? const CaptionText('Vælg datoer')
                           : Text(formatDate ?? ''),
                     ),
                   ),
