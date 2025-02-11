@@ -1,6 +1,6 @@
 import 'package:ordrestyring_common/ordrestyring_common.dart';
 
-extension CaseCalendarEx on CaseCalendar? {
+extension CaseCalendarEx on DateCalendar? {
   String get toFormattedDates => this == null
       ? ''
       : '${this!.startDate.formatDateShort} - ${this!.endDate.formatDateShort}';
@@ -10,12 +10,6 @@ extension AssignmentTypeEx on AssignmentType {
   bool get isAssignment => this == AssignmentType.assignment;
 
   bool get isMilestone => this == AssignmentType.milestone;
-}
-
-extension AssignmentCalendarEx on AssignmentCalendar? {
-  String get toFormattedDates => this == null
-      ? ''
-      : '${this!.startDate.formatDateShort} - ${this!.endDate.formatDateShort}';
 }
 
 extension CaseEstimatedHourEx on CaseEstimatedHour? {

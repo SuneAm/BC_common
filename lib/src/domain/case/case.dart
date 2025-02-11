@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:ordrestyring_common/ordrestyring_common.dart';
 import 'package:ordrestyring_common/src/domain/case/delivery_address.dart';
+import 'package:ordrestyring_common/src/domain/date_calendar.dart';
 
 import 'case_type.dart';
 import 'responsible_user.dart';
@@ -52,9 +53,9 @@ class Case {
   final bool? isMontage;
   final bool? useInCalendar;
 
-  final CaseCalendar? editorCalendar;
-  final CaseCalendar? productionCalendar;
-  final CaseCalendar? montageCalendar;
+  final DateCalendar? editorCalendar;
+  final DateCalendar? productionCalendar;
+  final DateCalendar? montageCalendar;
   final List<User>? productionUsers;
   final List<User>? montageUsers;
 
@@ -141,13 +142,13 @@ class Case {
       useInCalendar: json['useInCalendar'] ?? false,
       comments: json['comments'],
       editorCalendar:
-          editorCalendar == null ? null : CaseCalendar.fromJson(editorCalendar),
+          editorCalendar == null ? null : DateCalendar.fromJson(editorCalendar),
       productionCalendar: productionCalendar == null
           ? null
-          : CaseCalendar.fromJson(productionCalendar),
+          : DateCalendar.fromJson(productionCalendar),
       montageCalendar: montageCalendar == null
           ? null
-          : CaseCalendar.fromJson(montageCalendar),
+          : DateCalendar.fromJson(montageCalendar),
       productionUsers: productionUsers?.map((u) => User.fromJson(u)).toList(),
       montageUsers: montageUsers?.map((u) => User.fromJson(u)).toList(),
     );
@@ -171,9 +172,9 @@ class Case {
     bool? useInCalendar,
     List<ContactPerson>? contactPersons,
     String? comments,
-    CaseCalendar? editorCalendar,
-    CaseCalendar? productionCalendar,
-    CaseCalendar? montageCalendar,
+    DateCalendar? editorCalendar,
+    DateCalendar? productionCalendar,
+    DateCalendar? montageCalendar,
     List<User>? productionUsers,
     List<User>? montageUsers,
   }) {

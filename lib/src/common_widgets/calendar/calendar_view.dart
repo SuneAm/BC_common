@@ -131,7 +131,8 @@ class _BarAcrossColumns extends ConsumerWidget {
 
                     final parentView = _CalendarViewBar(
                       name: assignment.name,
-                      barColor: assignment.color.toColor,
+                      barColor: assignment.calendar.color?.toColor ??
+                          DateCalendarColor.blue.toColor,
                       barWidth: bar.$1,
                       leftPosition: bar.$2,
                       dateRange: DateTimeRange(
@@ -161,9 +162,8 @@ class _BarAcrossColumns extends ConsumerWidget {
 
                     final editorViewBar = _CalendarViewBar(
                       name: caseItem.projectName,
-                      barColor:
-                          caseItem.editorCalendar?.calendarColor?.toColor ??
-                              OrdrerColors.kEditorColor,
+                      barColor: caseItem.editorCalendar?.color?.toColor ??
+                          OrdrerColors.kEditorColor,
                       barWidth: editorBar.$1,
                       leftPosition: editorBar.$2,
                       isCollapsable: true,

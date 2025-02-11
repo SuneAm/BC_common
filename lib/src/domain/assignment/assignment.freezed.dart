@@ -24,8 +24,7 @@ mixin _$Assignment {
   String get name => throw _privateConstructorUsedError;
   @TimestampSerializer()
   DateTime get createdAt => throw _privateConstructorUsedError;
-  CalendarColor get color => throw _privateConstructorUsedError;
-  AssignmentCalendar get calendar => throw _privateConstructorUsedError;
+  DateCalendar get calendar => throw _privateConstructorUsedError;
   AssignmentType get type => throw _privateConstructorUsedError;
 
   /// Serializes this Assignment to a JSON map.
@@ -48,11 +47,10 @@ abstract class $AssignmentCopyWith<$Res> {
       {String id,
       String name,
       @TimestampSerializer() DateTime createdAt,
-      CalendarColor color,
-      AssignmentCalendar calendar,
+      DateCalendar calendar,
       AssignmentType type});
 
-  $AssignmentCalendarCopyWith<$Res> get calendar;
+  $DateCalendarCopyWith<$Res> get calendar;
 }
 
 /// @nodoc
@@ -73,7 +71,6 @@ class _$AssignmentCopyWithImpl<$Res, $Val extends Assignment>
     Object? id = null,
     Object? name = null,
     Object? createdAt = null,
-    Object? color = null,
     Object? calendar = null,
     Object? type = null,
   }) {
@@ -90,14 +87,10 @@ class _$AssignmentCopyWithImpl<$Res, $Val extends Assignment>
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      color: null == color
-          ? _value.color
-          : color // ignore: cast_nullable_to_non_nullable
-              as CalendarColor,
       calendar: null == calendar
           ? _value.calendar
           : calendar // ignore: cast_nullable_to_non_nullable
-              as AssignmentCalendar,
+              as DateCalendar,
       type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
@@ -109,8 +102,8 @@ class _$AssignmentCopyWithImpl<$Res, $Val extends Assignment>
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $AssignmentCalendarCopyWith<$Res> get calendar {
-    return $AssignmentCalendarCopyWith<$Res>(_value.calendar, (value) {
+  $DateCalendarCopyWith<$Res> get calendar {
+    return $DateCalendarCopyWith<$Res>(_value.calendar, (value) {
       return _then(_value.copyWith(calendar: value) as $Val);
     });
   }
@@ -128,12 +121,11 @@ abstract class _$$AssignmentImplCopyWith<$Res>
       {String id,
       String name,
       @TimestampSerializer() DateTime createdAt,
-      CalendarColor color,
-      AssignmentCalendar calendar,
+      DateCalendar calendar,
       AssignmentType type});
 
   @override
-  $AssignmentCalendarCopyWith<$Res> get calendar;
+  $DateCalendarCopyWith<$Res> get calendar;
 }
 
 /// @nodoc
@@ -152,7 +144,6 @@ class __$$AssignmentImplCopyWithImpl<$Res>
     Object? id = null,
     Object? name = null,
     Object? createdAt = null,
-    Object? color = null,
     Object? calendar = null,
     Object? type = null,
   }) {
@@ -169,14 +160,10 @@ class __$$AssignmentImplCopyWithImpl<$Res>
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      color: null == color
-          ? _value.color
-          : color // ignore: cast_nullable_to_non_nullable
-              as CalendarColor,
       calendar: null == calendar
           ? _value.calendar
           : calendar // ignore: cast_nullable_to_non_nullable
-              as AssignmentCalendar,
+              as DateCalendar,
       type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
@@ -192,7 +179,6 @@ class _$AssignmentImpl extends _Assignment {
       {this.id = '',
       required this.name,
       @TimestampSerializer() required this.createdAt,
-      this.color = CalendarColor.blue,
       required this.calendar,
       required this.type})
       : super._();
@@ -209,16 +195,13 @@ class _$AssignmentImpl extends _Assignment {
   @TimestampSerializer()
   final DateTime createdAt;
   @override
-  @JsonKey()
-  final CalendarColor color;
-  @override
-  final AssignmentCalendar calendar;
+  final DateCalendar calendar;
   @override
   final AssignmentType type;
 
   @override
   String toString() {
-    return 'Assignment(id: $id, name: $name, createdAt: $createdAt, color: $color, calendar: $calendar, type: $type)';
+    return 'Assignment(id: $id, name: $name, createdAt: $createdAt, calendar: $calendar, type: $type)';
   }
 
   @override
@@ -230,7 +213,6 @@ class _$AssignmentImpl extends _Assignment {
             (identical(other.name, name) || other.name == name) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
-            (identical(other.color, color) || other.color == color) &&
             (identical(other.calendar, calendar) ||
                 other.calendar == calendar) &&
             (identical(other.type, type) || other.type == type));
@@ -239,7 +221,7 @@ class _$AssignmentImpl extends _Assignment {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, id, name, createdAt, color, calendar, type);
+      Object.hash(runtimeType, id, name, createdAt, calendar, type);
 
   /// Create a copy of Assignment
   /// with the given fields replaced by the non-null parameter values.
@@ -262,8 +244,7 @@ abstract class _Assignment extends Assignment {
       {final String id,
       required final String name,
       @TimestampSerializer() required final DateTime createdAt,
-      final CalendarColor color,
-      required final AssignmentCalendar calendar,
+      required final DateCalendar calendar,
       required final AssignmentType type}) = _$AssignmentImpl;
   const _Assignment._() : super._();
 
@@ -278,9 +259,7 @@ abstract class _Assignment extends Assignment {
   @TimestampSerializer()
   DateTime get createdAt;
   @override
-  CalendarColor get color;
-  @override
-  AssignmentCalendar get calendar;
+  DateCalendar get calendar;
   @override
   AssignmentType get type;
 

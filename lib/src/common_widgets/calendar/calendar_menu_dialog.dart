@@ -9,8 +9,8 @@ class CalendarMenuDialog extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final progressState =
         useRef<double>(caseItem.editorCalendar?.progress ?? 0.0);
-    final selectedEditorColor = useState<CalendarColor>(
-        caseItem.editorCalendar?.calendarColor ?? CalendarColor.blue);
+    final selectedEditorColor = useState<DateCalendarColor>(
+        caseItem.editorCalendar?.color ?? DateCalendarColor.blue);
     final editorDateRange = useState<DateTimeRange?>(
       caseItem.editorCalendar == null
           ? null
@@ -172,19 +172,19 @@ class CalendarMenuDialog extends HookConsumerWidget {
                   child: const Text('Gem og luk'),
                   onPressed: () async {
                     late final Case updatedCase;
-                    late final CaseCalendar? editorCalendar;
-                    late final CaseCalendar? productionCalendar;
-                    late final CaseCalendar? montageCalendar;
+                    late final DateCalendar? editorCalendar;
+                    late final DateCalendar? productionCalendar;
+                    late final DateCalendar? montageCalendar;
                     if (editorDateRange.value == null) {
                       // clears the calendar dates
                       editorCalendar = null;
                       productionCalendar = null;
                       montageCalendar = null;
                     } else {
-                      editorCalendar = CaseCalendar(
+                      editorCalendar = DateCalendar(
                         startDate: editorDateRange.value!.start,
                         endDate: editorDateRange.value!.end,
-                        calendarColor: selectedEditorColor.value,
+                        color: selectedEditorColor.value,
                         progress: double.parse(
                           progressState.value
                               .clamp(0.0, 1.0)
@@ -193,14 +193,14 @@ class CalendarMenuDialog extends HookConsumerWidget {
                       );
                       productionCalendar = productionDateRange.value == null
                           ? null
-                          : CaseCalendar(
+                          : DateCalendar(
                               startDate: productionDateRange.value!.start,
                               endDate: productionDateRange.value!.end,
                             );
 
                       montageCalendar = (montageDateRange.value == null)
                           ? null
-                          : CaseCalendar(
+                          : DateCalendar(
                               startDate: montageDateRange.value!.start,
                               endDate: montageDateRange.value!.end,
                             );

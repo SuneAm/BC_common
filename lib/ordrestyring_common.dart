@@ -29,14 +29,13 @@ export 'src/domain/vacation/vacation.dart';
 export 'src/domain/vacation/holiday.dart';
 export 'src/domain/vacation/vacation_wrapper.dart';
 export 'src/domain/assignment/assignment.dart';
-export 'src/domain/assignment/assignment_calendar.dart';
+export 'src/domain/date_calendar.dart';
 
 export 'src/domain/case/case.dart';
 export 'src/domain/case/hour_aggregate.dart';
 export 'src/domain/case/case_estimated_hour.dart';
 export 'src/domain/case/economy.dart';
 export 'src/domain/case/contact_person.dart';
-export 'src/domain/case/case_calendar.dart';
 
 // utils
 export 'src/utils/app_extensions.dart';

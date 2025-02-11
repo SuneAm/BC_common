@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'case_calendar.dart';
+part of 'date_calendar.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,60 +14,60 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-CaseCalendar _$CaseCalendarFromJson(Map<String, dynamic> json) {
-  return _CaseCalendar.fromJson(json);
+DateCalendar _$DateCalendarFromJson(Map<String, dynamic> json) {
+  return _DateCalendar.fromJson(json);
 }
 
 /// @nodoc
-mixin _$CaseCalendar {
+mixin _$DateCalendar {
   @TimestampSerializer()
   DateTime get startDate => throw _privateConstructorUsedError;
   @TimestampSerializer()
   DateTime get endDate => throw _privateConstructorUsedError;
-  CalendarColor? get calendarColor => throw _privateConstructorUsedError;
+  DateCalendarColor? get color => throw _privateConstructorUsedError;
   double? get progress => throw _privateConstructorUsedError;
 
-  /// Serializes this CaseCalendar to a JSON map.
+  /// Serializes this DateCalendar to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
-  /// Create a copy of CaseCalendar
+  /// Create a copy of DateCalendar
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $CaseCalendarCopyWith<CaseCalendar> get copyWith =>
+  $DateCalendarCopyWith<DateCalendar> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $CaseCalendarCopyWith<$Res> {
-  factory $CaseCalendarCopyWith(
-          CaseCalendar value, $Res Function(CaseCalendar) then) =
-      _$CaseCalendarCopyWithImpl<$Res, CaseCalendar>;
+abstract class $DateCalendarCopyWith<$Res> {
+  factory $DateCalendarCopyWith(
+          DateCalendar value, $Res Function(DateCalendar) then) =
+      _$DateCalendarCopyWithImpl<$Res, DateCalendar>;
   @useResult
   $Res call(
       {@TimestampSerializer() DateTime startDate,
       @TimestampSerializer() DateTime endDate,
-      CalendarColor? calendarColor,
+      DateCalendarColor? color,
       double? progress});
 }
 
 /// @nodoc
-class _$CaseCalendarCopyWithImpl<$Res, $Val extends CaseCalendar>
-    implements $CaseCalendarCopyWith<$Res> {
-  _$CaseCalendarCopyWithImpl(this._value, this._then);
+class _$DateCalendarCopyWithImpl<$Res, $Val extends DateCalendar>
+    implements $DateCalendarCopyWith<$Res> {
+  _$DateCalendarCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of CaseCalendar
+  /// Create a copy of DateCalendar
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? startDate = null,
     Object? endDate = null,
-    Object? calendarColor = freezed,
+    Object? color = freezed,
     Object? progress = freezed,
   }) {
     return _then(_value.copyWith(
@@ -79,10 +79,10 @@ class _$CaseCalendarCopyWithImpl<$Res, $Val extends CaseCalendar>
           ? _value.endDate
           : endDate // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      calendarColor: freezed == calendarColor
-          ? _value.calendarColor
-          : calendarColor // ignore: cast_nullable_to_non_nullable
-              as CalendarColor?,
+      color: freezed == color
+          ? _value.color
+          : color // ignore: cast_nullable_to_non_nullable
+              as DateCalendarColor?,
       progress: freezed == progress
           ? _value.progress
           : progress // ignore: cast_nullable_to_non_nullable
@@ -92,39 +92,39 @@ class _$CaseCalendarCopyWithImpl<$Res, $Val extends CaseCalendar>
 }
 
 /// @nodoc
-abstract class _$$CaseCalendarImplCopyWith<$Res>
-    implements $CaseCalendarCopyWith<$Res> {
-  factory _$$CaseCalendarImplCopyWith(
-          _$CaseCalendarImpl value, $Res Function(_$CaseCalendarImpl) then) =
-      __$$CaseCalendarImplCopyWithImpl<$Res>;
+abstract class _$$DateCalendarImplCopyWith<$Res>
+    implements $DateCalendarCopyWith<$Res> {
+  factory _$$DateCalendarImplCopyWith(
+          _$DateCalendarImpl value, $Res Function(_$DateCalendarImpl) then) =
+      __$$DateCalendarImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
       {@TimestampSerializer() DateTime startDate,
       @TimestampSerializer() DateTime endDate,
-      CalendarColor? calendarColor,
+      DateCalendarColor? color,
       double? progress});
 }
 
 /// @nodoc
-class __$$CaseCalendarImplCopyWithImpl<$Res>
-    extends _$CaseCalendarCopyWithImpl<$Res, _$CaseCalendarImpl>
-    implements _$$CaseCalendarImplCopyWith<$Res> {
-  __$$CaseCalendarImplCopyWithImpl(
-      _$CaseCalendarImpl _value, $Res Function(_$CaseCalendarImpl) _then)
+class __$$DateCalendarImplCopyWithImpl<$Res>
+    extends _$DateCalendarCopyWithImpl<$Res, _$DateCalendarImpl>
+    implements _$$DateCalendarImplCopyWith<$Res> {
+  __$$DateCalendarImplCopyWithImpl(
+      _$DateCalendarImpl _value, $Res Function(_$DateCalendarImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of CaseCalendar
+  /// Create a copy of DateCalendar
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? startDate = null,
     Object? endDate = null,
-    Object? calendarColor = freezed,
+    Object? color = freezed,
     Object? progress = freezed,
   }) {
-    return _then(_$CaseCalendarImpl(
+    return _then(_$DateCalendarImpl(
       startDate: null == startDate
           ? _value.startDate
           : startDate // ignore: cast_nullable_to_non_nullable
@@ -133,10 +133,10 @@ class __$$CaseCalendarImplCopyWithImpl<$Res>
           ? _value.endDate
           : endDate // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      calendarColor: freezed == calendarColor
-          ? _value.calendarColor
-          : calendarColor // ignore: cast_nullable_to_non_nullable
-              as CalendarColor?,
+      color: freezed == color
+          ? _value.color
+          : color // ignore: cast_nullable_to_non_nullable
+              as DateCalendarColor?,
       progress: freezed == progress
           ? _value.progress
           : progress // ignore: cast_nullable_to_non_nullable
@@ -147,15 +147,15 @@ class __$$CaseCalendarImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$CaseCalendarImpl with DiagnosticableTreeMixin implements _CaseCalendar {
-  const _$CaseCalendarImpl(
+class _$DateCalendarImpl implements _DateCalendar {
+  const _$DateCalendarImpl(
       {@TimestampSerializer() required this.startDate,
       @TimestampSerializer() required this.endDate,
-      this.calendarColor,
+      this.color,
       this.progress});
 
-  factory _$CaseCalendarImpl.fromJson(Map<String, dynamic> json) =>
-      _$$CaseCalendarImplFromJson(json);
+  factory _$DateCalendarImpl.fromJson(Map<String, dynamic> json) =>
+      _$$DateCalendarImplFromJson(json);
 
   @override
   @TimestampSerializer()
@@ -164,36 +164,24 @@ class _$CaseCalendarImpl with DiagnosticableTreeMixin implements _CaseCalendar {
   @TimestampSerializer()
   final DateTime endDate;
   @override
-  final CalendarColor? calendarColor;
+  final DateCalendarColor? color;
   @override
   final double? progress;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'CaseCalendar(startDate: $startDate, endDate: $endDate, calendarColor: $calendarColor, progress: $progress)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'CaseCalendar'))
-      ..add(DiagnosticsProperty('startDate', startDate))
-      ..add(DiagnosticsProperty('endDate', endDate))
-      ..add(DiagnosticsProperty('calendarColor', calendarColor))
-      ..add(DiagnosticsProperty('progress', progress));
+  String toString() {
+    return 'DateCalendar(startDate: $startDate, endDate: $endDate, color: $color, progress: $progress)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$CaseCalendarImpl &&
+            other is _$DateCalendarImpl &&
             (identical(other.startDate, startDate) ||
                 other.startDate == startDate) &&
             (identical(other.endDate, endDate) || other.endDate == endDate) &&
-            (identical(other.calendarColor, calendarColor) ||
-                other.calendarColor == calendarColor) &&
+            (identical(other.color, color) || other.color == color) &&
             (identical(other.progress, progress) ||
                 other.progress == progress));
   }
@@ -201,33 +189,33 @@ class _$CaseCalendarImpl with DiagnosticableTreeMixin implements _CaseCalendar {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, startDate, endDate, calendarColor, progress);
+      Object.hash(runtimeType, startDate, endDate, color, progress);
 
-  /// Create a copy of CaseCalendar
+  /// Create a copy of DateCalendar
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$CaseCalendarImplCopyWith<_$CaseCalendarImpl> get copyWith =>
-      __$$CaseCalendarImplCopyWithImpl<_$CaseCalendarImpl>(this, _$identity);
+  _$$DateCalendarImplCopyWith<_$DateCalendarImpl> get copyWith =>
+      __$$DateCalendarImplCopyWithImpl<_$DateCalendarImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$CaseCalendarImplToJson(
+    return _$$DateCalendarImplToJson(
       this,
     );
   }
 }
 
-abstract class _CaseCalendar implements CaseCalendar {
-  const factory _CaseCalendar(
+abstract class _DateCalendar implements DateCalendar {
+  const factory _DateCalendar(
       {@TimestampSerializer() required final DateTime startDate,
       @TimestampSerializer() required final DateTime endDate,
-      final CalendarColor? calendarColor,
-      final double? progress}) = _$CaseCalendarImpl;
+      final DateCalendarColor? color,
+      final double? progress}) = _$DateCalendarImpl;
 
-  factory _CaseCalendar.fromJson(Map<String, dynamic> json) =
-      _$CaseCalendarImpl.fromJson;
+  factory _DateCalendar.fromJson(Map<String, dynamic> json) =
+      _$DateCalendarImpl.fromJson;
 
   @override
   @TimestampSerializer()
@@ -236,14 +224,14 @@ abstract class _CaseCalendar implements CaseCalendar {
   @TimestampSerializer()
   DateTime get endDate;
   @override
-  CalendarColor? get calendarColor;
+  DateCalendarColor? get color;
   @override
   double? get progress;
 
-  /// Create a copy of CaseCalendar
+  /// Create a copy of DateCalendar
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$CaseCalendarImplCopyWith<_$CaseCalendarImpl> get copyWith =>
+  _$$DateCalendarImplCopyWith<_$DateCalendarImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:ordrestyring_common/src/styles/ordrer_colors.dart';
-import 'package:ordrestyring_common/src/utils/enum_extensions.dart';
+import 'package:ordrestyring_common/src/domain/date_calendar.dart';
 
 class ColorRow extends StatelessWidget {
   const ColorRow({super.key, required this.value, required this.onSelect});
 
-  final CalendarColor value;
-  final Function(CalendarColor color) onSelect;
+  final DateCalendarColor value;
+  final Function(DateCalendarColor color) onSelect;
 
   @override
   Widget build(BuildContext context) {
     return Wrap(
       spacing: 2,
-      children: CalendarColor.values
+      children: DateCalendarColor.values
           .map(
             (color) => InkWell(
               onTap: () => onSelect.call(color),

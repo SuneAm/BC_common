@@ -9,8 +9,8 @@ class AssignmentDialog extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final nameController =
         useTextEditingController(text: assignment?.name ?? '');
-    final selectedAssignmentColor =
-        useState<CalendarColor>(assignment?.color ?? CalendarColor.blue);
+    final selectedAssignmentColor = useState<DateCalendarColor>(
+        assignment?.calendar.color ?? DateCalendarColor.blue);
 
     final dateRangeState = useState<DateTimeRange?>(
       assignment?.calendar == null
@@ -128,9 +128,9 @@ class AssignmentDialog extends HookConsumerWidget {
                       id: assignment?.id ?? '',
                       createdAt: assignment?.createdAt ?? DateTime.now(),
                       name: name,
-                      color: color,
                       type: type.value,
-                      calendar: AssignmentCalendar(
+                      calendar: DateCalendar(
+                        color: color,
                         startDate: dateRange.start,
                         endDate: type.value.isMilestone
                             ? dateRange.start
