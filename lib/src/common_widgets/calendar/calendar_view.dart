@@ -259,19 +259,7 @@ class _BarAcrossColumns extends ConsumerWidget {
                       AssignmentDialog(assignment: a),
                     ),
                     job: (c) => context.openDialog(
-                      CalendarMenuDialog(
-                        caseItem: c,
-                        dialogTopBar: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Center(
-                            child: Text(
-                              'Opdater oplysninger i ordre: ${c.caseNumber}',
-                              style: const TextStyle(fontSize: 20),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                        ),
-                      ),
+                      CalendarMenuDialog(caseItem: c),
                     ),
                   ),
                 );

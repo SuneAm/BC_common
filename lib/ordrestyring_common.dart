@@ -65,6 +65,7 @@ export 'src/common_widgets/production_case_item.dart';
 export 'src/common_widgets/calendar/week_top_view.dart';
 export 'src/common_widgets/calendar/calendar_view.dart';
 export 'src/common_widgets/listeners/shift_scroll_listener.dart';
+export 'src/common_widgets/dialogs/editor_dialog_top_bar.dart';
 
 // responsive
 export 'src/common_widgets/responsive/responsive_widget.dart';

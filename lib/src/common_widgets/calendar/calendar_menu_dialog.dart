@@ -1,14 +1,9 @@
 part of 'calendar_view.dart';
 
 class CalendarMenuDialog extends HookConsumerWidget {
-  const CalendarMenuDialog({
-    super.key,
-    required this.caseItem,
-    required this.dialogTopBar,
-  });
+  const CalendarMenuDialog({super.key, required this.caseItem});
 
   final Case caseItem;
-  final Widget dialogTopBar;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -66,7 +61,8 @@ class CalendarMenuDialog extends HookConsumerWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          dialogTopBar,
+          EditorDialogTopBar(
+              title: 'Opdater oplysninger i ordre: ${caseItem.caseNumber}'),
           const SizedBox(height: 8),
           DateSelectionContainer(
             users: const [],

@@ -26,3 +26,5 @@ final functionsProvider = Provider<FirebaseFunctions>(
 final sharedPrefProvider = Provider<SharedPreferences>(
   (ref) => throw UnimplementedError(),
 );
+
+final lightThemeProvider = StateProvider<bool>((ref) => true);
