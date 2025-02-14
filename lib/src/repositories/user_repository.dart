@@ -5,7 +5,9 @@ import 'package:flutter/foundation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:ordrestyring_common/src/domain/users/user.dart';
+import 'package:ordrestyring_common/src/domain/users/user_info.dart';
 import 'package:ordrestyring_common/src/providers.dart';
+import 'package:ordrestyring_common/src/utils/domain_extensions.dart';
 
 class UserRepository {
   UserRepository(this._ref);
@@ -79,4 +81,8 @@ final usersProvider = Provider.autoDispose<List<User>>((ref) {
   });
 
   return value.value ?? [];
+});
+
+final usersInfoProvider = Provider.autoDispose<List<UserInfo>>((ref) {
+  return ref.watch(usersProvider).map((user) => user.toUserInfo).toList();
 });

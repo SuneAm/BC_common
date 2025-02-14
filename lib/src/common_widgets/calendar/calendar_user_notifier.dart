@@ -1,35 +1,33 @@
 part of 'calendar_view.dart';
 
-final productionEmployeesProvider =
-    StateNotifierProvider.autoDispose<SelectedEmployeesNotifier, List<User>>(
-        (ref) {
+final productionEmployeesProvider = StateNotifierProvider.autoDispose<
+    SelectedEmployeesNotifier, List<UserInfo>>((ref) {
   return SelectedEmployeesNotifier();
 });
 
-final montageEmployeesProvider =
-    StateNotifierProvider.autoDispose<SelectedEmployeesNotifier, List<User>>(
-        (ref) {
+final montageEmployeesProvider = StateNotifierProvider.autoDispose<
+    SelectedEmployeesNotifier, List<UserInfo>>((ref) {
   return SelectedEmployeesNotifier();
 });
 
-class SelectedEmployeesNotifier extends StateNotifier<List<User>> {
+class SelectedEmployeesNotifier extends StateNotifier<List<UserInfo>> {
   SelectedEmployeesNotifier() : super([]);
 
-  void initialize(List<User> users) {
+  void initialize(List<UserInfo> users) {
     state = [...users];
   }
 
-  void add(User employee) {
+  void add(UserInfo employee) {
     if (!state.contains(employee)) {
       state = [...state, employee];
     }
   }
 
-  void remove(User user) {
+  void remove(UserInfo user) {
     state = state.where((e) => e.id != user.id).toList();
   }
 
-  void addAll(List<User> employees) {
+  void addAll(List<UserInfo> employees) {
     state = [...employees];
   }
 }

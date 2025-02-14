@@ -20,7 +20,7 @@ UserInfo _$UserInfoFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$UserInfo {
-  String get id => throw _privateConstructorUsedError;
+  int get id => throw _privateConstructorUsedError;
   String get fullName => throw _privateConstructorUsedError;
   String get initials => throw _privateConstructorUsedError;
 
@@ -39,7 +39,7 @@ abstract class $UserInfoCopyWith<$Res> {
   factory $UserInfoCopyWith(UserInfo value, $Res Function(UserInfo) then) =
       _$UserInfoCopyWithImpl<$Res, UserInfo>;
   @useResult
-  $Res call({String id, String fullName, String initials});
+  $Res call({int id, String fullName, String initials});
 }
 
 /// @nodoc
@@ -65,7 +65,7 @@ class _$UserInfoCopyWithImpl<$Res, $Val extends UserInfo>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       fullName: null == fullName
           ? _value.fullName
           : fullName // ignore: cast_nullable_to_non_nullable
@@ -86,7 +86,7 @@ abstract class _$$UserInfoImplCopyWith<$Res>
       __$$UserInfoImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String fullName, String initials});
+  $Res call({int id, String fullName, String initials});
 }
 
 /// @nodoc
@@ -110,7 +110,7 @@ class __$$UserInfoImplCopyWithImpl<$Res>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       fullName: null == fullName
           ? _value.fullName
           : fullName // ignore: cast_nullable_to_non_nullable
@@ -133,7 +133,7 @@ class _$UserInfoImpl implements _UserInfo {
       _$$UserInfoImplFromJson(json);
 
   @override
-  final String id;
+  final int id;
   @override
   final String fullName;
   @override
@@ -178,7 +178,7 @@ class _$UserInfoImpl implements _UserInfo {
 
 abstract class _UserInfo implements UserInfo {
   const factory _UserInfo(
-      {required final String id,
+      {required final int id,
       required final String fullName,
       required final String initials}) = _$UserInfoImpl;
 
@@ -186,7 +186,7 @@ abstract class _UserInfo implements UserInfo {
       _$UserInfoImpl.fromJson;
 
   @override
-  String get id;
+  int get id;
   @override
   String get fullName;
   @override

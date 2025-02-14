@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ordrestyring_common/src/common_widgets/containers/app_container.dart';
 import 'package:ordrestyring_common/src/common_widgets/text/caption_text.dart';
 import 'package:ordrestyring_common/src/common_widgets/text/title_text.dart';
-import 'package:ordrestyring_common/src/domain/users/user.dart';
+import 'package:ordrestyring_common/src/domain/users/user_info.dart';
 import 'package:ordrestyring_common/src/utils/constants.dart';
 
 class DateSelectionContainer extends StatelessWidget {
@@ -22,7 +22,7 @@ class DateSelectionContainer extends StatelessWidget {
   final String? formatDate;
   final VoidCallback? onDateSelect;
   final VoidCallback? onDateClear;
-  final List<User> users;
+  final List<UserInfo> users;
   final VoidCallback? onPeopleSelect;
 
   @override

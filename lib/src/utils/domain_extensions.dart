@@ -243,3 +243,11 @@ extension HolidayListEx on List<Holiday> {
     return true;
   }
 }
+
+extension UserEx on User {
+  UserInfo get toUserInfo => UserInfo(
+        id: id,
+        fullName: fullName,
+        initials: initials,
+      );
+}

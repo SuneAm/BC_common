@@ -13,7 +13,7 @@ _$VacationImpl _$$VacationImplFromJson(Map<String, dynamic> json) =>
       createdAt:
           const TimestampSerializer().fromJson(json['createdAt'] as Timestamp),
       calendar: DateCalendar.fromJson(json['calendar'] as Map<String, dynamic>),
-      user: User.fromJson(json['user'] as Map<String, dynamic>),
+      user: UserInfo.fromJson(json['user'] as Map<String, dynamic>),
       status: $enumDecodeNullable(_$VacationStatusEnumMap, json['status']) ??
           VacationStatus.pending,
       type: $enumDecodeNullable(_$VacationTypeEnumMap, json['type']) ??
@@ -38,7 +38,7 @@ const _$VacationStatusEnumMap = {
 };
 
 const _$VacationTypeEnumMap = {
-  VacationType.ferie: 'ferie',
-  VacationType.sygdom: 'sygdom',
   VacationType.costum: 'costum',
+  VacationType.sygdom: 'sygdom',
+  VacationType.ferie: 'ferie',
 };

@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:ordrestyring_common/ordrestyring_common.dart';
 import 'package:ordrestyring_common/src/domain/case/delivery_address.dart';
-import 'package:ordrestyring_common/src/domain/date_calendar.dart';
 
 import 'case_type.dart';
 import 'responsible_user.dart';
@@ -56,8 +55,8 @@ class Case {
   final DateCalendar? editorCalendar;
   final DateCalendar? productionCalendar;
   final DateCalendar? montageCalendar;
-  final List<User>? productionUsers;
-  final List<User>? montageUsers;
+  final List<UserInfo>? productionUsers;
+  final List<UserInfo>? montageUsers;
 
   Map<String, dynamic> toFirestore() {
     return {
@@ -149,8 +148,9 @@ class Case {
       montageCalendar: montageCalendar == null
           ? null
           : DateCalendar.fromJson(montageCalendar),
-      productionUsers: productionUsers?.map((u) => User.fromJson(u)).toList(),
-      montageUsers: montageUsers?.map((u) => User.fromJson(u)).toList(),
+      productionUsers:
+          productionUsers?.map((u) => UserInfo.fromJson(u)).toList(),
+      montageUsers: montageUsers?.map((u) => UserInfo.fromJson(u)).toList(),
     );
   }
 
@@ -175,8 +175,8 @@ class Case {
     DateCalendar? editorCalendar,
     DateCalendar? productionCalendar,
     DateCalendar? montageCalendar,
-    List<User>? productionUsers,
-    List<User>? montageUsers,
+    List<UserInfo>? productionUsers,
+    List<UserInfo>? montageUsers,
   }) {
     return Case(
       id: id ?? this.id,

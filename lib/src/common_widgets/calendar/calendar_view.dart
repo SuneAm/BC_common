@@ -666,7 +666,7 @@ class _CalendarCaseBar {
 
   final String caseId;
   final double? progress;
-  final List<User> appointedUsers;
+  final List<UserInfo> appointedUsers;
   final _CalendarViewBar viewBar;
 }
 

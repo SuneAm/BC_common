@@ -241,7 +241,7 @@ class _UserListDialog extends ConsumerWidget {
     required this.isProduction,
   });
 
-  final Function(bool newValue, User user) onValueChange;
+  final Function(bool newValue, UserInfo user) onValueChange;
   final bool isProduction;
 
   @override
@@ -287,7 +287,8 @@ class _UserListDialog extends ConsumerWidget {
                       controlAffinity: ListTileControlAffinity.leading,
                       value: isSelected,
                       title: Text(u.fullName),
-                      onChanged: (newValue) => onValueChange.call(newValue!, u),
+                      onChanged: (newValue) =>
+                          onValueChange.call(newValue!, u.toUserInfo),
                     );
                   },
                 ),

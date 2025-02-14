@@ -25,7 +25,7 @@ mixin _$Vacation {
   @TimestampSerializer()
   DateTime get createdAt => throw _privateConstructorUsedError;
   DateCalendar get calendar => throw _privateConstructorUsedError;
-  User get user => throw _privateConstructorUsedError;
+  UserInfo get user => throw _privateConstructorUsedError;
   VacationStatus get status => throw _privateConstructorUsedError;
   VacationType get type => throw _privateConstructorUsedError;
 
@@ -49,12 +49,12 @@ abstract class $VacationCopyWith<$Res> {
       String? name,
       @TimestampSerializer() DateTime createdAt,
       DateCalendar calendar,
-      User user,
+      UserInfo user,
       VacationStatus status,
       VacationType type});
 
   $DateCalendarCopyWith<$Res> get calendar;
-  $UserCopyWith<$Res> get user;
+  $UserInfoCopyWith<$Res> get user;
 }
 
 /// @nodoc
@@ -100,7 +100,7 @@ class _$VacationCopyWithImpl<$Res, $Val extends Vacation>
       user: null == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
-              as User,
+              as UserInfo,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -126,8 +126,8 @@ class _$VacationCopyWithImpl<$Res, $Val extends Vacation>
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $UserCopyWith<$Res> get user {
-    return $UserCopyWith<$Res>(_value.user, (value) {
+  $UserInfoCopyWith<$Res> get user {
+    return $UserInfoCopyWith<$Res>(_value.user, (value) {
       return _then(_value.copyWith(user: value) as $Val);
     });
   }
@@ -146,14 +146,14 @@ abstract class _$$VacationImplCopyWith<$Res>
       String? name,
       @TimestampSerializer() DateTime createdAt,
       DateCalendar calendar,
-      User user,
+      UserInfo user,
       VacationStatus status,
       VacationType type});
 
   @override
   $DateCalendarCopyWith<$Res> get calendar;
   @override
-  $UserCopyWith<$Res> get user;
+  $UserInfoCopyWith<$Res> get user;
 }
 
 /// @nodoc
@@ -197,7 +197,7 @@ class __$$VacationImplCopyWithImpl<$Res>
       user: null == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
-              as User,
+              as UserInfo,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -237,7 +237,7 @@ class _$VacationImpl extends _Vacation {
   @override
   final DateCalendar calendar;
   @override
-  final User user;
+  final UserInfo user;
   @override
   @JsonKey()
   final VacationStatus status;
@@ -293,7 +293,7 @@ abstract class _Vacation extends Vacation {
       final String? name,
       @TimestampSerializer() required final DateTime createdAt,
       required final DateCalendar calendar,
-      required final User user,
+      required final UserInfo user,
       final VacationStatus status,
       final VacationType type}) = _$VacationImpl;
   const _Vacation._() : super._();
@@ -311,7 +311,7 @@ abstract class _Vacation extends Vacation {
   @override
   DateCalendar get calendar;
   @override
-  User get user;
+  UserInfo get user;
   @override
   VacationStatus get status;
   @override

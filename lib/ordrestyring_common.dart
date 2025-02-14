@@ -25,6 +25,7 @@ export 'src/repositories/assignment_repository.dart';
 
 // domain
 export 'src/domain/users/user.dart';
+export 'src/domain/users/user_info.dart';
 export 'src/domain/vacation/vacation.dart';
 export 'src/domain/vacation/holiday.dart';
 export 'src/domain/vacation/vacation_wrapper.dart';

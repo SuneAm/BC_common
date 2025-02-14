@@ -6,7 +6,7 @@ part 'user_info.g.dart';
 @freezed
 class UserInfo with _$UserInfo {
   const factory UserInfo({
-    required String id,
+    required int id,
     required String fullName,
     required String initials,
   }) = _UserInfo;

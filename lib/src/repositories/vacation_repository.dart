@@ -14,7 +14,7 @@ class VacationRepository {
 
   static const _vacations = 'vacations';
 
-  Future<void> createVacationRequest(Vacation vacation) async {
+  Future<void> createVacation(Vacation vacation) async {
     final docRef = _firestore.collection(_vacations).doc();
 
     return docRef.set(vacation.toFirestore());

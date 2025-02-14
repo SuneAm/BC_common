@@ -9,14 +9,14 @@ class UserListDialog extends HookConsumerWidget {
     super.key,
   });
 
-  final Function(List<User> selectedUsers) onSubmit;
-  final List<User> selectedUsers;
+  final Function(List<UserInfo> selectedUsers) onSubmit;
+  final List<UserInfo> selectedUsers;
   final bool isMultiple;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final allUsers = ref.watch(usersProvider);
-    final persons = useState<List<User>>(selectedUsers);
+    final persons = useState<List<UserInfo>>(selectedUsers);
 
     return Dialog(
       child: ConstrainedBox(
@@ -60,12 +60,12 @@ class UserListDialog extends HookConsumerWidget {
                       onChanged: (newValue) {
                         if (isMultiple) {
                           persons.value = newValue!
-                              ? [...persons.value, u]
+                              ? [...persons.value, u.toUserInfo]
                               : persons.value
                                   .where((e) => e.id != u.id)
                                   .toList();
                         } else {
-                          persons.value = [u];
+                          persons.value = [u.toUserInfo];
                         }
                       },
                     );
