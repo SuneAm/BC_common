@@ -22,6 +22,8 @@ enum VacationType {
         VacationType.sygdom => 'Sygdom',
         VacationType.costum => 'Costum'
       };
+
+  bool get isSygdom => this == VacationType.sygdom;
 }
 
 @freezed
