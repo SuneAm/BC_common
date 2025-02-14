@@ -220,7 +220,7 @@ class _$VacationImpl extends _Vacation {
       required this.calendar,
       required this.user,
       this.status = VacationStatus.pending,
-      this.type = VacationType.vacation})
+      this.type = VacationType.ferie})
       : super._();
 
   factory _$VacationImpl.fromJson(Map<String, dynamic> json) =>

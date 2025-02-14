@@ -11,7 +11,18 @@ part 'vacation.g.dart';
 
 enum VacationStatus { pending, approved, rejected }
 
-enum VacationType { vacation, sickLeave, other }
+enum VacationType {
+  costum,
+  sygdom,
+  ferie,
+  ;
+
+  String get name => switch (this) {
+        VacationType.ferie => 'Ferie',
+        VacationType.sygdom => 'Sygdom',
+        VacationType.costum => 'Costum'
+      };
+}
 
 @freezed
 abstract class Vacation implements _$Vacation {
@@ -24,7 +35,7 @@ abstract class Vacation implements _$Vacation {
     required DateCalendar calendar,
     required User user,
     @Default(VacationStatus.pending) VacationStatus status,
-    @Default(VacationType.vacation) VacationType type,
+    @Default(VacationType.ferie) VacationType type,
   }) = _Vacation;
 
   factory Vacation.fromJson(Map<String, dynamic> json) =>

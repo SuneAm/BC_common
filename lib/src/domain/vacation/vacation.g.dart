@@ -17,7 +17,7 @@ _$VacationImpl _$$VacationImplFromJson(Map<String, dynamic> json) =>
       status: $enumDecodeNullable(_$VacationStatusEnumMap, json['status']) ??
           VacationStatus.pending,
       type: $enumDecodeNullable(_$VacationTypeEnumMap, json['type']) ??
-          VacationType.vacation,
+          VacationType.ferie,
     );
 
 Map<String, dynamic> _$$VacationImplToJson(_$VacationImpl instance) =>
@@ -38,7 +38,7 @@ const _$VacationStatusEnumMap = {
 };
 
 const _$VacationTypeEnumMap = {
-  VacationType.vacation: 'vacation',
-  VacationType.sickLeave: 'sickLeave',
-  VacationType.other: 'other',
+  VacationType.ferie: 'ferie',
+  VacationType.sygdom: 'sygdom',
+  VacationType.costum: 'costum',
 };
