@@ -17,13 +17,23 @@ enum VacationType {
   ferie,
   ;
 
+  bool get isSygdom => this == VacationType.sygdom;
+
   String get name => switch (this) {
         VacationType.ferie => 'Ferie',
         VacationType.sygdom => 'Sygdom',
         VacationType.costum => 'Costum'
       };
 
-  bool get isSygdom => this == VacationType.sygdom;
+  String get title => switch (this) {
+        VacationType.costum => 'Event',
+        _ => name,
+      };
+
+  String get dropdownTitle => switch (this) {
+        VacationType.costum => 'Costum Event',
+        _ => name,
+      };
 }
 
 @freezed
