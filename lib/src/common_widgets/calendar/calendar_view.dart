@@ -400,10 +400,10 @@ class _CalendarAssignmentContainer extends StatelessWidget {
                 horizontal: 8,
               ),
               child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
                 padding: const EdgeInsets.symmetric(
                   vertical: 1.0,
                 ),
-                scrollDirection: Axis.horizontal,
                 child: Text(viewBar.name),
               ),
             ),

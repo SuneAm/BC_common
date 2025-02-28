@@ -53,7 +53,8 @@ class AssignmentDialog extends HookConsumerWidget {
                           ? null
                           : DateTimeRange(
                               start: assignment!.calendar.startDate,
-                              end: assignment!.calendar.endDate);
+                              end: assignment!.calendar.endDate,
+                            );
                     }),
               ],
             ),
