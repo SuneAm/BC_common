@@ -9,9 +9,11 @@ class IconContainer extends StatelessWidget {
     this.size = 24,
     this.color,
     this.backgroundColor = Colors.transparent,
+    this.padding = const EdgeInsets.all(4.0),
     super.key,
   });
 
+  final EdgeInsets padding;
   final IconData icon;
   final VoidCallback? onTap;
   final double size;
@@ -23,7 +25,7 @@ class IconContainer extends StatelessWidget {
     return AppContainer(
       onTap: onTap,
       borderRadius: BorderRadius.circular(size),
-      padding: const EdgeInsets.all(4.0),
+      padding: padding,
       color: backgroundColor,
       child: Icon(
         icon,

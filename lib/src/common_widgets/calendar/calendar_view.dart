@@ -535,12 +535,29 @@ class _CalendarCaseContainer extends HookConsumerWidget {
                             ),
                           ),
                           if (viewBar.isCollapsable)
-                            IconContainer(
-                              icon: toggleBar.value
-                                  ? Icons.arrow_upward
-                                  : Icons.arrow_downward,
-                              size: 16,
-                              onTap: () => toggleBar.value = !toggleBar.value,
+                            Consumer(
+                              builder: (_, WidgetRef ref, __) {
+                                final zoomLevel =
+                                    ref.watch(_produktionZoomLevelProvider);
+
+                                return IconContainer(
+                                  icon: toggleBar.value
+                                      ? Icons.arrow_upward
+                                      : Icons.arrow_downward,
+                                  size: switch (zoomLevel) {
+                                    _ProduktionZoomLevel.level1 ||
+                                    _ProduktionZoomLevel.level2 ||
+                                    _ProduktionZoomLevel.level3 =>
+                                      16,
+                                    _ => spacePerDay,
+                                  },
+                                  padding: viewBar.barWidth == spacePerDay
+                                      ? EdgeInsets.zero
+                                      : const EdgeInsets.all(4.0),
+                                  onTap: () =>
+                                      toggleBar.value = !toggleBar.value,
+                                );
+                              },
                             ),
                         ],
                       ),
