@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:timezone/timezone.dart' as tz;
+
 import 'package:ordrestyring_common/src/utils/time_stamp_serializer.dart';
 
 part 'date_calendar.freezed.dart';
@@ -27,8 +29,8 @@ enum DateCalendarColor {
 @freezed
 class DateCalendar with _$DateCalendar {
   const factory DateCalendar({
-    @TimestampSerializer() required DateTime startDate,
-    @TimestampSerializer() required DateTime endDate,
+    @TimestampSerializer() required tz.TZDateTime startDate,
+    @TimestampSerializer() required tz.TZDateTime endDate,
     DateCalendarColor? color,
     double? progress,
   }) = _DateCalendar;

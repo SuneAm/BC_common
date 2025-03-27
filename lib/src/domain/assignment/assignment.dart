@@ -3,6 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:ordrestyring_common/ordrestyring_common.dart';
 import 'package:ordrestyring_common/src/domain/date_calendar.dart';
 import 'package:ordrestyring_common/src/utils/time_stamp_serializer.dart';
+import 'package:timezone/timezone.dart' as tz;
 
 part 'assignment.freezed.dart';
 part 'assignment.g.dart';
@@ -16,7 +17,7 @@ abstract class Assignment implements _$Assignment {
   const factory Assignment({
     @Default('') String id,
     required String name,
-    @TimestampSerializer() required DateTime createdAt,
+    @TimestampSerializer() required tz.TZDateTime createdAt,
     required DateCalendar calendar,
     required AssignmentType type,
     // AssignmentCalendar? production,

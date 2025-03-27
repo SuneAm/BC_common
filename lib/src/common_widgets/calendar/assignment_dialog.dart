@@ -12,10 +12,10 @@ class AssignmentDialog extends HookConsumerWidget {
     final selectedAssignmentColor = useState<DateCalendarColor>(
         assignment?.calendar.color ?? DateCalendarColor.blue);
 
-    final dateRangeState = useState<DateTimeRange?>(
+    final dateRangeState = useState<TZDateTimeRange?>(
       assignment?.calendar == null
           ? null
-          : DateTimeRange(
+          : TZDateTimeRange(
               start: assignment!.calendar.startDate,
               end: assignment!.calendar.endDate,
             ),
@@ -51,7 +51,7 @@ class AssignmentDialog extends HookConsumerWidget {
                           : AssignmentType.assignment;
                       dateRangeState.value = assignment?.calendar == null
                           ? null
-                          : DateTimeRange(
+                          : TZDateTimeRange(
                               start: assignment!.calendar.startDate,
                               end: assignment!.calendar.endDate,
                             );
@@ -91,7 +91,7 @@ class AssignmentDialog extends HookConsumerWidget {
                     initialDate: dateRangeState.value?.start,
                   );
                   if (selectedDate != null) {
-                    dateRangeState.value = DateTimeRange(
+                    dateRangeState.value = TZDateTimeRange(
                       start: selectedDate,
                       end: selectedDate,
                     );
@@ -127,7 +127,8 @@ class AssignmentDialog extends HookConsumerWidget {
 
                     final newAssignment = Assignment(
                       id: assignment?.id ?? '',
-                      createdAt: assignment?.createdAt ?? DateTime.now(),
+                      createdAt: assignment?.createdAt ??
+                          TimeZoneHelper.nowInCopenhagen(),
                       name: name,
                       type: type.value,
                       calendar: DateCalendar(

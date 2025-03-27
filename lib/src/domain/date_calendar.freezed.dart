@@ -21,9 +21,9 @@ DateCalendar _$DateCalendarFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$DateCalendar {
   @TimestampSerializer()
-  DateTime get startDate => throw _privateConstructorUsedError;
+  tz.TZDateTime get startDate => throw _privateConstructorUsedError;
   @TimestampSerializer()
-  DateTime get endDate => throw _privateConstructorUsedError;
+  tz.TZDateTime get endDate => throw _privateConstructorUsedError;
   DateCalendarColor? get color => throw _privateConstructorUsedError;
   double? get progress => throw _privateConstructorUsedError;
 
@@ -44,8 +44,8 @@ abstract class $DateCalendarCopyWith<$Res> {
       _$DateCalendarCopyWithImpl<$Res, DateCalendar>;
   @useResult
   $Res call(
-      {@TimestampSerializer() DateTime startDate,
-      @TimestampSerializer() DateTime endDate,
+      {@TimestampSerializer() tz.TZDateTime startDate,
+      @TimestampSerializer() tz.TZDateTime endDate,
       DateCalendarColor? color,
       double? progress});
 }
@@ -74,11 +74,11 @@ class _$DateCalendarCopyWithImpl<$Res, $Val extends DateCalendar>
       startDate: null == startDate
           ? _value.startDate
           : startDate // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as tz.TZDateTime,
       endDate: null == endDate
           ? _value.endDate
           : endDate // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as tz.TZDateTime,
       color: freezed == color
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
@@ -100,8 +100,8 @@ abstract class _$$DateCalendarImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@TimestampSerializer() DateTime startDate,
-      @TimestampSerializer() DateTime endDate,
+      {@TimestampSerializer() tz.TZDateTime startDate,
+      @TimestampSerializer() tz.TZDateTime endDate,
       DateCalendarColor? color,
       double? progress});
 }
@@ -128,11 +128,11 @@ class __$$DateCalendarImplCopyWithImpl<$Res>
       startDate: null == startDate
           ? _value.startDate
           : startDate // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as tz.TZDateTime,
       endDate: null == endDate
           ? _value.endDate
           : endDate // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as tz.TZDateTime,
       color: freezed == color
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
@@ -159,10 +159,10 @@ class _$DateCalendarImpl implements _DateCalendar {
 
   @override
   @TimestampSerializer()
-  final DateTime startDate;
+  final tz.TZDateTime startDate;
   @override
   @TimestampSerializer()
-  final DateTime endDate;
+  final tz.TZDateTime endDate;
   @override
   final DateCalendarColor? color;
   @override
@@ -209,8 +209,8 @@ class _$DateCalendarImpl implements _DateCalendar {
 
 abstract class _DateCalendar implements DateCalendar {
   const factory _DateCalendar(
-      {@TimestampSerializer() required final DateTime startDate,
-      @TimestampSerializer() required final DateTime endDate,
+      {@TimestampSerializer() required final tz.TZDateTime startDate,
+      @TimestampSerializer() required final tz.TZDateTime endDate,
       final DateCalendarColor? color,
       final double? progress}) = _$DateCalendarImpl;
 
@@ -219,10 +219,10 @@ abstract class _DateCalendar implements DateCalendar {
 
   @override
   @TimestampSerializer()
-  DateTime get startDate;
+  tz.TZDateTime get startDate;
   @override
   @TimestampSerializer()
-  DateTime get endDate;
+  tz.TZDateTime get endDate;
   @override
   DateCalendarColor? get color;
   @override

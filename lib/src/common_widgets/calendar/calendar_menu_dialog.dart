@@ -11,28 +11,28 @@ class CalendarMenuDialog extends HookConsumerWidget {
         useRef<double>(caseItem.editorCalendar?.progress ?? 0.0);
     final selectedEditorColor = useState<DateCalendarColor>(
         caseItem.editorCalendar?.color ?? DateCalendarColor.blue);
-    final editorDateRange = useState<DateTimeRange?>(
+    final editorDateRange = useState<TZDateTimeRange?>(
       caseItem.editorCalendar == null
           ? null
-          : DateTimeRange(
+          : TZDateTimeRange(
               start: caseItem.editorCalendar!.startDate,
               end: caseItem.editorCalendar!.endDate,
             ),
     );
 
-    final productionDateRange = useState<DateTimeRange?>(
+    final productionDateRange = useState<TZDateTimeRange?>(
       caseItem.productionCalendar == null
           ? null
-          : DateTimeRange(
+          : TZDateTimeRange(
               start: caseItem.productionCalendar!.startDate,
               end: caseItem.productionCalendar!.endDate,
             ),
     );
 
-    final montageDateRange = useState<DateTimeRange?>(
+    final montageDateRange = useState<TZDateTimeRange?>(
       caseItem.montageCalendar == null
           ? null
-          : DateTimeRange(
+          : TZDateTimeRange(
               start: caseItem.montageCalendar!.startDate,
               end: caseItem.montageCalendar!.endDate,
             ),

@@ -27,11 +27,15 @@ extension CaseListEx on List<Case> {
   void get sortByLengthOfProject {
     sort((a, b) {
       final lengthA = a.editorCalendar?.endDate
-              .difference(a.editorCalendar?.startDate ?? DateTime.now())
+              .difference(
+                a.editorCalendar?.startDate ?? TimeZoneHelper.nowInCopenhagen(),
+              )
               .inDays ??
           0;
       final lengthB = b.editorCalendar?.endDate
-              .difference(b.editorCalendar?.startDate ?? DateTime.now())
+              .difference(
+                b.editorCalendar?.startDate ?? TimeZoneHelper.nowInCopenhagen(),
+              )
               .inDays ??
           0;
       // return lengthA.compareTo(lengthB); // Shortest project first

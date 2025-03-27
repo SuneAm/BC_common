@@ -2,6 +2,8 @@ library;
 
 // 3rd party libraries
 export 'package:intl/intl.dart';
+export 'package:timezone/data/latest.dart';
+export 'package:timezone/timezone.dart';
 export 'package:firebase_core/firebase_core.dart';
 export 'package:hooks_riverpod/hooks_riverpod.dart';
 export 'package:flutter_hooks/flutter_hooks.dart';

@@ -23,7 +23,7 @@ mixin _$Vacation {
   String get id => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
   @TimestampSerializer()
-  DateTime get createdAt => throw _privateConstructorUsedError;
+  tz.TZDateTime get createdAt => throw _privateConstructorUsedError;
   DateCalendar get calendar => throw _privateConstructorUsedError;
   UserInfo get user => throw _privateConstructorUsedError;
   VacationStatus get status => throw _privateConstructorUsedError;
@@ -47,7 +47,7 @@ abstract class $VacationCopyWith<$Res> {
   $Res call(
       {String id,
       String? name,
-      @TimestampSerializer() DateTime createdAt,
+      @TimestampSerializer() tz.TZDateTime createdAt,
       DateCalendar calendar,
       UserInfo user,
       VacationStatus status,
@@ -92,7 +92,7 @@ class _$VacationCopyWithImpl<$Res, $Val extends Vacation>
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as tz.TZDateTime,
       calendar: null == calendar
           ? _value.calendar
           : calendar // ignore: cast_nullable_to_non_nullable
@@ -144,7 +144,7 @@ abstract class _$$VacationImplCopyWith<$Res>
   $Res call(
       {String id,
       String? name,
-      @TimestampSerializer() DateTime createdAt,
+      @TimestampSerializer() tz.TZDateTime createdAt,
       DateCalendar calendar,
       UserInfo user,
       VacationStatus status,
@@ -189,7 +189,7 @@ class __$$VacationImplCopyWithImpl<$Res>
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as tz.TZDateTime,
       calendar: null == calendar
           ? _value.calendar
           : calendar // ignore: cast_nullable_to_non_nullable
@@ -233,7 +233,7 @@ class _$VacationImpl extends _Vacation {
   final String? name;
   @override
   @TimestampSerializer()
-  final DateTime createdAt;
+  final tz.TZDateTime createdAt;
   @override
   final DateCalendar calendar;
   @override
@@ -291,7 +291,7 @@ abstract class _Vacation extends Vacation {
   const factory _Vacation(
       {final String id,
       final String? name,
-      @TimestampSerializer() required final DateTime createdAt,
+      @TimestampSerializer() required final tz.TZDateTime createdAt,
       required final DateCalendar calendar,
       required final UserInfo user,
       final VacationStatus status,
@@ -307,7 +307,7 @@ abstract class _Vacation extends Vacation {
   String? get name;
   @override
   @TimestampSerializer()
-  DateTime get createdAt;
+  tz.TZDateTime get createdAt;
   @override
   DateCalendar get calendar;
   @override

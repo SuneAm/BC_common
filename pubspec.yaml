@@ -15,6 +15,7 @@ dependencies:
 
 
   intl: ^0.20.2
+  timezone: ^0.10.0
   week_of_year: ^2.2.0
   graphql_flutter: ^5.1.2
 

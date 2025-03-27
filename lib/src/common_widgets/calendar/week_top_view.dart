@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ordrestyring_common/ordrestyring_common.dart';
+import 'package:ordrestyring_common/ordrestyring_common.dart' as tz
+    show TZDateTime;
 
 import 'week_view.dart';
 
@@ -11,7 +13,7 @@ class WeekTopView extends StatelessWidget {
   });
 
   final int totalWeeks;
-  final DateTime startRangeDate;
+  final tz.TZDateTime startRangeDate;
 
   @override
   Widget build(BuildContext context) {

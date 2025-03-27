@@ -12,11 +12,11 @@ final calendarCasesNotifierProvider =
   (ref) => CasesStateNotifier(ref.watch(calendarCasesProvider)),
 );
 
-final _startRangeProvider = StateProvider.autoDispose<DateTime>(
+final _startRangeProvider = StateProvider.autoDispose<tz.TZDateTime>(
   (ref) => HelperMethod.getStartOfCurrentWeek(),
 );
 
-final _endRangeProvider = Provider.autoDispose<DateTime>((ref) {
+final _endRangeProvider = Provider.autoDispose<tz.TZDateTime>((ref) {
   final startRange = ref.watch(_startRangeProvider);
   final ferieZoomLevel = ref.watch(_produktionZoomLevelProvider);
   return startRange.add(

@@ -24,11 +24,11 @@ mixin _$Holiday {
   String get holidayName => throw _privateConstructorUsedError;
   bool get isRecurring => throw _privateConstructorUsedError;
   @TimestampSerializer()
-  DateTime get startDate => throw _privateConstructorUsedError;
+  tz.TZDateTime get startDate => throw _privateConstructorUsedError;
   @TimestampSerializer()
-  DateTime get endDate => throw _privateConstructorUsedError;
+  tz.TZDateTime get endDate => throw _privateConstructorUsedError;
   @TimestampSerializer()
-  DateTime get createdAt => throw _privateConstructorUsedError;
+  tz.TZDateTime get createdAt => throw _privateConstructorUsedError;
 
   /// Serializes this Holiday to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -48,9 +48,9 @@ abstract class $HolidayCopyWith<$Res> {
       {String id,
       String holidayName,
       bool isRecurring,
-      @TimestampSerializer() DateTime startDate,
-      @TimestampSerializer() DateTime endDate,
-      @TimestampSerializer() DateTime createdAt});
+      @TimestampSerializer() tz.TZDateTime startDate,
+      @TimestampSerializer() tz.TZDateTime endDate,
+      @TimestampSerializer() tz.TZDateTime createdAt});
 }
 
 /// @nodoc
@@ -91,15 +91,15 @@ class _$HolidayCopyWithImpl<$Res, $Val extends Holiday>
       startDate: null == startDate
           ? _value.startDate
           : startDate // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as tz.TZDateTime,
       endDate: null == endDate
           ? _value.endDate
           : endDate // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as tz.TZDateTime,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as tz.TZDateTime,
     ) as $Val);
   }
 }
@@ -115,9 +115,9 @@ abstract class _$$HolidayImplCopyWith<$Res> implements $HolidayCopyWith<$Res> {
       {String id,
       String holidayName,
       bool isRecurring,
-      @TimestampSerializer() DateTime startDate,
-      @TimestampSerializer() DateTime endDate,
-      @TimestampSerializer() DateTime createdAt});
+      @TimestampSerializer() tz.TZDateTime startDate,
+      @TimestampSerializer() tz.TZDateTime endDate,
+      @TimestampSerializer() tz.TZDateTime createdAt});
 }
 
 /// @nodoc
@@ -156,15 +156,15 @@ class __$$HolidayImplCopyWithImpl<$Res>
       startDate: null == startDate
           ? _value.startDate
           : startDate // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as tz.TZDateTime,
       endDate: null == endDate
           ? _value.endDate
           : endDate // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as tz.TZDateTime,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as tz.TZDateTime,
     ));
   }
 }
@@ -194,13 +194,13 @@ class _$HolidayImpl extends _Holiday with DiagnosticableTreeMixin {
   final bool isRecurring;
   @override
   @TimestampSerializer()
-  final DateTime startDate;
+  final tz.TZDateTime startDate;
   @override
   @TimestampSerializer()
-  final DateTime endDate;
+  final tz.TZDateTime endDate;
   @override
   @TimestampSerializer()
-  final DateTime createdAt;
+  final tz.TZDateTime createdAt;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
@@ -263,9 +263,9 @@ abstract class _Holiday extends Holiday {
           {final String id,
           required final String holidayName,
           final bool isRecurring,
-          @TimestampSerializer() required final DateTime startDate,
-          @TimestampSerializer() required final DateTime endDate,
-          @TimestampSerializer() required final DateTime createdAt}) =
+          @TimestampSerializer() required final tz.TZDateTime startDate,
+          @TimestampSerializer() required final tz.TZDateTime endDate,
+          @TimestampSerializer() required final tz.TZDateTime createdAt}) =
       _$HolidayImpl;
   const _Holiday._() : super._();
 
@@ -279,13 +279,13 @@ abstract class _Holiday extends Holiday {
   bool get isRecurring;
   @override
   @TimestampSerializer()
-  DateTime get startDate;
+  tz.TZDateTime get startDate;
   @override
   @TimestampSerializer()
-  DateTime get endDate;
+  tz.TZDateTime get endDate;
   @override
   @TimestampSerializer()
-  DateTime get createdAt;
+  tz.TZDateTime get createdAt;
 
   /// Create a copy of Holiday
   /// with the given fields replaced by the non-null parameter values.

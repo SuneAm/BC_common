@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:week_of_year/week_of_year.dart';
 
-extension DateTimeExtension on DateTime {
+import 'package:week_of_year/week_of_year.dart';
+import 'package:timezone/timezone.dart' as tz;
+
+import 'help_methods.dart';
+
+extension DateTimeExtension on tz.TZDateTime {
   String _twoDigits(int i) => i <= 9 ? '0$i' : i.toString();
 
   String get formatTime => DateFormat('h:mm a').format(this); // 3:31pm
@@ -31,7 +35,7 @@ extension DateTimeExtension on DateTime {
 
   String get formatDateSameWeek {
     DateFormat dateFormat;
-    if (day == DateTime.now().day) {
+    if (day == TimeZoneHelper.nowInCopenhagen().day) {
       dateFormat = DateFormat('h:mm a'); // 3:31pm
     } else {
       dateFormat = DateFormat('EEEE, hh:mm a'); // Wednesday, 3:31pm
@@ -45,15 +49,19 @@ extension DateTimeExtension on DateTime {
     return dateFormat.format(this);
   }
 
-  bool get isSameWeek => DateTime.now().difference(this).inDays < 7;
+  bool get isSameWeek =>
+      TimeZoneHelper.nowInCopenhagen().difference(this).inDays < 7;
 
-  DateTime combineDateTime(TimeOfDay time) =>
-      DateTime(year, month, day, time.hour, time.minute);
+  tz.TZDateTime combineDateTime(TimeOfDay time) => TimeZoneHelper.setDateTime(
+        date: this,
+        hour: time.hour,
+        minute: time.minute,
+      );
 
   String customFormat(String format) => DateFormat(format).format(this);
 
   bool get isToday {
-    DateTime today = DateTime.now();
+    final today = TimeZoneHelper.nowInCopenhagen();
     return year == today.year && month == today.month && day == today.day;
   }
 
@@ -80,7 +88,7 @@ extension DateTimeExtension on DateTime {
       };
 }
 
-extension DateTimeRangeEx on DateTimeRange {
+extension DateTimeRangeEx on TZDateTimeRange {
   String get formattedDates => '${start.formatDateShort}, ${end.formatDate}';
 }
 
@@ -88,53 +96,81 @@ extension DateTimeContextEx on BuildContext {
   int get _fistDate => 365; // 1 year
   int get _lastDate => 1096; // 3 years
 
-  Future<DateTime?> selectDate(
+  Future<tz.TZDateTime?> selectDate(
     String helperText, {
-    DateTime? initialDate,
-    DateTime? firstDate,
-    DateTime? lastDate,
+    tz.TZDateTime? initialDate,
+    tz.TZDateTime? firstDate,
+    tz.TZDateTime? lastDate,
   }) {
-    final today = DateTime.now();
+    final today = tz.TZDateTime.now(TimeZoneHelper.denmarkTimeZone);
 
     return showDatePicker(
       context: this,
       helpText: helperText,
-      initialDate: initialDate ?? today,
-      firstDate: firstDate ?? today.subtract(Duration(days: _fistDate)),
-      lastDate: lastDate ?? today.add(Duration(days: _lastDate)),
-    );
+      initialDate: initialDate?.toLocal() ?? today,
+      firstDate:
+          firstDate?.toLocal() ?? today.subtract(Duration(days: _fistDate)),
+      lastDate: lastDate?.toLocal() ?? today.add(Duration(days: _lastDate)),
+    ).then((date) => date != null
+        ? tz.TZDateTime.from(date, TimeZoneHelper.denmarkTimeZone)
+        : null);
   }
 
-  Future<DateTimeRange?> selectDateRange(
+  Future<TZDateTimeRange?> selectDateRange(
     String helperText, {
-    DateTime? firstDate,
-    DateTime? lastDate,
-    DateTimeRange? initialDateRange,
+    tz.TZDateTime? firstDate,
+    tz.TZDateTime? lastDate,
+    TZDateTimeRange? initialDateRange,
   }) {
-    final today = DateTime.now();
+    final today = TimeZoneHelper.nowInCopenhagen();
 
     return showDateRangePicker(
-        context: this,
-        helpText: helperText,
-        initialDateRange: initialDateRange,
-        firstDate: firstDate ?? today.subtract(Duration(days: _fistDate)),
-        lastDate: lastDate ?? today.add(Duration(days: _lastDate)),
-        builder: (_, child) {
-          return Column(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(top: 50.0),
-                child: ConstrainedBox(
-                  constraints: const BoxConstraints(
-                    maxHeight: 800,
-                    maxWidth: 700,
-                  ),
-                  child: child,
+      context: this,
+      helpText: helperText,
+      initialDateRange: initialDateRange != null
+          ? DateTimeRange(
+              start: initialDateRange.start.toLocal(),
+              end: initialDateRange.end.toLocal(),
+            )
+          : null,
+      firstDate: firstDate ?? today.subtract(Duration(days: _fistDate)),
+      lastDate: lastDate ?? today.add(Duration(days: _lastDate)),
+      builder: (_, child) {
+        return Column(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(top: 50.0),
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(
+                  maxHeight: 800,
+                  maxWidth: 700,
                 ),
+                child: child,
               ),
-            ],
-          );
-        });
+            ),
+          ],
+        );
+      },
+    ).then((range) => range != null
+        ? TZDateTimeRange(
+            start: tz.TZDateTime(
+              TimeZoneHelper.denmarkTimeZone,
+              range.start.year,
+              range.start.month,
+              range.start.day,
+              range.start.hour,
+              range.start.minute,
+            ),
+            end: tz.TZDateTime(
+              TimeZoneHelper.denmarkTimeZone,
+              range.end.year,
+              range.end.month,
+              range.end.day,
+              range.end.hour,
+              range.end.minute,
+            ),
+          )
+        : null);
   }
 
   Future<TimeOfDay?> selectTime(String helpText) => showTimePicker(

@@ -2,6 +2,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:ordrestyring_common/ordrestyring_common.dart';
+import 'package:ordrestyring_common/ordrestyring_common.dart' as tz
+    show TZDateTime;
 import 'package:ordrestyring_common/src/common_widgets/containers/app_icon_container.dart';
 import 'package:ordrestyring_common/src/domain/assignment/calendar_wrapper.dart';
 import 'package:ordrestyring_common/src/utils/case_extension.dart';
@@ -43,7 +45,7 @@ class CalendarView extends HookConsumerWidget {
         if (event is PointerScrollEvent) {
           final yScroll = event.scrollDelta.dy;
           final currentStartRange = ref.read(_startRangeProvider);
-          late final DateTime newRange;
+          late final tz.TZDateTime newRange;
           const duration = Duration(days: 7);
 
           if (yScroll <= 0) {
@@ -112,10 +114,8 @@ class _BarAcrossColumns extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: wrappersInView.map((wrapper) {
-                final adjustedViewFirstDate = DateTime(
-                  viewFirstDate.year,
-                  viewFirstDate.month,
-                  viewFirstDate.day,
+                final adjustedViewFirstDate = TimeZoneHelper.setDateTime(
+                  date: viewFirstDate,
                 );
 
                 final _CalendarBar bars = wrapper.when(
@@ -135,7 +135,7 @@ class _BarAcrossColumns extends ConsumerWidget {
                           DateCalendarColor.blue.toColor,
                       barWidth: bar.$1,
                       leftPosition: bar.$2,
-                      dateRange: DateTimeRange(
+                      dateRange: TZDateTimeRange(
                         start: startDate,
                         end: endDate,
                       ),
@@ -167,7 +167,7 @@ class _BarAcrossColumns extends ConsumerWidget {
                       barWidth: editorBar.$1,
                       leftPosition: editorBar.$2,
                       isCollapsable: true,
-                      dateRange: DateTimeRange(
+                      dateRange: TZDateTimeRange(
                         start: editor.startDate,
                         end: editor.endDate,
                       ),
@@ -203,7 +203,7 @@ class _BarAcrossColumns extends ConsumerWidget {
                             barColor: OrdrerColors.kProduktionAppColor,
                             barWidth: calendarBar.$1,
                             leftPosition: calendarBar.$2,
-                            dateRange: DateTimeRange(
+                            dateRange: TZDateTimeRange(
                               start: calendar.startDate,
                               end: calendar.endDate,
                             ),
@@ -233,7 +233,7 @@ class _BarAcrossColumns extends ConsumerWidget {
                             barColor: OrdrerColors.kMontageAppColor,
                             barWidth: montageBar.$1,
                             leftPosition: montageBar.$2,
-                            dateRange: DateTimeRange(
+                            dateRange: TZDateTimeRange(
                               start: montage.startDate,
                               end: montage.endDate,
                             ),
@@ -272,37 +272,28 @@ class _BarAcrossColumns extends ConsumerWidget {
   }
 
   (double, double) calculateBar({
-    required DateTime startDate,
-    required DateTime endDate,
+    required tz.TZDateTime startDate,
+    required tz.TZDateTime endDate,
     required double spacePerDay,
-    required DateTime adjustedViewFirstDate,
+    required tz.TZDateTime adjustedViewFirstDate,
   }) {
-    // final startDate = calendar.startDate;
-    // final endDate = calendar.endDate;
-
     // Calculate effective start and end days within the current view range
     final adjustedStartDate = startDate.isBefore(adjustedViewFirstDate)
         ? adjustedViewFirstDate
-        : DateTime(
-            startDate.year,
-            startDate.month,
-            startDate.day,
-          );
+        : startDate;
 
-    final adjustedEndDate = DateTime(
-      endDate.year,
-      endDate.month,
-      endDate.day,
+    final startDayIndex = HelperMethod.getDayIndex(
+      date: adjustedStartDate,
+      viewStartDate: adjustedViewFirstDate,
     );
 
-    final startDayIndex =
-        adjustedStartDate.difference(adjustedViewFirstDate).inDays;
-    final endDayIndex =
-        adjustedEndDate.difference(adjustedViewFirstDate).inDays;
+    final endDayIndex = HelperMethod.getDayIndex(
+      date: endDate,
+      viewStartDate: adjustedViewFirstDate,
+    );
 
     // Calculate the left position based on the start day index and width for each day
     final leftPosition = spacePerDay * startDayIndex;
-    // final adjustedLeftPosition = leftPosition < 0.0 ? 0.0 : leftPosition;
 
     // Calculate the width of the bar based on the total number of days the vacation spans
     final barWidth = spacePerDay * (endDayIndex - startDayIndex + 1);
@@ -322,7 +313,7 @@ class _Bar extends HookConsumerWidget {
   final VoidCallback onTap;
   final _CalendarBar calendarBar;
   final double spacePerDay;
-  final DateTime viewFirstDate;
+  final tz.TZDateTime viewFirstDate;
 
   _CalendarViewBar get parentViewBar => calendarBar.parentViewBar;
 
@@ -581,47 +572,39 @@ class _CalendarBarContainer extends ConsumerWidget {
   final _CalendarViewBar viewBar;
   final double spacePerDay;
   final Widget child;
-  final DateTimeRange parentDateRange;
+  final TZDateTimeRange parentDateRange;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final viewStartRange = ref.watch(_startRangeProvider);
 
-    final viewFirstDate = DateTime(
-      viewStartRange.year,
-      viewStartRange.month,
-      viewStartRange.day,
+    final viewFirstDate = TimeZoneHelper.setDateTime(
+      date: viewStartRange,
     );
 
     final adjustedViewFirstDate = parentDateRange.start.isBefore(viewFirstDate)
         ? viewFirstDate
-        : DateTime(
-            parentDateRange.start.year,
-            parentDateRange.start.month,
-            parentDateRange.start.day,
-          );
+        : parentDateRange.start;
 
     // Calculate effective start and end days within the current view range
 
     final barDateRange = viewBar.dateRange;
-    final adjustedStartDate = barDateRange.start.isBefore(adjustedViewFirstDate)
-        ? adjustedViewFirstDate
-        : DateTime(
-            barDateRange.start.year,
-            barDateRange.start.month,
-            barDateRange.start.day,
-          );
 
-    final adjustedEndDate = DateTime(
-      barDateRange.end.year,
-      barDateRange.end.month,
-      barDateRange.end.day,
+    final startDate = barDateRange.start;
+    final endDate = barDateRange.end;
+    final adjustedStartDate = startDate.isBefore(adjustedViewFirstDate)
+        ? adjustedViewFirstDate
+        : startDate;
+
+    final startDayIndex = HelperMethod.getDayIndex(
+      date: adjustedStartDate,
+      viewStartDate: adjustedViewFirstDate,
     );
 
-    final startDayIndex =
-        adjustedStartDate.difference(adjustedViewFirstDate).inDays;
-    final endDayIndex =
-        adjustedEndDate.difference(adjustedViewFirstDate).inDays;
+    final endDayIndex = HelperMethod.getDayIndex(
+      date: endDate,
+      viewStartDate: adjustedViewFirstDate,
+    );
 
     // Calculate the left position based on the start day index and width for each day
     final leftPosition = spacePerDay * startDayIndex;
@@ -655,7 +638,7 @@ class _CalendarViewBar {
   final Color barColor;
   final double barWidth;
   final double leftPosition;
-  final DateTimeRange dateRange;
+  final TZDateTimeRange dateRange;
   final bool isCollapsable;
 }
 

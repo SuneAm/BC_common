@@ -4,7 +4,7 @@ import 'package:ordrestyring_common/src/domain/date_calendar.dart';
 import 'package:ordrestyring_common/src/domain/users/user_info.dart';
 import 'package:ordrestyring_common/src/utils/firestore_extentions.dart';
 import 'package:ordrestyring_common/src/utils/time_stamp_serializer.dart';
-
+import 'package:timezone/timezone.dart' as tz;
 part 'vacation.freezed.dart';
 
 part 'vacation.g.dart';
@@ -43,7 +43,7 @@ abstract class Vacation implements _$Vacation {
   const factory Vacation({
     @Default('') String id,
     String? name,
-    @TimestampSerializer() required DateTime createdAt,
+    @TimestampSerializer() required tz.TZDateTime createdAt,
     required DateCalendar calendar,
     required UserInfo user,
     @Default(VacationStatus.pending) VacationStatus status,

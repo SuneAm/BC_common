@@ -891,6 +891,13 @@
             </list>
           </value>
         </entry>
+        <entry key="timezone">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/timezone-0.10.0/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="timing">
           <value>
             <list>
@@ -1164,6 +1171,7 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/string_scanner-1.4.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/term_glyph-1.2.2/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/test_api-0.7.4/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/timezone-0.10.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/timing-1.0.2/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/typed_data-1.4.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/url_launcher-6.3.1/lib" />

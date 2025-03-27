@@ -1,4 +1,6 @@
 import 'package:ordrestyring_common/ordrestyring_common.dart';
+import 'package:ordrestyring_common/ordrestyring_common.dart' as tz
+    show TZDateTime;
 
 extension CaseCalendarEx on DateCalendar? {
   String get toFormattedDates => this == null
@@ -174,18 +176,20 @@ extension VacationEx on Vacation {
 }
 
 extension VacationListEx on List<Vacation> {
-  bool isVacationValid(DateTime startDate, DateTime endDate) {
+  bool isVacationValid(tz.TZDateTime startDate, tz.TZDateTime endDate) {
     // Iterate through each existing vacation for the user
     for (var vacation in this) {
       final vacationStartDate = vacation.calendar.startDate;
       final vacationEndDate = vacation.calendar.endDate;
-      final adjustedStartDate = DateTime(
+      final adjustedStartDate = tz.TZDateTime(
+        TimeZoneHelper.denmarkTimeZone,
         vacationStartDate.year,
         vacationStartDate.month,
         vacationStartDate.day,
       );
 
-      final adjustedEndDate = DateTime(
+      final adjustedEndDate = tz.TZDateTime(
+        TimeZoneHelper.denmarkTimeZone,
         vacationEndDate.year,
         vacationEndDate.month,
         vacationEndDate.day,
@@ -213,16 +217,18 @@ extension HolidayEx on Holiday {
 }
 
 extension HolidayListEx on List<Holiday> {
-  bool isVacationValid(DateTime startDate, DateTime endDate) {
+  bool isVacationValid(tz.TZDateTime startDate, tz.TZDateTime endDate) {
     // Iterate through each existing vacation for the user
     for (var vacation in this) {
-      final adjustedStartDate = DateTime(
+      final adjustedStartDate = tz.TZDateTime(
+        TimeZoneHelper.denmarkTimeZone,
         vacation.startDate.year,
         vacation.startDate.month,
         vacation.startDate.day,
       );
 
-      final adjustedEndDate = DateTime(
+      final adjustedEndDate = tz.TZDateTime(
+        TimeZoneHelper.denmarkTimeZone,
         vacation.endDate.year,
         vacation.endDate.month,
         vacation.endDate.day,

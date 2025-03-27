@@ -23,7 +23,7 @@ mixin _$Assignment {
   String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   @TimestampSerializer()
-  DateTime get createdAt => throw _privateConstructorUsedError;
+  tz.TZDateTime get createdAt => throw _privateConstructorUsedError;
   DateCalendar get calendar => throw _privateConstructorUsedError;
   AssignmentType get type => throw _privateConstructorUsedError;
 
@@ -46,7 +46,7 @@ abstract class $AssignmentCopyWith<$Res> {
   $Res call(
       {String id,
       String name,
-      @TimestampSerializer() DateTime createdAt,
+      @TimestampSerializer() tz.TZDateTime createdAt,
       DateCalendar calendar,
       AssignmentType type});
 
@@ -86,7 +86,7 @@ class _$AssignmentCopyWithImpl<$Res, $Val extends Assignment>
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as tz.TZDateTime,
       calendar: null == calendar
           ? _value.calendar
           : calendar // ignore: cast_nullable_to_non_nullable
@@ -120,7 +120,7 @@ abstract class _$$AssignmentImplCopyWith<$Res>
   $Res call(
       {String id,
       String name,
-      @TimestampSerializer() DateTime createdAt,
+      @TimestampSerializer() tz.TZDateTime createdAt,
       DateCalendar calendar,
       AssignmentType type});
 
@@ -159,7 +159,7 @@ class __$$AssignmentImplCopyWithImpl<$Res>
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as tz.TZDateTime,
       calendar: null == calendar
           ? _value.calendar
           : calendar // ignore: cast_nullable_to_non_nullable
@@ -193,7 +193,7 @@ class _$AssignmentImpl extends _Assignment {
   final String name;
   @override
   @TimestampSerializer()
-  final DateTime createdAt;
+  final tz.TZDateTime createdAt;
   @override
   final DateCalendar calendar;
   @override
@@ -243,7 +243,7 @@ abstract class _Assignment extends Assignment {
   const factory _Assignment(
       {final String id,
       required final String name,
-      @TimestampSerializer() required final DateTime createdAt,
+      @TimestampSerializer() required final tz.TZDateTime createdAt,
       required final DateCalendar calendar,
       required final AssignmentType type}) = _$AssignmentImpl;
   const _Assignment._() : super._();
@@ -257,7 +257,7 @@ abstract class _Assignment extends Assignment {
   String get name;
   @override
   @TimestampSerializer()
-  DateTime get createdAt;
+  tz.TZDateTime get createdAt;
   @override
   DateCalendar get calendar;
   @override

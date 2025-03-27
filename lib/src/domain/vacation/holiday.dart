@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:ordrestyring_common/src/utils/firestore_extentions.dart';
 import 'package:ordrestyring_common/src/utils/time_stamp_serializer.dart';
+import 'package:timezone/timezone.dart' as tz;
 
 part 'holiday.freezed.dart';
 
@@ -16,9 +17,9 @@ abstract class Holiday implements _$Holiday {
     @Default('') String id,
     required String holidayName,
     @Default(true) bool isRecurring,
-    @TimestampSerializer() required DateTime startDate,
-    @TimestampSerializer() required DateTime endDate,
-    @TimestampSerializer() required DateTime createdAt,
+    @TimestampSerializer() required tz.TZDateTime startDate,
+    @TimestampSerializer() required tz.TZDateTime endDate,
+    @TimestampSerializer() required tz.TZDateTime createdAt,
   }) = _Holiday;
 
   factory Holiday.fromJson(Map<String, dynamic> json) =>
