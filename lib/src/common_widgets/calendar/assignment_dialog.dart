@@ -7,10 +7,17 @@ class AssignmentDialog extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final nameController =
-        useTextEditingController(text: assignment?.name ?? '');
+    final nameController = useTextEditingController(
+      text: assignment?.name ?? '',
+    );
+
+    final notesController = useTextEditingController(
+      text: assignment?.notes ?? '',
+    );
+
     final selectedAssignmentColor = useState<DateCalendarColor>(
-        assignment?.calendar.color ?? DateCalendarColor.blue);
+      assignment?.calendar.color ?? DateCalendarColor.blue,
+    );
 
     final dateRangeState = useState<TZDateTimeRange?>(
       assignment?.calendar == null
@@ -98,6 +105,17 @@ class AssignmentDialog extends HookConsumerWidget {
                   }
                 },
               ),
+            TextField(
+              controller: notesController,
+              minLines: 3,
+              maxLines: 5,
+              keyboardType: TextInputType.multiline,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Notes',
+                alignLabelWithHint: true,
+              ),
+            ),
             Row(
               spacing: 12,
               children: [
@@ -111,6 +129,7 @@ class AssignmentDialog extends HookConsumerWidget {
                   child: const Text('Gem'),
                   onPressed: () async {
                     final name = nameController.text.trim();
+                    final notes = notesController.text.trim();
                     final color = selectedAssignmentColor.value;
                     final dateRange = dateRangeState.value;
 
@@ -130,6 +149,7 @@ class AssignmentDialog extends HookConsumerWidget {
                       createdAt: assignment?.createdAt ??
                           TimeZoneHelper.nowInCopenhagen(),
                       name: name,
+                      notes: notes,
                       type: type.value,
                       calendar: DateCalendar(
                         color: color,

@@ -355,51 +355,60 @@ class _CalendarAssignmentContainer extends StatelessWidget {
     return Container(
       margin: EdgeInsets.only(left: viewBar.leftPosition),
       width: isMilestone ? null : viewBar.barWidth,
-      child: switch (assignmentBar.assignment.type) {
-        AssignmentType.milestone => Row(
-            children: [
-              Consumer(
-                builder: (_, WidgetRef ref, __) {
-                  final zoomLevel = ref.watch(_produktionZoomLevelProvider);
-                  return Icon(
-                    Icons.hexagon,
-                    color: assignmentBar.viewBar.barColor,
-                    size: switch (zoomLevel) {
-                      _ProduktionZoomLevel.level1 ||
-                      _ProduktionZoomLevel.level2 ||
-                      _ProduktionZoomLevel.level3 =>
-                        24,
-                      _ => viewBar.barWidth,
+      child: Tooltip(
+        message: assignmentBar.assignment.notes,
+        textAlign: TextAlign.left,
+        verticalOffset: 20, // Adjusts the position
+
+        child: switch (assignmentBar.assignment.type) {
+          AssignmentType.milestone => SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  Consumer(
+                    builder: (_, WidgetRef ref, __) {
+                      final zoomLevel = ref.watch(_produktionZoomLevelProvider);
+                      return Icon(
+                        Icons.hexagon,
+                        color: assignmentBar.viewBar.barColor,
+                        size: switch (zoomLevel) {
+                          _ProduktionZoomLevel.level1 ||
+                          _ProduktionZoomLevel.level2 ||
+                          _ProduktionZoomLevel.level3 =>
+                            24,
+                          _ => viewBar.barWidth,
+                        },
+                      );
                     },
-                  );
-                },
-              ),
-              SizedBox(width: 4),
-              Text(
-                assignmentBar.assignment.name,
-                style: TextStyle(fontWeight: FontWeight.w600),
-              )
-            ],
-          ),
-        AssignmentType.assignment => _CalendarBarContainer(
-            viewBar: viewBar,
-            spacePerDay: spacePerDay,
-            parentDateRange: viewBar.dateRange,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: 2,
-                horizontal: 8,
-              ),
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                padding: const EdgeInsets.symmetric(
-                  vertical: 1.0,
-                ),
-                child: Text(viewBar.name),
+                  ),
+                  SizedBox(width: 4),
+                  Text(
+                    assignmentBar.assignment.name,
+                    style: TextStyle(fontWeight: FontWeight.w600),
+                  )
+                ],
               ),
             ),
-          ),
-      },
+          AssignmentType.assignment => _CalendarBarContainer(
+              viewBar: viewBar,
+              spacePerDay: spacePerDay,
+              parentDateRange: viewBar.dateRange,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 2,
+                  horizontal: 8,
+                ),
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 1.0,
+                  ),
+                  child: Text(viewBar.name),
+                ),
+              ),
+            ),
+        },
+      ),
     );
   }
 }

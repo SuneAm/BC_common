@@ -26,6 +26,7 @@ mixin _$Assignment {
   tz.TZDateTime get createdAt => throw _privateConstructorUsedError;
   DateCalendar get calendar => throw _privateConstructorUsedError;
   AssignmentType get type => throw _privateConstructorUsedError;
+  String? get notes => throw _privateConstructorUsedError;
 
   /// Serializes this Assignment to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -48,7 +49,8 @@ abstract class $AssignmentCopyWith<$Res> {
       String name,
       @TimestampSerializer() tz.TZDateTime createdAt,
       DateCalendar calendar,
-      AssignmentType type});
+      AssignmentType type,
+      String? notes});
 
   $DateCalendarCopyWith<$Res> get calendar;
 }
@@ -73,6 +75,7 @@ class _$AssignmentCopyWithImpl<$Res, $Val extends Assignment>
     Object? createdAt = null,
     Object? calendar = null,
     Object? type = null,
+    Object? notes = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -95,6 +98,10 @@ class _$AssignmentCopyWithImpl<$Res, $Val extends Assignment>
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as AssignmentType,
+      notes: freezed == notes
+          ? _value.notes
+          : notes // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 
@@ -122,7 +129,8 @@ abstract class _$$AssignmentImplCopyWith<$Res>
       String name,
       @TimestampSerializer() tz.TZDateTime createdAt,
       DateCalendar calendar,
-      AssignmentType type});
+      AssignmentType type,
+      String? notes});
 
   @override
   $DateCalendarCopyWith<$Res> get calendar;
@@ -146,6 +154,7 @@ class __$$AssignmentImplCopyWithImpl<$Res>
     Object? createdAt = null,
     Object? calendar = null,
     Object? type = null,
+    Object? notes = freezed,
   }) {
     return _then(_$AssignmentImpl(
       id: null == id
@@ -168,6 +177,10 @@ class __$$AssignmentImplCopyWithImpl<$Res>
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as AssignmentType,
+      notes: freezed == notes
+          ? _value.notes
+          : notes // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -180,7 +193,8 @@ class _$AssignmentImpl extends _Assignment {
       required this.name,
       @TimestampSerializer() required this.createdAt,
       required this.calendar,
-      required this.type})
+      required this.type,
+      this.notes})
       : super._();
 
   factory _$AssignmentImpl.fromJson(Map<String, dynamic> json) =>
@@ -198,10 +212,12 @@ class _$AssignmentImpl extends _Assignment {
   final DateCalendar calendar;
   @override
   final AssignmentType type;
+  @override
+  final String? notes;
 
   @override
   String toString() {
-    return 'Assignment(id: $id, name: $name, createdAt: $createdAt, calendar: $calendar, type: $type)';
+    return 'Assignment(id: $id, name: $name, createdAt: $createdAt, calendar: $calendar, type: $type, notes: $notes)';
   }
 
   @override
@@ -215,13 +231,14 @@ class _$AssignmentImpl extends _Assignment {
                 other.createdAt == createdAt) &&
             (identical(other.calendar, calendar) ||
                 other.calendar == calendar) &&
-            (identical(other.type, type) || other.type == type));
+            (identical(other.type, type) || other.type == type) &&
+            (identical(other.notes, notes) || other.notes == notes));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, id, name, createdAt, calendar, type);
+      Object.hash(runtimeType, id, name, createdAt, calendar, type, notes);
 
   /// Create a copy of Assignment
   /// with the given fields replaced by the non-null parameter values.
@@ -245,7 +262,8 @@ abstract class _Assignment extends Assignment {
       required final String name,
       @TimestampSerializer() required final tz.TZDateTime createdAt,
       required final DateCalendar calendar,
-      required final AssignmentType type}) = _$AssignmentImpl;
+      required final AssignmentType type,
+      final String? notes}) = _$AssignmentImpl;
   const _Assignment._() : super._();
 
   factory _Assignment.fromJson(Map<String, dynamic> json) =
@@ -262,6 +280,8 @@ abstract class _Assignment extends Assignment {
   DateCalendar get calendar;
   @override
   AssignmentType get type;
+  @override
+  String? get notes;
 
   /// Create a copy of Assignment
   /// with the given fields replaced by the non-null parameter values.

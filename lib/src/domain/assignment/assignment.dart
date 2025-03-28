@@ -20,6 +20,7 @@ abstract class Assignment implements _$Assignment {
     @TimestampSerializer() required tz.TZDateTime createdAt,
     required DateCalendar calendar,
     required AssignmentType type,
+    String? notes,
     // AssignmentCalendar? production,
     // AssignmentCalendar? montage,
     // CaseInfo? caseInfo,

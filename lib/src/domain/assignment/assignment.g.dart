@@ -14,6 +14,7 @@ _$AssignmentImpl _$$AssignmentImplFromJson(Map<String, dynamic> json) =>
           const TimestampSerializer().fromJson(json['createdAt'] as Timestamp),
       calendar: DateCalendar.fromJson(json['calendar'] as Map<String, dynamic>),
       type: $enumDecode(_$AssignmentTypeEnumMap, json['type']),
+      notes: json['notes'] as String?,
     );
 
 Map<String, dynamic> _$$AssignmentImplToJson(_$AssignmentImpl instance) =>
@@ -23,6 +24,7 @@ Map<String, dynamic> _$$AssignmentImplToJson(_$AssignmentImpl instance) =>
       'createdAt': const TimestampSerializer().toJson(instance.createdAt),
       'calendar': instance.calendar.toJson(),
       'type': _$AssignmentTypeEnumMap[instance.type]!,
+      if (instance.notes case final value?) 'notes': value,
     };
 
 const _$AssignmentTypeEnumMap = {
