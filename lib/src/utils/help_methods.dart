@@ -1,5 +1,6 @@
 import 'package:ordrestyring_common/src/utils/date_time_extension.dart';
 import 'package:timezone/timezone.dart' as tz;
+import 'package:timezone/data/latest.dart' as tz;
 
 class HelperMethod {
   /// Function to get the start date (Monday) of the current week
@@ -152,6 +153,13 @@ class HelperMethod {
 class TimeZoneHelper {
   // Define the time zone for Denmark
   static final denmarkTimeZone = tz.getLocation('Europe/Copenhagen');
+
+  // Initialize time zone data
+  static void initializeTimeZone() => tz.initializeTimeZones();
+
+  static void setLocalLocation() => tz.setLocalLocation(
+        denmarkTimeZone,
+      );
 
   static tz.TZDateTime nowInCopenhagen() {
     return tz.TZDateTime.now(denmarkTimeZone);
