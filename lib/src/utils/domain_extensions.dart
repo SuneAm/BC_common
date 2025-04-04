@@ -14,6 +14,11 @@ extension AssignmentTypeEx on AssignmentType {
   bool get isMilestone => this == AssignmentType.milestone;
 }
 
+extension CaseEx on Case {
+  double get materialCost =>
+      economy.calculatedHoursSalesPrice - economy.hoursSalesprice;
+}
+
 extension CaseEstimatedHourEx on CaseEstimatedHour? {
   double get estimatedProjectHour => this?.estimatedProjectHour ?? 0;
 
@@ -25,6 +30,88 @@ extension CaseEstimatedHourEx on CaseEstimatedHour? {
 
   double get totalEstimatedHour =>
       (estimatedProjectHour + estimatedProductionHour + estimatedMontageHour);
+
+  double get _costProjectRate => 360;
+
+  double get _salesProjectRate => 900;
+
+  double get _costProduktionRate => 280;
+
+  double get _salesProduktionRate => 640;
+
+  double get _costMontageRate => 280;
+
+  double get _salesMontageRate => 500;
+
+  double get _costMaterialRate => 1;
+
+  double get _salesMaterialRate => 1.6;
+
+  double get getCostProjectRate =>
+      this?.projectRate?.costPrice ?? _costProjectRate;
+
+  double get getSalesProjectRate =>
+      this?.projectRate?.salesPrice ?? _salesProjectRate;
+
+  double get getCostProduktionRate =>
+      this?.produktionRate?.costPrice ?? _costProduktionRate;
+
+  double get getSalesProduktionRate =>
+      this?.produktionRate?.salesPrice ?? _salesProduktionRate;
+
+  double get getCostMontageRate =>
+      this?.montageRate?.costPrice ?? _costMontageRate;
+
+  double get getSalesMontageRate =>
+      this?.montageRate?.salesPrice ?? _salesMontageRate;
+
+  double get getCostMaterialRate =>
+      this?.materialRate?.costPrice ?? _costMaterialRate;
+
+  double get getSalesMaterialRate =>
+      this?.materialRate?.salesPrice ?? _salesMaterialRate;
+
+  double estimatedProjectPrice(bool isCostPrice) {
+    final rate = isCostPrice ? getCostProjectRate : getSalesProjectRate;
+    final hour = this?.estimatedProjectHour ?? 0.0;
+
+    return hour * rate;
+  }
+
+  double estimatedProduktionPrice(bool costPrice) {
+    final rate = costPrice ? getCostProduktionRate : getSalesProduktionRate;
+    final hour = this?.estimatedProductionHour ?? 0.0;
+
+    return hour * rate;
+  }
+
+  double estimatedMontagePrice(bool costPrice) {
+    final rate = costPrice ? getCostMontageRate : getSalesMontageRate;
+    final hour = this?.estimatedMontageHour ?? 0.0;
+
+    return hour * rate;
+  }
+
+  double getEstimatedMaterialPrice(bool costPrice) {
+    final rate = costPrice ? getCostMaterialRate : getSalesMaterialRate;
+    final hour = this?.estimatedMaterialPrice ?? 0.0;
+
+    return hour * rate;
+  }
+
+  double get estimatedMaterialPriceWithCostPrice {
+    final isCostPrice = true;
+    final projectCostPrice = estimatedProjectPrice(isCostPrice);
+    final produktionCostPrice = estimatedProduktionPrice(isCostPrice);
+    final montageCostPrice = estimatedMontagePrice(isCostPrice);
+
+    final estimatedTotalPrice =
+        projectCostPrice + produktionCostPrice + montageCostPrice;
+
+    final estimatedMaterialPrice = getEstimatedMaterialPrice(isCostPrice);
+
+    return estimatedTotalPrice + estimatedMaterialPrice;
+  }
 }
 
 extension HourAggregateEx on HourAggregate? {

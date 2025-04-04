@@ -22,6 +22,10 @@ extension NumberEx on num {
     final formattedAmount = format.format(number);
     return formattedAmount;
   }
+
+  bool get hasFraction => ((this % 1) != 0);
+
+  String get asString => toStringAsFixed(hasFraction ? 2 : 0);
 }
 
 extension BuildContextEx on BuildContext {
