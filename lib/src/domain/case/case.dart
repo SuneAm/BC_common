@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:ordrestyring_common/ordrestyring_common.dart';
 import 'package:ordrestyring_common/src/domain/case/delivery_address.dart';
-import 'package:ordrestyring_common/src/domain/case/sales_invoice.dart';
 
 import 'case_type.dart';
 import 'responsible_user.dart';
