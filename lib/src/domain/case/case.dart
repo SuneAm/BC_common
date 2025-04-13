@@ -77,7 +77,9 @@ class Case {
       if (deliveryAddress != null) 'deliveryAddress': deliveryAddress!.toJson(),
       if (contactPersons != null)
         'contactPersons': contactPersons!.map((e) => e.toJson()).toList(),
-      'salesInvoices': salesInvoices.map((e) => e.toJson()).toList(),
+      // 'salesInvoices': salesInvoices.map((e) => e.toJson()).toList(),
+      'salesInvoices':
+          salesInvoices.where((e) => e.isPaid).map((m) => m.toJson()).toList(),
       if (isMontage != null) 'isMontage': isMontage,
       if (isProduktion != null) 'isProduktion': isProduktion,
       if (useInCalendar != null) 'useInCalendar': useInCalendar,
