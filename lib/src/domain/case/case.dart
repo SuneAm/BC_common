@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:ordrestyring_common/ordrestyring_common.dart';
 import 'package:ordrestyring_common/src/domain/case/delivery_address.dart';
+import 'package:ordrestyring_common/src/domain/case/sales_invoice.dart';
 
 import 'case_type.dart';
 import 'responsible_user.dart';
@@ -16,6 +17,7 @@ class Case {
     required this.responsibleUser,
     required this.caseType,
     required this.status,
+    required this.salesInvoices,
     this.contactPersons,
     this.hourAggregate,
     this.estimatedExpanse,
@@ -45,6 +47,7 @@ class Case {
   final CaseEstimatedHour? estimatedHours;
   final DeliveryAddress? deliveryAddress;
   final List<ContactPerson>? contactPersons;
+  final List<SalesInvoice> salesInvoices;
 
   final String? comments;
 
@@ -74,6 +77,7 @@ class Case {
       if (deliveryAddress != null) 'deliveryAddress': deliveryAddress!.toJson(),
       if (contactPersons != null)
         'contactPersons': contactPersons!.map((e) => e.toJson()).toList(),
+      'salesInvoices': salesInvoices.map((e) => e.toJson()).toList(),
       if (isMontage != null) 'isMontage': isMontage,
       if (isProduktion != null) 'isProduktion': isProduktion,
       if (useInCalendar != null) 'useInCalendar': useInCalendar,
@@ -102,6 +106,10 @@ class Case {
       deliveryAddress: deliveryAddress == null
           ? null
           : DeliveryAddress.fromJson(json['deliveryAddress'] ?? {}),
+      salesInvoices: (json['salesInvoices'] as List<dynamic>?)
+              ?.map((e) => SalesInvoice.fromJson(e))
+              .toList() ??
+          [],
     );
   }
 
@@ -136,6 +144,10 @@ class Case {
           : DeliveryAddress.fromJson(deliveryAddress),
       contactPersons:
           contactPersons?.map((e) => ContactPerson.fromJson(e)).toList(),
+      salesInvoices: (json['salesInvoices'] as List<dynamic>?)
+              ?.map((e) => SalesInvoice.fromJson(e))
+              .toList() ??
+          [],
       isProduktion: json['isProduktion'] ?? false,
       isMontage: json['isMontage'] ?? false,
       useInCalendar: json['useInCalendar'] ?? false,
@@ -171,6 +183,7 @@ class Case {
     bool? isProduktion,
     bool? useInCalendar,
     List<ContactPerson>? contactPersons,
+    List<SalesInvoice>? salesInvoices,
     String? comments,
     DateCalendar? editorCalendar,
     DateCalendar? productionCalendar,
@@ -191,6 +204,7 @@ class Case {
       estimatedHours: caseEstimatedHours ?? estimatedHours,
       deliveryAddress: deliveryAddress ?? this.deliveryAddress,
       contactPersons: contactPersons ?? this.contactPersons,
+      salesInvoices: salesInvoices ?? this.salesInvoices,
       isMontage: isMontage ?? this.isMontage,
       isProduktion: isProduktion ?? this.isProduktion,
       useInCalendar: useInCalendar ?? this.useInCalendar,

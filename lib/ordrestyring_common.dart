@@ -39,6 +39,7 @@ export 'src/domain/case/hour_aggregate.dart';
 export 'src/domain/case/case_estimated_hour.dart';
 export 'src/domain/case/economy.dart';
 export 'src/domain/case/contact_person.dart';
+export 'src/domain/case/sales_invoice.dart';
 
 // utils
 export 'src/utils/app_extensions.dart';
