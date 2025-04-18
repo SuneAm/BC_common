@@ -17,6 +17,10 @@ extension AssignmentTypeEx on AssignmentType {
 extension CaseEx on Case {
   double get materialCost =>
       economy.calculatedHoursSalesPrice - economy.hoursSalesprice;
+
+  bool get isOpen => status.text == 'Åben';
+
+  bool get isClosed => status.text == 'Lukket';
 }
 
 extension CaseEstimatedHourEx on CaseEstimatedHour? {
