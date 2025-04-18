@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -132,15 +133,20 @@ class CaseRepository {
   }
 
   Stream<List<Case>> watchCases() {
-    final snapshots = _firestore
-        .collection('cases')
-        // .orderBy('caseNumber', descending: true)
-        .orderBy('caseNumber')
-        .snapshots();
+    try {
+      final snapshots = _firestore
+          .collection('cases')
+          .where('status.text', isEqualTo: 'Åben')
+          .orderBy('caseNumber')
+          .snapshots();
 
-    return snapshots.map((snapshot) => snapshot.docs
-        .map((document) => Case.fromFirestore(document.data()))
-        .toList());
+      return snapshots.map((snapshot) => snapshot.docs
+          .map((document) => Case.fromFirestore(document.data()))
+          .toList());
+    } catch (e) {
+      log('Error fetching cases: $e');
+      return Stream.value([]);
+    }
   }
 
   Stream<List<Case>> watchProduktionCases() {
