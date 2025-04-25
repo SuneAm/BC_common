@@ -161,16 +161,43 @@ class CaseRepository {
         .toList());
   }
 
-  Stream<List<Case>> watchMontageCases() {
-    final snapshots = _firestore
-        .collection('cases')
-        .where('isMontage', isEqualTo: true)
-        .orderBy('caseNumber', descending: true)
-        .snapshots();
+  Stream<List<Case>> watchEconomyCases() {
+    try {
+      final snapshots = _firestore
+          .collection('cases')
+          .where(
+            Filter.or(
+              Filter('isProduktion', isEqualTo: true),
+              Filter('status.text', isEqualTo: 'Lukket'),
+            ),
+          )
+          .orderBy('caseNumber', descending: true)
+          .snapshots();
 
-    return snapshots.map((snapshot) => snapshot.docs
-        .map((document) => Case.fromFirestore(document.data()))
-        .toList());
+      return snapshots.map((snapshot) => snapshot.docs
+          .map((document) => Case.fromFirestore(document.data()))
+          .toList());
+    } catch (e) {
+      log('Error fetching cases: $e');
+      rethrow;
+    }
+  }
+
+  Stream<List<Case>> watchMontageCases() {
+    try {
+      final snapshots = _firestore
+          .collection('cases')
+          .where('isMontage', isEqualTo: true)
+          .orderBy('caseNumber', descending: true)
+          .snapshots();
+
+      return snapshots.map((snapshot) => snapshot.docs
+          .map((document) => Case.fromFirestore(document.data()))
+          .toList());
+    } catch (e) {
+      log('Error fetching cases: $e');
+      return Stream.value([]);
+    }
   }
 
   Future<void> updateCaseCollection(List<Case> updatedCases) async {
@@ -231,6 +258,10 @@ final _watchMontageCases = StreamProvider<List<Case>>(
   (ref) => ref.watch(caseRepoProvider).watchMontageCases(),
 );
 
+final _watchEconomyCases = StreamProvider<List<Case>>(
+  (ref) => ref.watch(caseRepoProvider).watchEconomyCases(),
+);
+
 final casesProvider = Provider<List<Case>>(
   (ref) => ref.watch(_watchCasesProvider).maybeWhen(
         orElse: () => [],
@@ -240,6 +271,13 @@ final casesProvider = Provider<List<Case>>(
 
 final productionCasesProvider = Provider<List<Case>>(
   (ref) => ref.watch(_watchProduktionCases).maybeWhen(
+        orElse: () => [],
+        data: (cases) => cases,
+      ),
+);
+
+final economyCasesProvider = Provider<List<Case>>(
+  (ref) => ref.watch(_watchEconomyCases).maybeWhen(
         orElse: () => [],
         data: (cases) => cases,
       ),
