@@ -1,11 +1,9 @@
-import 'dart:convert';
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:ordrestyring_common/src/domain/case/case.dart';
-import 'package:ordrestyring_common/src/domain/case/hour_aggregate.dart';
 import 'package:ordrestyring_common/src/providers.dart';
 
 final caseRepoProvider = Provider<CaseRepository>((ref) {
@@ -19,117 +17,16 @@ class CaseRepository {
 
   FirebaseFirestore get _firestore => _ref.read(firestoreProvider);
 
-  /*Future<void> fetchAndUpdateCases() async {
-    final QueryResult result = await _client.query(QueryOptions(
-      fetchPolicy: FetchPolicy.networkOnly,
-      document: gql('''
-        {
-          cases(
-            pagination: {cursor: null, limit: 12}
-            orderBy: {field: "caseNumber", direction: DESC}
-            filters: {statuses: 99991, types:999996}
-          ) {
-            items {
-              caseNumber
-              economy {
-                hoursCostprice
-                hoursSalesprice
-                offer
-                billableHoursCount
-                materialsCostprice
-              }
-              projectName
-              responsibleUser {
-                fullName
-              }
-              caseType {
-                text
-              }
-              status {
-                text
-              }
-            }
-          }
-        }
-      '''),
-    ));
-
-    if (result.hasException) {
-      debugPrint('data has exception');
-      throw result.exception!;
+  Future<void> fetchCasesWithHours() async {
+    try {
+      final response = await http.get(
+        Uri.parse(
+            'https://europe-west3-bc-ordrestyrring.cloudfunctions.net/fetchCasesWithHours'),
+      );
+      log('Response status code: ${response.statusCode}');
+    } catch (e) {
+      log('Error fetching cases with hours: $e');
     }
-
-    final cases = result.data?['cases']['items'].map<Case>((item) => Case.fromJson(item)).toList();
-
-    await updateCaseCollection(cases);
-  }*/
-
-/*  Future<HourAggregate> fetchCaseHours(int caseId) async {
-    final QueryResult result = await _client.query(
-      QueryOptions(
-        fetchPolicy: FetchPolicy.networkOnly,
-        variables: {'caseId': caseId},
-        document: gql('''
-        query (\$caseId: Int!) {
-                hourAggregate(caseId: \$caseId) {
-                    totalCostPrice
-                    totalHours
-                    hourTypes {
-                        name
-                        totalCostPrice
-                        totalHours
-                    }
-                }
-            }
-      '''),
-      ),
-    );
-
-    if (result.hasException) {
-      debugPrint('data has exception');
-      throw result.exception!;
-    }
-
-    return HourAggregate.fromMap(result.data?['hourAggregate']);
-  }*/
-
-  Future<void> fetchAndUpdateCases() async {
-    final response = await http.get(Uri.parse(
-        'https://europe-west3-bc-ordrestyrring.cloudfunctions.net/fetchCases'));
-    // https://europe-west3-bc-ordrestyrring.cloudfunctions.net/fetchCases
-    if (response.statusCode != 200) return;
-
-    final result = jsonDecode(response.body) as Map<String, dynamic>?;
-
-    final cases = result?['data']['cases']['items']
-            .map<Case>((item) => Case.fromJson(item))
-            .toList() as List<Case>? ??
-        [];
-
-    if (cases.isNotEmpty) {
-      // fetch case aggregate hours
-      final casesWithHours = <Case>[];
-
-      for (final element in cases) {
-        final aggregateHour = await _fetchCaseHours(element.id);
-
-        casesWithHours.add(element.copyWith(hourAggregate: aggregateHour));
-      }
-      await updateCaseCollection(casesWithHours);
-    }
-  }
-
-  Future<HourAggregate> _fetchCaseHours(int caseId) async {
-    final response = await http.post(
-      Uri.parse(
-          'https://europe-west3-bc-ordrestyrring.cloudfunctions.net/fetchCaseHours'),
-      body: {'caseId': '$caseId'},
-    );
-    if (response.statusCode != 200) throw 'Some error occurred';
-
-    final result = jsonDecode(response.body) as Map<String, dynamic>?;
-
-    return HourAggregate.fromMap(result?['data']['hourAggregate']);
   }
 
   Stream<List<Case>> watchCases() {

@@ -94,7 +94,7 @@ class Case {
     };
   }
 
-  factory Case.fromJson(Map<String, dynamic> json) {
+  factory Case.fromAPI(Map<String, dynamic> json) {
     final deliveryAddress = json['deliveryAddress'];
     return Case(
       id: json['id'],
