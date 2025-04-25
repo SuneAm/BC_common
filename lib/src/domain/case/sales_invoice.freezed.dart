@@ -24,6 +24,8 @@ mixin _$SalesInvoice {
   int get amount => throw _privateConstructorUsedError;
   int get totalAmount => throw _privateConstructorUsedError;
   bool get isPaid => throw _privateConstructorUsedError;
+  @IntToTimestampConverter()
+  tz.TZDateTime? get date => throw _privateConstructorUsedError;
 
   /// Serializes this SalesInvoice to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -41,7 +43,12 @@ abstract class $SalesInvoiceCopyWith<$Res> {
           SalesInvoice value, $Res Function(SalesInvoice) then) =
       _$SalesInvoiceCopyWithImpl<$Res, SalesInvoice>;
   @useResult
-  $Res call({int id, int amount, int totalAmount, bool isPaid});
+  $Res call(
+      {int id,
+      int amount,
+      int totalAmount,
+      bool isPaid,
+      @IntToTimestampConverter() tz.TZDateTime? date});
 }
 
 /// @nodoc
@@ -63,6 +70,7 @@ class _$SalesInvoiceCopyWithImpl<$Res, $Val extends SalesInvoice>
     Object? amount = null,
     Object? totalAmount = null,
     Object? isPaid = null,
+    Object? date = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -81,6 +89,10 @@ class _$SalesInvoiceCopyWithImpl<$Res, $Val extends SalesInvoice>
           ? _value.isPaid
           : isPaid // ignore: cast_nullable_to_non_nullable
               as bool,
+      date: freezed == date
+          ? _value.date
+          : date // ignore: cast_nullable_to_non_nullable
+              as tz.TZDateTime?,
     ) as $Val);
   }
 }
@@ -93,7 +105,12 @@ abstract class _$$SalesInvoiceImplCopyWith<$Res>
       __$$SalesInvoiceImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int id, int amount, int totalAmount, bool isPaid});
+  $Res call(
+      {int id,
+      int amount,
+      int totalAmount,
+      bool isPaid,
+      @IntToTimestampConverter() tz.TZDateTime? date});
 }
 
 /// @nodoc
@@ -113,6 +130,7 @@ class __$$SalesInvoiceImplCopyWithImpl<$Res>
     Object? amount = null,
     Object? totalAmount = null,
     Object? isPaid = null,
+    Object? date = freezed,
   }) {
     return _then(_$SalesInvoiceImpl(
       id: null == id
@@ -131,18 +149,24 @@ class __$$SalesInvoiceImplCopyWithImpl<$Res>
           ? _value.isPaid
           : isPaid // ignore: cast_nullable_to_non_nullable
               as bool,
+      date: freezed == date
+          ? _value.date
+          : date // ignore: cast_nullable_to_non_nullable
+              as tz.TZDateTime?,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$SalesInvoiceImpl with DiagnosticableTreeMixin implements _SalesInvoice {
+class _$SalesInvoiceImpl extends _SalesInvoice with DiagnosticableTreeMixin {
   const _$SalesInvoiceImpl(
       {required this.id,
       required this.amount,
       required this.totalAmount,
-      required this.isPaid});
+      required this.isPaid,
+      @IntToTimestampConverter() this.date})
+      : super._();
 
   factory _$SalesInvoiceImpl.fromJson(Map<String, dynamic> json) =>
       _$$SalesInvoiceImplFromJson(json);
@@ -155,10 +179,13 @@ class _$SalesInvoiceImpl with DiagnosticableTreeMixin implements _SalesInvoice {
   final int totalAmount;
   @override
   final bool isPaid;
+  @override
+  @IntToTimestampConverter()
+  final tz.TZDateTime? date;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'SalesInvoice(id: $id, amount: $amount, totalAmount: $totalAmount, isPaid: $isPaid)';
+    return 'SalesInvoice(id: $id, amount: $amount, totalAmount: $totalAmount, isPaid: $isPaid, date: $date)';
   }
 
   @override
@@ -169,7 +196,8 @@ class _$SalesInvoiceImpl with DiagnosticableTreeMixin implements _SalesInvoice {
       ..add(DiagnosticsProperty('id', id))
       ..add(DiagnosticsProperty('amount', amount))
       ..add(DiagnosticsProperty('totalAmount', totalAmount))
-      ..add(DiagnosticsProperty('isPaid', isPaid));
+      ..add(DiagnosticsProperty('isPaid', isPaid))
+      ..add(DiagnosticsProperty('date', date));
   }
 
   @override
@@ -181,12 +209,14 @@ class _$SalesInvoiceImpl with DiagnosticableTreeMixin implements _SalesInvoice {
             (identical(other.amount, amount) || other.amount == amount) &&
             (identical(other.totalAmount, totalAmount) ||
                 other.totalAmount == totalAmount) &&
-            (identical(other.isPaid, isPaid) || other.isPaid == isPaid));
+            (identical(other.isPaid, isPaid) || other.isPaid == isPaid) &&
+            (identical(other.date, date) || other.date == date));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, amount, totalAmount, isPaid);
+  int get hashCode =>
+      Object.hash(runtimeType, id, amount, totalAmount, isPaid, date);
 
   /// Create a copy of SalesInvoice
   /// with the given fields replaced by the non-null parameter values.
@@ -204,12 +234,15 @@ class _$SalesInvoiceImpl with DiagnosticableTreeMixin implements _SalesInvoice {
   }
 }
 
-abstract class _SalesInvoice implements SalesInvoice {
+abstract class _SalesInvoice extends SalesInvoice {
   const factory _SalesInvoice(
-      {required final int id,
-      required final int amount,
-      required final int totalAmount,
-      required final bool isPaid}) = _$SalesInvoiceImpl;
+          {required final int id,
+          required final int amount,
+          required final int totalAmount,
+          required final bool isPaid,
+          @IntToTimestampConverter() final tz.TZDateTime? date}) =
+      _$SalesInvoiceImpl;
+  const _SalesInvoice._() : super._();
 
   factory _SalesInvoice.fromJson(Map<String, dynamic> json) =
       _$SalesInvoiceImpl.fromJson;
@@ -222,6 +255,9 @@ abstract class _SalesInvoice implements SalesInvoice {
   int get totalAmount;
   @override
   bool get isPaid;
+  @override
+  @IntToTimestampConverter()
+  tz.TZDateTime? get date;
 
   /// Create a copy of SalesInvoice
   /// with the given fields replaced by the non-null parameter values.

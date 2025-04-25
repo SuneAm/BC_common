@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:ordrestyring_common/src/domain/date_calendar.dart';
 import 'package:ordrestyring_common/src/domain/users/user_info.dart';
 import 'package:ordrestyring_common/src/utils/firestore_extentions.dart';
-import 'package:ordrestyring_common/src/utils/time_stamp_serializer.dart';
+import 'package:ordrestyring_common/src/utils/serializers/time_stamp_serializer.dart';
 import 'package:timezone/timezone.dart' as tz;
 part 'vacation.freezed.dart';
 

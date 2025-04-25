@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:timezone/timezone.dart' as tz;
 
-import 'package:ordrestyring_common/src/utils/time_stamp_serializer.dart';
+import 'package:ordrestyring_common/src/utils/serializers/time_stamp_serializer.dart';
 
 part 'date_calendar.freezed.dart';
 part 'date_calendar.g.dart';

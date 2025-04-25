@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:ordrestyring_common/ordrestyring_common.dart';
 import 'package:ordrestyring_common/src/domain/date_calendar.dart';
-import 'package:ordrestyring_common/src/utils/time_stamp_serializer.dart';
+import 'package:ordrestyring_common/src/utils/serializers/time_stamp_serializer.dart';
 import 'package:timezone/timezone.dart' as tz;
 
 part 'assignment.freezed.dart';

@@ -13,6 +13,14 @@ class TimestampSerializer implements JsonConverter<tz.TZDateTime, Timestamp> {
     return tz.TZDateTime.from(utcDate, TimeZoneHelper.denmarkTimeZone);
   }
 
+  tz.TZDateTime convertIntToTZDateTime(int timestamp) {
+    final utcDateTime = DateTime.fromMillisecondsSinceEpoch(
+      timestamp,
+      isUtc: true,
+    );
+    return tz.TZDateTime.from(utcDateTime, TimeZoneHelper.denmarkTimeZone);
+  }
+
   @override
   Timestamp toJson(tz.TZDateTime? date) {
     return Timestamp.fromDate(date?.toUtc() ?? DateTime.now().toUtc());
