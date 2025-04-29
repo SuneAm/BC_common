@@ -13,7 +13,7 @@ _$SalesInvoiceImpl _$$SalesInvoiceImplFromJson(Map<String, dynamic> json) =>
       totalAmount: (json['totalAmount'] as num).toInt(),
       isPaid: json['isPaid'] as bool,
       date: const IntToTimestampConverter()
-          .fromJson((json['date'] as num?)?.toInt()),
+          .fromJson((json['date'] as num).toInt()),
     );
 
 Map<String, dynamic> _$$SalesInvoiceImplToJson(_$SalesInvoiceImpl instance) =>
@@ -22,7 +22,5 @@ Map<String, dynamic> _$$SalesInvoiceImplToJson(_$SalesInvoiceImpl instance) =>
       'amount': instance.amount,
       'totalAmount': instance.totalAmount,
       'isPaid': instance.isPaid,
-      if (const IntToTimestampConverter().toJson(instance.date)
-          case final value?)
-        'date': value,
+      'date': const IntToTimestampConverter().toJson(instance.date),
     };

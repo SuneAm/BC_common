@@ -16,7 +16,7 @@ abstract class SalesInvoice implements _$SalesInvoice {
     required int amount,
     required int totalAmount,
     required bool isPaid,
-    @IntToTimestampConverter() tz.TZDateTime? date,
+    @IntToTimestampConverter() required tz.TZDateTime date,
   }) = _SalesInvoice;
 
   factory SalesInvoice.fromJson(Map<String, dynamic> json) =>

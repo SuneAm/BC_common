@@ -3,6 +3,7 @@ import 'package:ordrestyring_common/ordrestyring_common.dart';
 import 'package:ordrestyring_common/src/domain/case/delivery_address.dart';
 
 import 'case_type.dart';
+import 'customer.dart';
 import 'responsible_user.dart';
 import 'status.dart';
 
@@ -17,6 +18,7 @@ class Case {
     required this.caseType,
     required this.status,
     required this.salesInvoices,
+    required this.customer,
     this.contactPersons,
     this.hourAggregate,
     this.estimatedExpanse,
@@ -59,6 +61,7 @@ class Case {
   final DateCalendar? montageCalendar;
   final List<UserInfo>? productionUsers;
   final List<UserInfo>? montageUsers;
+  final Customer? customer;
 
   Map<String, dynamic> toFirestore() {
     return {
@@ -91,6 +94,8 @@ class Case {
         'productionUsers': productionUsers!.map((u) => u.toJson()),
       if (montageUsers != null)
         'montageUsers': montageUsers!.map((u) => u.toJson()),
+
+      if (customer != null) 'customer': customer!.toMap(),
     };
   }
 
@@ -104,6 +109,7 @@ class Case {
       responsibleUser: ResponsibleUser.fromJson(json['responsibleUser'] ?? {}),
       caseType: CaseType.fromJson(json['caseType'] ?? {}),
       status: Status.fromJson(json['status'] ?? {}),
+      customer: Customer.fromMap(json['customer']),
       deliveryAddress: deliveryAddress == null
           ? null
           : DeliveryAddress.fromJson(json['deliveryAddress'] ?? {}),
@@ -125,7 +131,9 @@ class Case {
     final productionUsers = json['productionUsers'] as List?;
     final montageUsers = json['montageUsers'] as List?;
 
-    return Case(
+    final customer = json['customer'] as Map<String, dynamic>?;
+
+    final item = Case(
       id: json['id'],
       estimatedExpanse: json['estimatedExpanse'],
       caseNumber: json['caseNumber'] ?? '',
@@ -136,6 +144,7 @@ class Case {
       ),
       caseType: CaseType.fromJson(json['caseType'] ?? {}),
       status: Status.fromJson(json['status'] ?? {}),
+      customer: customer == null ? null : Customer.fromMap(json['customer']),
       hourAggregate: HourAggregate.fromMap(json['hourAggregate']),
       estimatedHours: estimatedHour == null
           ? null
@@ -165,6 +174,8 @@ class Case {
           productionUsers?.map((u) => UserInfo.fromJson(u)).toList(),
       montageUsers: montageUsers?.map((u) => UserInfo.fromJson(u)).toList(),
     );
+
+    return item;
   }
 
   Case copyWith({
@@ -200,6 +211,7 @@ class Case {
       responsibleUser: responsibleUser ?? this.responsibleUser,
       caseType: caseType ?? this.caseType,
       status: status ?? this.status,
+      customer: customer,
       hourAggregate: hourAggregate ?? this.hourAggregate,
       estimatedExpanse: estimatedExpanse ?? this.estimatedExpanse,
       estimatedHours: caseEstimatedHours ?? estimatedHours,

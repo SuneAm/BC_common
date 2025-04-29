@@ -3,21 +3,18 @@ import 'package:ordrestyring_common/ordrestyring_common.dart'
     show TimeZoneHelper;
 import 'package:timezone/timezone.dart' as tz;
 
-class IntToTimestampConverter implements JsonConverter<tz.TZDateTime?, int?> {
+class IntToTimestampConverter implements JsonConverter<tz.TZDateTime, int> {
   const IntToTimestampConverter();
 
   @override
-  tz.TZDateTime? fromJson(int? timestamp) {
-    if (timestamp == null) return null;
-
-    // Convert seconds to milliseconds
+  tz.TZDateTime fromJson(int timestamp) {
     final utcDateTime =
         DateTime.fromMillisecondsSinceEpoch(timestamp * 1000, isUtc: true);
     return tz.TZDateTime.from(utcDateTime, TimeZoneHelper.denmarkTimeZone);
   }
 
   @override
-  int? toJson(tz.TZDateTime? date) {
-    return date == null ? null : (date.millisecondsSinceEpoch / 1000).round();
+  int toJson(tz.TZDateTime date) {
+    return (date.millisecondsSinceEpoch / 1000).round();
   }
 }

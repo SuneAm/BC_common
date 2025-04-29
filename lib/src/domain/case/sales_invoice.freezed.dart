@@ -25,7 +25,7 @@ mixin _$SalesInvoice {
   int get totalAmount => throw _privateConstructorUsedError;
   bool get isPaid => throw _privateConstructorUsedError;
   @IntToTimestampConverter()
-  tz.TZDateTime? get date => throw _privateConstructorUsedError;
+  tz.TZDateTime get date => throw _privateConstructorUsedError;
 
   /// Serializes this SalesInvoice to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -48,7 +48,7 @@ abstract class $SalesInvoiceCopyWith<$Res> {
       int amount,
       int totalAmount,
       bool isPaid,
-      @IntToTimestampConverter() tz.TZDateTime? date});
+      @IntToTimestampConverter() tz.TZDateTime date});
 }
 
 /// @nodoc
@@ -70,7 +70,7 @@ class _$SalesInvoiceCopyWithImpl<$Res, $Val extends SalesInvoice>
     Object? amount = null,
     Object? totalAmount = null,
     Object? isPaid = null,
-    Object? date = freezed,
+    Object? date = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -89,10 +89,10 @@ class _$SalesInvoiceCopyWithImpl<$Res, $Val extends SalesInvoice>
           ? _value.isPaid
           : isPaid // ignore: cast_nullable_to_non_nullable
               as bool,
-      date: freezed == date
+      date: null == date
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
-              as tz.TZDateTime?,
+              as tz.TZDateTime,
     ) as $Val);
   }
 }
@@ -110,7 +110,7 @@ abstract class _$$SalesInvoiceImplCopyWith<$Res>
       int amount,
       int totalAmount,
       bool isPaid,
-      @IntToTimestampConverter() tz.TZDateTime? date});
+      @IntToTimestampConverter() tz.TZDateTime date});
 }
 
 /// @nodoc
@@ -130,7 +130,7 @@ class __$$SalesInvoiceImplCopyWithImpl<$Res>
     Object? amount = null,
     Object? totalAmount = null,
     Object? isPaid = null,
-    Object? date = freezed,
+    Object? date = null,
   }) {
     return _then(_$SalesInvoiceImpl(
       id: null == id
@@ -149,10 +149,10 @@ class __$$SalesInvoiceImplCopyWithImpl<$Res>
           ? _value.isPaid
           : isPaid // ignore: cast_nullable_to_non_nullable
               as bool,
-      date: freezed == date
+      date: null == date
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
-              as tz.TZDateTime?,
+              as tz.TZDateTime,
     ));
   }
 }
@@ -165,7 +165,7 @@ class _$SalesInvoiceImpl extends _SalesInvoice with DiagnosticableTreeMixin {
       required this.amount,
       required this.totalAmount,
       required this.isPaid,
-      @IntToTimestampConverter() this.date})
+      @IntToTimestampConverter() required this.date})
       : super._();
 
   factory _$SalesInvoiceImpl.fromJson(Map<String, dynamic> json) =>
@@ -181,7 +181,7 @@ class _$SalesInvoiceImpl extends _SalesInvoice with DiagnosticableTreeMixin {
   final bool isPaid;
   @override
   @IntToTimestampConverter()
-  final tz.TZDateTime? date;
+  final tz.TZDateTime date;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
@@ -240,7 +240,7 @@ abstract class _SalesInvoice extends SalesInvoice {
           required final int amount,
           required final int totalAmount,
           required final bool isPaid,
-          @IntToTimestampConverter() final tz.TZDateTime? date}) =
+          @IntToTimestampConverter() required final tz.TZDateTime date}) =
       _$SalesInvoiceImpl;
   const _SalesInvoice._() : super._();
 
@@ -257,7 +257,7 @@ abstract class _SalesInvoice extends SalesInvoice {
   bool get isPaid;
   @override
   @IntToTimestampConverter()
-  tz.TZDateTime? get date;
+  tz.TZDateTime get date;
 
   /// Create a copy of SalesInvoice
   /// with the given fields replaced by the non-null parameter values.

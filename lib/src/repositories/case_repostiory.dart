@@ -174,8 +174,12 @@ final productionCasesProvider = Provider<List<Case>>(
 );
 
 final economyCasesProvider = Provider<List<Case>>(
-  (ref) => ref.watch(_watchEconomyCases).maybeWhen(
-        orElse: () => [],
+  (ref) => ref.watch(_watchEconomyCases).when(
+        loading: () => [],
+        error: (Object error, StackTrace stackTrace) {
+          log('Error fetching economy cases: $error');
+          return [];
+        },
         data: (cases) => cases,
       ),
 );
