@@ -50,6 +50,7 @@ class CaseRepository {
     final snapshots = _firestore
         .collection('cases')
         .where('isProduktion', isEqualTo: true)
+        .where('status.text', isNotEqualTo: 'Lukket')
         .orderBy('caseNumber', descending: true)
         .snapshots();
 
